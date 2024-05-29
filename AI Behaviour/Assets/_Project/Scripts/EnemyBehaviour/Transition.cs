@@ -1,14 +1,17 @@
+using System;
 
 public abstract class Transition
 {
-    private State _targetState;
+    public string Name { get; private set; }
+    public StateMachine StateMachine { get; private set; }
+    public State TargetState { get; private set; }
+    public Func<bool> Condition { get; private set; }
 
-    public State TargetState => _targetState;
-
-    public Transition(State targetState)
+    public Transition(StateMachine stateMachine, State targetState, Func<bool> condition, string name)
     {
-        _targetState = targetState;
+        StateMachine = stateMachine;
+        TargetState = targetState;
+        Condition = condition;
+        Name = name;
     }
-
-    public abstract bool Condition();
 }

@@ -1,13 +1,19 @@
+using System.Collections.Generic;
 using UnityEngine;
 
-public class FSM : MonoBehaviour
+public class StateMachine : MonoBehaviour
 {
     [SerializeField]
     private State _currentState;
 
-    public FSM(State startState)
+    private List<State> _states;
+
+    public List<State> States => _states;
+
+    public StateMachine(State startState)
     {
         _currentState = startState;
+        _states.Add(_currentState);
     }
 
     private void Update()
@@ -39,7 +45,7 @@ public class FSM : MonoBehaviour
     {
         foreach (Transition transition in _currentState.Transitions)
         {
-            if (transition.Condition())
+            if (transition.Condition() == true)
                 return transition.TargetState;
         }
 

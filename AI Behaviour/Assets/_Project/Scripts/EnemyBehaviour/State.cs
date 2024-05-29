@@ -2,14 +2,13 @@ using System.Collections.Generic;
 
 public abstract class State
 {
-    private FSM _myFSM;
     private List<Transition> _transitions;
 
     public List<Transition> Transitions => _transitions;
 
-    public State(FSM finiteStateMachine)
+    public State()
     {
-        _myFSM = finiteStateMachine;
+        _transitions = new List<Transition>();
     }
 
     public virtual void OnEnter() { }

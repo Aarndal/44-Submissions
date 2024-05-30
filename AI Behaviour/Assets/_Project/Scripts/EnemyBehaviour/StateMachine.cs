@@ -8,40 +8,43 @@ public class StateMachine : MonoBehaviour
 
     private List<State> _states;
 
+    public State CurrentState => _currentState;
     public List<State> States => _states;
 
     public StateMachine(State startState)
     {
+        _states = new();
+
+        AddState(startState);
         _currentState = startState;
-        _states.Add(_currentState);
     }
 
     private void Update()
     {
-        CheckState();
+        UpdateState();
 
         _currentState.OnUpdate();
     }
 
     private void FixedUpdate()
     {
-        _currentState.OnFixedUpdate();
+        _currentState?.OnFixedUpdate();
     }
 
     private void LateUpdate()
     {
-        _currentState.OnLateUpdate();
+        _currentState?.OnLateUpdate();
     }
 
-    public void CheckState()
+    public void UpdateState()
     {
-        State nextState = GetNextState();
+        State targetState = GetTargetState();
 
-        if (nextState != null && nextState != _currentState)
-            SwitchState(nextState);
+        if (targetState != null && targetState != _currentState)
+            TransitionTo(targetState);
     }
 
-    private State GetNextState()
+    private State GetTargetState()
     {
         foreach (Transition transition in _currentState.Transitions)
         {
@@ -52,10 +55,18 @@ public class StateMachine : MonoBehaviour
         return null;
     }
 
-    private void SwitchState(State nextState)
+    private void TransitionTo(State targetState)
     {
+        Debug.Log($"Transitioning from {CurrentState} to {targetState}");
+
         _currentState.OnExit();
-        _currentState = nextState;
-        _currentState.OnEnter();
+        targetState.OnEnter();
+        _currentState = targetState;
+    }
+
+    public void AddState(State state)
+    {
+        if(!_states.Contains(state))
+            _states.Add(state);
     }
 }

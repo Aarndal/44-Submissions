@@ -1,6 +1,6 @@
 using System;
 
-public abstract class Transition
+public class Transition
 {
     public string Name { get; private set; }
     public StateMachine StateMachine { get; private set; }

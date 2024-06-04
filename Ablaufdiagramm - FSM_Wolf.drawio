@@ -1,4 +1,4 @@
-<mxfile host="Electron" modified="2024-05-31T17:47:30.146Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/24.4.6 Chrome/124.0.6367.207 Electron/30.0.6 Safari/537.36" etag="-EB6sfAVMINeNW36sZ-x" version="24.4.6" type="device">
+<mxfile host="Electron" modified="2024-06-03T18:31:58.763Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/24.4.6 Chrome/124.0.6367.207 Electron/30.0.6 Safari/537.36" etag="3zI_9dlxRqBwMscaaRgs" version="24.4.6" type="device">
   <diagram name="Seite-1" id="SroEx1rSqfCV8pFCb8dn">
     <mxGraphModel dx="1562" dy="917" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -93,7 +93,7 @@
           <mxGeometry x="-0.5846" relative="1" as="geometry">
             <Array as="points">
               <mxPoint x="160" y="1065" />
-              <mxPoint x="160" y="615" />
+              <mxPoint x="160" y="595" />
             </Array>
             <mxPoint as="offset" />
           </mxGeometry>
@@ -134,6 +134,11 @@
         </mxCell>
         <mxCell id="8OOta2SLHqOS_gNMMTu4-30" value="[Pie Eaten]" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.25;exitDx=0;exitDy=0;entryX=0;entryY=0.25;entryDx=0;entryDy=0;labelPosition=center;verticalLabelPosition=top;align=center;verticalAlign=bottom;" parent="1" source="8OOta2SLHqOS_gNMMTu4-28" target="8OOta2SLHqOS_gNMMTu4-21" edge="1">
           <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="efV31g_SghHRyt4yT3gB-1" value="[Got Hit]" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;jumpStyle=arc;labelPosition=center;verticalLabelPosition=top;align=center;verticalAlign=bottom;" edge="1" parent="1" source="8OOta2SLHqOS_gNMMTu4-28" target="8OOta2SLHqOS_gNMMTu4-3">
+          <mxGeometry x="-0.6294" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
         </mxCell>
         <mxCell id="8OOta2SLHqOS_gNMMTu4-28" value="Distracted" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=12;fontColor=default;fillColor=default;" parent="1" vertex="1">
           <mxGeometry x="94" y="260" width="120" height="60" as="geometry" />

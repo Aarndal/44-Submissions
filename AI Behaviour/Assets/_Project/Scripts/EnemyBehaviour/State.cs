@@ -2,12 +2,14 @@ using System.Collections.Generic;
 
 public abstract class State
 {
-    private List<Transition> _transitions;
+    private readonly Entity _entity;
+    private readonly List<Transition> _transitions;
     
     public List<Transition> Transitions => _transitions;
 
-    public State()
+    public State(Entity entity)
     {
+        _entity = entity;
         _transitions = new ();
     }
 

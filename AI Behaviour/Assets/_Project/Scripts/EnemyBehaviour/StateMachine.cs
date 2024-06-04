@@ -6,17 +6,19 @@ public class StateMachine : MonoBehaviour
     [SerializeField]
     private State _currentState;
 
-    private List<State> _states;
+    //private readonly Dictionary<State, List<Transition>> _transitions;
+
+    private readonly List<State> _states;
 
     public State CurrentState => _currentState;
     public List<State> States => _states;
 
-    public StateMachine(State startState)
+    public StateMachine(State initialState)
     {
         _states = new();
 
-        AddState(startState);
-        _currentState = startState;
+        AddState(initialState);
+        _currentState = initialState;
     }
 
     private void Update()
@@ -28,12 +30,12 @@ public class StateMachine : MonoBehaviour
 
     private void FixedUpdate()
     {
-        _currentState?.OnFixedUpdate();
+        _currentState.OnFixedUpdate();
     }
 
     private void LateUpdate()
     {
-        _currentState?.OnLateUpdate();
+        _currentState.OnLateUpdate();
     }
 
     public void UpdateState()

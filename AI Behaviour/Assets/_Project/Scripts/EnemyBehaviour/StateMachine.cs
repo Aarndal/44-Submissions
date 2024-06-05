@@ -8,7 +8,7 @@ public class StateMachine : MonoBehaviour
 
     //private readonly Dictionary<State, List<Transition>> _transitions;
 
-    private readonly List<State> _states;
+    private List<State> _states;
 
     public State CurrentState => _currentState;
     public List<State> States => _states;

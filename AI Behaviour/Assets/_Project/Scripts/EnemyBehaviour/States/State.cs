@@ -2,8 +2,8 @@ using System.Collections.Generic;
 
 public abstract class State
 {
-    private readonly Entity _entity;
-    private readonly List<Transition> _transitions;
+    protected Entity _entity;
+    protected List<Transition> _transitions;
     
     public List<Transition> Transitions => _transitions;
 

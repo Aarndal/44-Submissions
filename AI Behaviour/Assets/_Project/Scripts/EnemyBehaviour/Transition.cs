@@ -7,6 +7,11 @@ public class Transition
     public State TargetState { get; private set; }
     public Func<bool> Condition { get; private set; }
 
+    void Start()
+    {
+        Entity.Irgendwas += ctx => this.Condition();
+    }
+
     public Transition(StateMachine stateMachine, State targetState, Func<bool> condition, string name)
     {
         StateMachine = stateMachine;

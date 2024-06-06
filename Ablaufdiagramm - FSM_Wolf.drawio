@@ -1,6 +1,6 @@
-<mxfile host="Electron" modified="2024-06-04T13:45:46.834Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/24.4.6 Chrome/124.0.6367.207 Electron/30.0.6 Safari/537.36" etag="hdKn-9X6kk-r_yFfzS3s" version="24.4.6" type="device">
+<mxfile host="Electron" modified="2024-06-06T16:22:58.153Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/24.4.6 Chrome/124.0.6367.207 Electron/30.0.6 Safari/537.36" etag="gEVNmYm5swbXn9NFYsAZ" version="24.4.6" type="device">
   <diagram name="Seite-1" id="SroEx1rSqfCV8pFCb8dn">
-    <mxGraphModel dx="1050" dy="629" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="1562" dy="917" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -15,7 +15,7 @@
             <mxPoint as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="8OOta2SLHqOS_gNMMTu4-1" value="Roaming" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=12;fontColor=default;fillColor=default;" parent="1" vertex="1">
+        <mxCell id="8OOta2SLHqOS_gNMMTu4-1" value="Roam" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=12;fontColor=default;fillColor=default;" parent="1" vertex="1">
           <mxGeometry x="214" y="380" width="120" height="60" as="geometry" />
         </mxCell>
         <mxCell id="8OOta2SLHqOS_gNMMTu4-8" value="[Got Hit]" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.75;exitDx=0;exitDy=0;entryX=0.25;entryY=1;entryDx=0;entryDy=0;labelPosition=center;verticalLabelPosition=top;align=center;verticalAlign=bottom;" parent="1" source="8OOta2SLHqOS_gNMMTu4-2" target="8OOta2SLHqOS_gNMMTu4-3" edge="1">
@@ -29,8 +29,10 @@
             <mxPoint as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="8OOta2SLHqOS_gNMMTu4-33" value="[Pie Detected]" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.25;exitDx=0;exitDy=0;entryX=0.75;entryY=1;entryDx=0;entryDy=0;labelPosition=right;verticalLabelPosition=middle;align=left;verticalAlign=middle;textDirection=vertical-lr;" parent="1" source="8OOta2SLHqOS_gNMMTu4-2" target="8OOta2SLHqOS_gNMMTu4-28" edge="1">
-          <mxGeometry relative="1" as="geometry" />
+        <mxCell id="8OOta2SLHqOS_gNMMTu4-33" value="[Bait Detected]" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.25;exitDx=0;exitDy=0;entryX=0.75;entryY=1;entryDx=0;entryDy=0;labelPosition=right;verticalLabelPosition=middle;align=left;verticalAlign=middle;textDirection=vertical-lr;" parent="1" source="8OOta2SLHqOS_gNMMTu4-2" target="8OOta2SLHqOS_gNMMTu4-28" edge="1">
+          <mxGeometry x="0.0036" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
         </mxCell>
         <mxCell id="8OOta2SLHqOS_gNMMTu4-41" value="[Player in Attack Range]" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;labelPosition=left;verticalLabelPosition=middle;align=right;verticalAlign=middle;textDirection=vertical-lr;exitX=0.25;exitY=1;exitDx=0;exitDy=0;" parent="1" source="8OOta2SLHqOS_gNMMTu4-2" target="8OOta2SLHqOS_gNMMTu4-18" edge="1">
           <mxGeometry x="0.0066" relative="1" as="geometry">
@@ -38,7 +40,7 @@
             <mxPoint as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="8OOta2SLHqOS_gNMMTu4-2" value="Chasing" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=12;fontColor=default;fillColor=default;" parent="1" vertex="1">
+        <mxCell id="8OOta2SLHqOS_gNMMTu4-2" value="Chase" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=12;fontColor=default;fillColor=default;" parent="1" vertex="1">
           <mxGeometry x="214" y="550" width="120" height="60" as="geometry" />
         </mxCell>
         <mxCell id="8OOta2SLHqOS_gNMMTu4-12" value="[Escaped]" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.25;exitY=0;exitDx=0;exitDy=0;entryX=1;entryY=0.75;entryDx=0;entryDy=0;labelPosition=center;verticalLabelPosition=bottom;align=center;verticalAlign=top;" parent="1" source="8OOta2SLHqOS_gNMMTu4-3" target="8OOta2SLHqOS_gNMMTu4-21" edge="1">
@@ -47,7 +49,7 @@
             <mxPoint as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="8OOta2SLHqOS_gNMMTu4-3" value="Fleeing" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=12;fontColor=default;fillColor=default;" parent="1" vertex="1">
+        <mxCell id="8OOta2SLHqOS_gNMMTu4-3" value="Flee" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=12;fontColor=default;fillColor=default;" parent="1" vertex="1">
           <mxGeometry x="614" y="380" width="120" height="60" as="geometry" />
         </mxCell>
         <mxCell id="8OOta2SLHqOS_gNMMTu4-10" value="[Player Out of Attack Range]" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.25;exitDx=0;exitDy=0;entryX=0.75;entryY=1;entryDx=0;entryDy=0;labelPosition=right;verticalLabelPosition=middle;align=left;verticalAlign=middle;textDirection=vertical-lr;" parent="1" source="8OOta2SLHqOS_gNMMTu4-4" target="8OOta2SLHqOS_gNMMTu4-2" edge="1">
@@ -61,7 +63,7 @@
             <mxPoint as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="8OOta2SLHqOS_gNMMTu4-4" value="Attacking" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=12;fontColor=default;fillColor=default;" parent="1" vertex="1">
+        <mxCell id="8OOta2SLHqOS_gNMMTu4-4" value="Attack" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=12;fontColor=default;fillColor=default;" parent="1" vertex="1">
           <mxGeometry x="440" y="795" width="120" height="60" as="geometry" />
         </mxCell>
         <mxCell id="8OOta2SLHqOS_gNMMTu4-9" value="[Got Hit]" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;labelPosition=center;verticalLabelPosition=top;align=center;verticalAlign=bottom;" parent="1" source="8OOta2SLHqOS_gNMMTu4-4" target="8OOta2SLHqOS_gNMMTu4-3" edge="1">
@@ -80,7 +82,7 @@
             <mxPoint as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="8OOta2SLHqOS_gNMMTu4-34" value="[Pie Detected]" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.25;entryY=1;entryDx=0;entryDy=0;labelPosition=center;verticalLabelPosition=bottom;align=center;verticalAlign=top;" parent="1" source="8OOta2SLHqOS_gNMMTu4-14" target="8OOta2SLHqOS_gNMMTu4-28" edge="1">
+        <mxCell id="8OOta2SLHqOS_gNMMTu4-34" value="[Bait Detected]" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.25;entryY=1;entryDx=0;entryDy=0;labelPosition=center;verticalLabelPosition=bottom;align=center;verticalAlign=top;" parent="1" source="8OOta2SLHqOS_gNMMTu4-14" target="8OOta2SLHqOS_gNMMTu4-28" edge="1">
           <mxGeometry x="-0.606" relative="1" as="geometry">
             <mxPoint as="offset" />
             <Array as="points">
@@ -98,7 +100,7 @@
             <mxPoint as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="8OOta2SLHqOS_gNMMTu4-14" value="Circling" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=12;fontColor=default;fillColor=default;" parent="1" vertex="1">
+        <mxCell id="8OOta2SLHqOS_gNMMTu4-14" value="Circle" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=12;fontColor=default;fillColor=default;" parent="1" vertex="1">
           <mxGeometry x="440" y="1020" width="120" height="60" as="geometry" />
         </mxCell>
         <mxCell id="8OOta2SLHqOS_gNMMTu4-19" value="[Yes]" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.75;entryDx=0;entryDy=0;labelPosition=center;verticalLabelPosition=bottom;align=center;verticalAlign=top;" parent="1" source="8OOta2SLHqOS_gNMMTu4-18" target="8OOta2SLHqOS_gNMMTu4-4" edge="1">
@@ -124,7 +126,7 @@
             <mxPoint as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="F1gWu3nQMdsvETfR3Zi--1" value="[Player Detected]" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.25;exitY=1;exitDx=0;exitDy=0;entryX=0.75;entryY=0;entryDx=0;entryDy=0;jumpStyle=arc;jumpSize=10;labelPosition=center;verticalLabelPosition=bottom;align=center;verticalAlign=top;" edge="1" parent="1" source="8OOta2SLHqOS_gNMMTu4-21" target="8OOta2SLHqOS_gNMMTu4-2">
+        <mxCell id="F1gWu3nQMdsvETfR3Zi--1" value="[Player Detected]" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.25;exitY=1;exitDx=0;exitDy=0;entryX=0.75;entryY=0;entryDx=0;entryDy=0;jumpStyle=arc;jumpSize=10;labelPosition=center;verticalLabelPosition=bottom;align=center;verticalAlign=top;" parent="1" source="8OOta2SLHqOS_gNMMTu4-21" target="8OOta2SLHqOS_gNMMTu4-2" edge="1">
           <mxGeometry x="0.2316" relative="1" as="geometry">
             <Array as="points">
               <mxPoint x="454" y="490" />
@@ -133,7 +135,7 @@
             <mxPoint as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="8OOta2SLHqOS_gNMMTu4-21" value="Idling" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=12;fontColor=default;fillColor=default;" parent="1" vertex="1">
+        <mxCell id="8OOta2SLHqOS_gNMMTu4-21" value="Idle" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=12;fontColor=default;fillColor=default;" parent="1" vertex="1">
           <mxGeometry x="424" y="260" width="120" height="60" as="geometry" />
         </mxCell>
         <mxCell id="8OOta2SLHqOS_gNMMTu4-26" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;exitPerimeter=0;" parent="1" source="8OOta2SLHqOS_gNMMTu4-44" target="8OOta2SLHqOS_gNMMTu4-21" edge="1">
@@ -141,7 +143,7 @@
             <mxPoint x="484" y="190" as="sourcePoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="8OOta2SLHqOS_gNMMTu4-30" value="[Pie Eaten]" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.25;exitDx=0;exitDy=0;entryX=0;entryY=0.25;entryDx=0;entryDy=0;labelPosition=center;verticalLabelPosition=top;align=center;verticalAlign=bottom;" parent="1" source="8OOta2SLHqOS_gNMMTu4-28" target="8OOta2SLHqOS_gNMMTu4-21" edge="1">
+        <mxCell id="8OOta2SLHqOS_gNMMTu4-30" value="[Bait Eaten]" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.25;exitDx=0;exitDy=0;entryX=0;entryY=0.25;entryDx=0;entryDy=0;labelPosition=center;verticalLabelPosition=top;align=center;verticalAlign=bottom;" parent="1" source="8OOta2SLHqOS_gNMMTu4-28" target="8OOta2SLHqOS_gNMMTu4-21" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="efV31g_SghHRyt4yT3gB-1" value="[Got Hit]" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;jumpStyle=arc;labelPosition=center;verticalLabelPosition=top;align=center;verticalAlign=bottom;jumpSize=10;" parent="1" source="8OOta2SLHqOS_gNMMTu4-28" target="8OOta2SLHqOS_gNMMTu4-3" edge="1">
@@ -149,7 +151,7 @@
             <mxPoint as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="8OOta2SLHqOS_gNMMTu4-28" value="Distracted" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=12;fontColor=default;fillColor=default;" parent="1" vertex="1">
+        <mxCell id="8OOta2SLHqOS_gNMMTu4-28" value="Eat" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=12;fontColor=default;fillColor=default;" parent="1" vertex="1">
           <mxGeometry x="94" y="260" width="120" height="60" as="geometry" />
         </mxCell>
         <mxCell id="8OOta2SLHqOS_gNMMTu4-44" value="Start" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.start_1;whiteSpace=wrap;" parent="1" vertex="1">

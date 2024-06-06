@@ -1,14 +1,14 @@
 using System;
 using UnityEngine;
 
-public abstract class Entity : NavMeshMovement
+public class Entity : MonoBehaviour
 {
     private Animator _animator;
-    private Collider _collider;
 
     public Animator Animator => _animator;
-    public Collider Collider => _collider;
 
-
-    public static event Action<bool> Irgendwas;
+    private void Awake()
+    {
+        _animator = Animator != null ? Animator : GetComponentInChildren<Animator>();
+    }
 }

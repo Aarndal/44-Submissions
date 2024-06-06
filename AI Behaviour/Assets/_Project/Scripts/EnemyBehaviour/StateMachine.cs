@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StateMachine : MonoBehaviour
+public class StateMachine
 {
     [SerializeField]
     private State _currentState;
@@ -21,19 +21,19 @@ public class StateMachine : MonoBehaviour
         _currentState = initialState;
     }
 
-    private void Update()
+    public void OnUpdate()
     {
         UpdateState();
 
         _currentState.OnUpdate();
     }
 
-    private void FixedUpdate()
+    public void OnFixedUpdate()
     {
         _currentState.OnFixedUpdate();
     }
 
-    private void LateUpdate()
+    public void OnLateUpdate()
     {
         _currentState.OnLateUpdate();
     }

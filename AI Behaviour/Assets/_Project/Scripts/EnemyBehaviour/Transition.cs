@@ -1,20 +1,14 @@
 using System;
 
-public class Transition
+public struct Transition
 {
     public string Name { get; private set; }
-    public StateMachine StateMachine { get; private set; }
+    //public StateMachine StateMachine { get; private set; }
     public State TargetState { get; private set; }
     public Func<bool> Condition { get; private set; }
 
-    void Start()
+    public Transition(State targetState, Func<bool> condition, string name)
     {
-        Entity.Irgendwas += ctx => this.Condition();
-    }
-
-    public Transition(StateMachine stateMachine, State targetState, Func<bool> condition, string name)
-    {
-        StateMachine = stateMachine;
         TargetState = targetState;
         Condition = condition;
         Name = name;

@@ -3,15 +3,13 @@ using UnityEngine;
 
 public class StateMachine
 {
-    [SerializeField]
-    private State _currentState;
-
     //private readonly Dictionary<State, List<Transition>> _transitions;
 
     private List<State> _states;
+    private State _currentState;
 
-    public State CurrentState => _currentState;
     public List<State> States => _states;
+    public State CurrentState => _currentState;
 
     public StateMachine(State initialState)
     {
@@ -71,4 +69,9 @@ public class StateMachine
         if(!_states.Contains(state))
             _states.Add(state);
     }
+
+    //public void SetCurrentState(State state)
+    //{
+    //   _currentState = state;
+    //}
 }

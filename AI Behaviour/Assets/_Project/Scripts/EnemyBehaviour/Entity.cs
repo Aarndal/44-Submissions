@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class Entity : MonoBehaviour
 {
-    private Animator _animator;
+    protected Animator _animator;
 
     public Animator Animator => _animator;
 

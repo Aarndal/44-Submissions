@@ -137,18 +137,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Asset: {fileID: -944628639613478452, guid: 65b3a3bcce4ca0f4583df50f8056fcb8, type: 3}
   m_ActionId: afe68c0b-c34a-4143-b7b5-bddc4b76fc26
---- !u!114 &194860553 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3004629566080465027, guid: 7d001cacf887eb14cbf269a09e3ec3ba,
-    type: 3}
-  m_PrefabInstance: {fileID: 5226203432431967431}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ed06e3b6fec5ecc4696004cedc31f0ac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &194970251
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -375,7 +363,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1735909197}
   - component: {fileID: 1735909196}
-  - component: {fileID: 1735909195}
+  - component: {fileID: 1735909198}
   m_Layer: 0
   m_Name: '! AmsMultiSceneSetup'
   m_TagString: Untagged
@@ -383,49 +371,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1735909195
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1735909194}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 15cc1e8a133b04c4ba5d1c4801149eaa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _version: 2
-  _crossSceneReferences:
-  - _sourceObject: {fileID: 194860553}
-    _sourceField: StarterAssetsInputs
-    DEPRECATED_fromObject:
-      scene:
-        editorAssetGUID: 
-        name: 
-        _path: 
-      fullPath: 
-      componentName: 
-      componentIndex: 0
-      editorLocalId: 0
-      editorPrefabRelativePath: 
-      version: 0
-    _toObject:
-      scene:
-        editorAssetGUID: 47995f1eb1813a949af111e4f8de4a92
-        name: Playground
-        _path: Assets/_Project/Scenes/Playground.unity
-      fullPath: /PlayerArmature
-      componentName: StarterAssets.StarterAssetsInputs, Unity.StarterAssets, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
-      componentIndex: 0
-      editorLocalId: 1762682258
-      editorPrefabRelativePath: 
-      version: 1
-    _data:
-      data: []
-  _realSceneRootsForPostBuild: []
-  _mergedScenes: []
 --- !u!114 &1735909196
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -458,6 +403,22 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1735909198
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1735909194}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15cc1e8a133b04c4ba5d1c4801149eaa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _version: 2
+  _crossSceneReferences: []
+  _realSceneRootsForPostBuild: []
+  _mergedScenes: []
 --- !u!114 &1919499349
 MonoBehaviour:
   m_ObjectHideFlags: 0

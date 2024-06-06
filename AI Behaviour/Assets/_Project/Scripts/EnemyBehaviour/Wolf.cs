@@ -7,13 +7,13 @@ public class Wolf : Enemy
 
     [SerializeField]
     private float _timer;
-    private float _idleTime = 5f;
+    [SerializeField]
+    private float _idleTime = 10f;
 
     private StateMachine _myFSM;
-
-    public static Func<bool> RoamCondition;
-    public static Func<bool> ChaseCondition;
-    public static Func<bool> IdleCondition;
+    private State _idle, _roam, _chase;
+    private Transition _toRoam, _toChase, _toIdle;
+    public static Func<bool> RoamCondition, IdleCondition, ChaseCondition;
 
     private void Awake()
     {
@@ -28,32 +28,39 @@ public class Wolf : Enemy
 
     private void Start()
     {
+        InitializeStates();
+
+        InitializeTransitions();
+
+        _myFSM = new(_idle);
+
+        _myFSM.AddState(_roam);
+        _myFSM.AddState(_chase);
+
+        _idle.AddTransition(_toRoam);
+        _roam.AddTransition(_toChase);
+        _chase.AddTransition(_toIdle);
+
         _timer = _idleTime;
-        
-        State idle = new IdleState(this, AutonomousMover);
-        State roam = new RoamState(this, AutonomousMover);
-        State chase = new ChaseState(this, AutonomousMover);
-
-        Transition transitionToRoam = new Transition(roam, RoamCondition, "Transition to Roam");
-        Transition transitionToChase = new Transition(chase, ChaseCondition, "Transition to Chase");
-        Transition transitionToIdle = new Transition(idle, IdleCondition, "Transition to Idle");
-
-        _myFSM = new StateMachine(idle);
-        
-        idle.AddTransition(transitionToRoam);
-        roam.AddTransition(transitionToChase);
-        chase.AddTransition(transitionToIdle);
-
-        _myFSM.AddState(idle);
-        _myFSM.AddState(roam);
-        _myFSM.AddState(chase);
     }
 
     private void Update()
     {
-        _timer -= Time.deltaTime;
-
         _myFSM.OnUpdate();
+        _timer -= Time.deltaTime;
     }
 
+    private void InitializeStates()
+    {
+        _idle = new IdleState(this, AutonomousMover);
+        _roam = new RoamState(this, AutonomousMover);
+        _chase = new ChaseState(this, AutonomousMover);
+    }
+
+    private void InitializeTransitions()
+    {
+        _toRoam = new Transition(_roam, RoamCondition, "Transition to Roam");
+        _toChase = new Transition(_chase, ChaseCondition, "Transition to Chase");
+        _toIdle = new Transition(_idle, IdleCondition, "Transition to Idle");
+    }
 }

@@ -2,7 +2,7 @@
 
 public class Enemy : Entity
 {
-    private NavMeshMovement _autonomousMover;
+    protected NavMeshMovement _autonomousMover;
 
     public NavMeshMovement AutonomousMover => _autonomousMover;
 

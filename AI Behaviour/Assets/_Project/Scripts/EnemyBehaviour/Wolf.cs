@@ -17,6 +17,7 @@ public class Wolf : Enemy
 
     private void Awake()
     {
+        base.Awake();
         _targetProvider = GetComponent<PlayerTargetProvider>();
     }
 

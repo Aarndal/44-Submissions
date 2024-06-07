@@ -6,8 +6,8 @@ public class Enemy : Entity
 
     public NavMeshMovement AutonomousMover => _autonomousMover;
 
-    private void Awake()
+    protected void Awake()
     {
-        _autonomousMover = AutonomousMover != null ? AutonomousMover : GetComponentInChildren<NavMeshMovement>();
+        _autonomousMover = AutonomousMover != null ? AutonomousMover : GetComponent<NavMeshMovement>();
     }
 }

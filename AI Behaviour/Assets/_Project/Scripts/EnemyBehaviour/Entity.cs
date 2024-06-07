@@ -7,7 +7,7 @@ public class Entity : MonoBehaviour
 
     public Animator Animator => _animator;
 
-    private void Awake()
+    protected void Awake()
     {
         _animator = Animator != null ? Animator : GetComponentInChildren<Animator>();
     }

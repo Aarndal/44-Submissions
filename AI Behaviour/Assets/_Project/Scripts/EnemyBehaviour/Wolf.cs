@@ -20,20 +20,9 @@ public class Wolf : Enemy
     protected override void Awake()
     {
         base.Awake();
-    }
 
-    private void OnEnable()
-    {
-        RoamCondition = () => _idle.TimeIsUp;
-        ChaseCondition = () => _playerTargetProvider.HasTarget;
-        IdleCondition = () => _autonomousMover.ReachedTarget || !_playerTargetProvider.HasTarget;
-
-        //_idle.IdleTimeIsUp += OnIdleTimeIsUp;
-    }
-
-    private void Start()
-    {
         InitializeStates();
+        InitializeConditions();
         InitializeTransitions();
 
         _myFSM = new(_idle);
@@ -49,6 +38,17 @@ public class Wolf : Enemy
         _chase.AddTransition(_toIdle);
     }
 
+    private void OnEnable()
+    {
+        //_idle.IdleTimeIsUp += OnIdleTimeIsUp;
+    }
+
+    private void Start()
+    {
+        
+    }
+
+
     private void Update()
     {
         _myFSM.OnUpdate();
@@ -56,7 +56,7 @@ public class Wolf : Enemy
 
     private void OnDisable()
     {
-        //_idle.OnIdleTimeIsUp -= OnIdleTimeIsUp;
+        //_idle.IdleTimeIsUp -= OnIdleTimeIsUp;
     }
 
     //private void OnIdleTimeIsUp(bool ctx) => RoamCondition = () => ctx;
@@ -66,6 +66,13 @@ public class Wolf : Enemy
         _idle = new IdleState(this, AutonomousMover, _idleTime);
         _roam = new RoamState(this, AutonomousMover);
         _chase = new ChaseState(this, AutonomousMover, _playerTargetProvider);
+    }
+
+    private void InitializeConditions()
+    {
+        RoamCondition = () => _idle.TimeIsUp;
+        ChaseCondition = () => _playerTargetProvider.HasTarget;
+        IdleCondition = () => _autonomousMover.ReachedTarget || !_playerTargetProvider.HasTarget;
     }
 
     private void InitializeTransitions()

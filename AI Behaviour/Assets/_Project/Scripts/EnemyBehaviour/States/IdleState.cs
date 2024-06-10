@@ -40,5 +40,6 @@ public class IdleState : State
     public override void OnExit()
     {
         TimeIsUp = false;
+        //IdleTimeIsUp?.Invoke(TimeIsUp);
     }
 }

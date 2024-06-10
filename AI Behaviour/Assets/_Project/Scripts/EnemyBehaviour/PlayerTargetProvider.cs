@@ -3,17 +3,21 @@ using UnityEngine;
 
 public class PlayerTargetProvider : TargetProvider
 {
-    public event Action<bool> PlayerInSight;
+    //public event Action<bool> PlayerInSight;
 
     [SerializeField]
     private string _targetTag = "Player";
 
     private Collider _collider;
 
-
     private void Awake()
     {
         _collider = GetComponent<Collider>();
+    }
+
+    private void Start()
+    {
+        _collider.isTrigger = true;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -21,7 +25,7 @@ public class PlayerTargetProvider : TargetProvider
         if (other.CompareTag(_targetTag))
         {
             Target = other.transform;
-            PlayerInSight?.Invoke(HasTarget);
+            //PlayerInSight?.Invoke(HasTarget);
         }
     }
 
@@ -30,12 +34,9 @@ public class PlayerTargetProvider : TargetProvider
         if (other.CompareTag(_targetTag))
         {
             Target = null;
-            PlayerInSight?.Invoke(HasTarget);
+            //PlayerInSight?.Invoke(HasTarget);
         }
     }
 
-    public override Transform GetTarget()
-    {
-        return Target;
-    }
+    public override Transform GetTarget() => Target;
 }

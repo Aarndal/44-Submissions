@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 public class Entity : MonoBehaviour
@@ -7,7 +6,7 @@ public class Entity : MonoBehaviour
 
     public Animator Animator => _animator;
 
-    protected void Awake()
+    protected virtual void Awake()
     {
         _animator = Animator != null ? Animator : GetComponentInChildren<Animator>();
     }

@@ -4,8 +4,9 @@ using UnityEngine;
 public class StateMachine
 {
     //private readonly Dictionary<State, List<Transition>> _transitions;
-
+    [SerializeField]
     private List<State> _states;
+    [SerializeField]
     private State _currentState;
 
     public List<State> States => _states;

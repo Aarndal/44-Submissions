@@ -6,8 +6,9 @@ public class Enemy : Entity
 
     public NavMeshMovement AutonomousMover => _autonomousMover;
 
-    protected void Awake()
+    protected override void Awake()
     {
-        _autonomousMover = AutonomousMover != null ? AutonomousMover : GetComponent<NavMeshMovement>();
+        base.Awake();
+        _autonomousMover = AutonomousMover != null ? AutonomousMover : GetComponentInChildren<NavMeshMovement>();
     }
 }

@@ -1,10 +1,15 @@
+using System;
 using System.Collections.Generic;
+using UnityEngine;
 
+[Serializable]
 public abstract class State
 {
-    protected Entity _entity;
+    [SerializeField]
     protected List<Transition> _transitions;
-    
+
+    protected Entity _entity;
+
     public List<Transition> Transitions => _transitions;
 
     public State(Entity entity)

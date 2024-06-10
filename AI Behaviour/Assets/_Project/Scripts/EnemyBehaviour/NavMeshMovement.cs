@@ -4,7 +4,7 @@ using UnityEngine.AI;
 [RequireComponent(typeof(NavMeshAgent))]
 public class NavMeshMovement : MonoBehaviour, IAmAutonomousMovable
 {
-    public float AttackRange = 1.0f;
+    public float AttackRange = 2.0f;
 
     public NavMeshAgent NavMeshAgent { get; private set; }
 

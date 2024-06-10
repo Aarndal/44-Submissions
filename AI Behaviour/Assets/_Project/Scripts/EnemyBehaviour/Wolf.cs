@@ -1,36 +1,39 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
 
 public class Wolf : Enemy
 {
-    private PlayerTargetProvider _targetProvider;
-
+    public Func<bool> RoamCondition, IdleCondition, ChaseCondition;
+    
     [SerializeField]
-    private float _timer;
+    private PlayerTargetProvider _playerTargetProvider;
     [SerializeField]
     private float _idleTime = 10f;
 
     private StateMachine _myFSM;
-    private State _idle, _roam, _chase;
+    private IdleState _idle;
+    private State _roam, _chase;
     private Transition _toRoam, _toChase, _toIdle;
-    public static Func<bool> RoamCondition, IdleCondition, ChaseCondition;
 
-    private void Awake()
+    protected override void Awake()
     {
         base.Awake();
-        _targetProvider = GetComponent<PlayerTargetProvider>();
     }
 
     private void OnEnable()
     {
-        RoamCondition = () => _timer <= 0;
-        ChaseCondition = () => _targetProvider.HasTarget;
+        RoamCondition = () => _idle.TimeIsUp;
+        ChaseCondition = () => _playerTargetProvider.HasTarget;
+        IdleCondition = () => _autonomousMover.ReachedTarget || !_playerTargetProvider.HasTarget;
+
+        //_idle.IdleTimeIsUp += OnIdleTimeIsUp;
     }
 
     private void Start()
     {
         InitializeStates();
-
         InitializeTransitions();
 
         _myFSM = new(_idle);
@@ -39,23 +42,30 @@ public class Wolf : Enemy
         _myFSM.AddState(_chase);
 
         _idle.AddTransition(_toRoam);
-        _roam.AddTransition(_toChase);
-        _chase.AddTransition(_toIdle);
+        _idle.AddTransition(_toChase);
 
-        _timer = _idleTime;
+        _roam.AddTransition(_toChase);
+
+        _chase.AddTransition(_toIdle);
     }
 
     private void Update()
     {
         _myFSM.OnUpdate();
-        _timer -= Time.deltaTime;
     }
+
+    private void OnDisable()
+    {
+        //_idle.OnIdleTimeIsUp -= OnIdleTimeIsUp;
+    }
+
+    //private void OnIdleTimeIsUp(bool ctx) => RoamCondition = () => ctx;
 
     private void InitializeStates()
     {
-        _idle = new IdleState(this, AutonomousMover);
+        _idle = new IdleState(this, AutonomousMover, _idleTime);
         _roam = new RoamState(this, AutonomousMover);
-        _chase = new ChaseState(this, AutonomousMover);
+        _chase = new ChaseState(this, AutonomousMover, _playerTargetProvider);
     }
 
     private void InitializeTransitions()

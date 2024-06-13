@@ -5,7 +5,7 @@ using UnityEngine;
 //[CreateAssetMenu(fileName = "IdleState", menuName = "AI/States/IdleState")]
 public class IdleState : State
 {
-    //public event Action<bool> IdleTimeIsUp;
+    public event Action<bool> IdleTimeIsUp;
 
     private float _timer, _idleTime;
     private NavMeshMovement _autonomousMover;
@@ -33,13 +33,13 @@ public class IdleState : State
         if (_timer <= 0)
         {
             TimeIsUp = true;
-            //IdleTimeIsUp?.Invoke(TimeIsUp);
+            IdleTimeIsUp?.Invoke(TimeIsUp);
         }
     }
 
     public override void OnExit()
     {
         TimeIsUp = false;
-        //IdleTimeIsUp?.Invoke(TimeIsUp);
+        IdleTimeIsUp?.Invoke(TimeIsUp);
     }
 }

@@ -40,7 +40,7 @@ public class Wolf : Enemy
 
     private void OnEnable()
     {
-        //_idle.IdleTimeIsUp += OnIdleTimeIsUp;
+        _idle.IdleTimeIsUp += OnIdleTimeIsUp;
     }
 
     private void Start()
@@ -56,10 +56,10 @@ public class Wolf : Enemy
 
     private void OnDisable()
     {
-        //_idle.IdleTimeIsUp -= OnIdleTimeIsUp;
+        _idle.IdleTimeIsUp -= OnIdleTimeIsUp;
     }
 
-    //private void OnIdleTimeIsUp(bool ctx) => RoamCondition = () => ctx;
+    private void OnIdleTimeIsUp(bool ctx) => RoamCondition = () => ctx;
 
     private void InitializeStates()
     {

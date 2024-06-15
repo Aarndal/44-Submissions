@@ -22,7 +22,9 @@ public class IdleState : State
 
     public override void OnEnter()
     {
-        _timer = _idleTime;
+        _timer = _idleTime; 
+        TimeIsUp = false;
+        IdleTimeIsUp?.Invoke(false);
         _autonomousMover.NavMeshAgent.isStopped = true;
     }
 
@@ -33,13 +35,12 @@ public class IdleState : State
         if (_timer <= 0)
         {
             TimeIsUp = true;
-            IdleTimeIsUp?.Invoke(TimeIsUp);
+            IdleTimeIsUp?.Invoke(true);
         }
     }
 
     public override void OnExit()
     {
-        TimeIsUp = false;
-        IdleTimeIsUp?.Invoke(TimeIsUp);
+        
     }
 }

@@ -1,12 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
+
 
 public class Wolf : Enemy
 {
     public Func<bool> RoamCondition, IdleCondition, ChaseCondition;
-    
+
     [SerializeField]
     private PlayerTargetProvider _playerTargetProvider;
     [SerializeField]
@@ -40,26 +39,38 @@ public class Wolf : Enemy
 
     private void OnEnable()
     {
-        _idle.IdleTimeIsUp += OnIdleTimeIsUp;
+        //_idle.IdleTimeIsUp += OnIdleTimeIsUp;
+        //_playerTargetProvider.PlayerInSight += OnPlayerInSight;
     }
 
     private void Start()
     {
-        
+        Debug.LogWarning("Start State: " + _myFSM.CurrentState);
     }
-
 
     private void Update()
     {
         _myFSM.OnUpdate();
     }
 
-    private void OnDisable()
+    private void FixedUpdate()
     {
-        _idle.IdleTimeIsUp -= OnIdleTimeIsUp;
+        _myFSM.OnFixedUpdate();
     }
 
-    private void OnIdleTimeIsUp(bool ctx) => RoamCondition = () => ctx;
+    private void LateUpdate()
+    {
+        _myFSM.OnLateUpdate();
+    }
+
+    private void OnDisable()
+    {
+        //_playerTargetProvider.PlayerInSight -= OnPlayerInSight;
+        //_idle.IdleTimeIsUp -= OnIdleTimeIsUp;
+    }
+
+    //private void OnIdleTimeIsUp(bool ctx) => _toRoam.Condition = () => ctx;
+    //private void OnPlayerInSight(bool ctx) => _toChase.Condition = () => ctx;
 
     private void InitializeStates()
     {
@@ -71,8 +82,8 @@ public class Wolf : Enemy
     private void InitializeConditions()
     {
         RoamCondition = () => _idle.TimeIsUp;
-        ChaseCondition = () => _playerTargetProvider.HasTarget;
-        IdleCondition = () => _autonomousMover.ReachedTarget || !_playerTargetProvider.HasTarget;
+        ChaseCondition = () => _playerTargetProvider.TargetInSight;
+        IdleCondition = () => _autonomousMover.ReachedTarget || !_playerTargetProvider.TargetInSight;
     }
 
     private void InitializeTransitions()

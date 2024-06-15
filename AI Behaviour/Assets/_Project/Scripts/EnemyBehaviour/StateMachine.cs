@@ -58,7 +58,7 @@ public class StateMachine
 
     private void TransitionTo(State targetState)
     {
-        Debug.Log($"Transitioning from {CurrentState} to {targetState}");
+        Debug.LogWarning($"Transitioning from {CurrentState} to {targetState}");
 
         _currentState.OnExit();
         targetState.OnEnter();

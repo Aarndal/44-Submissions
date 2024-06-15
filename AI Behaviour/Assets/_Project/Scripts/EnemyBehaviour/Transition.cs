@@ -14,12 +14,12 @@ public class Transition
 
     public string Name { get => _name; private set => _name = value; }
     public State TargetState { get => _targetState; private set => _targetState = value; }
-    public Func<bool> Condition { get => _condition; private set => _condition = value; }
+    public Func<bool> Condition { get => _condition; set => _condition = value; }
 
     public Transition(State targetState, Func<bool> condition, string name)
     {
         TargetState = targetState;
-        Condition = condition;
+        _condition = condition;
         Name = name;
     }
 }

@@ -1,16 +1,17 @@
 ﻿using System;
 using UnityEngine;
 
-
-public class Wolf : Enemy
+public class Wolf : AIEnemy
 {
     public Func<bool> RoamCondition, IdleCondition, ChaseCondition;
 
     [SerializeField]
-    private PlayerTargetProvider _playerTargetProvider;
+    private TargetProvider _targetProvider;
     [SerializeField]
     private float _idleTime = 10f;
 
+    private LineOfSightChecker _lineOfSightChecker;
+    
     private StateMachine _myFSM;
     private IdleState _idle;
     private State _roam, _chase;
@@ -18,6 +19,8 @@ public class Wolf : Enemy
 
     protected override void Awake()
     {
+        _lineOfSightChecker = GetComponentInChildren<LineOfSightChecker>();
+
         base.Awake();
 
         InitializeStates();
@@ -76,14 +79,14 @@ public class Wolf : Enemy
     {
         _idle = new IdleState(this, AutonomousMover, _idleTime);
         _roam = new RoamState(this, AutonomousMover);
-        _chase = new ChaseState(this, AutonomousMover, _playerTargetProvider);
+        _chase = new ChaseState(this, AutonomousMover, _targetProvider);
     }
 
     private void InitializeConditions()
     {
         RoamCondition = () => _idle.TimeIsUp;
-        ChaseCondition = () => _playerTargetProvider.TargetInSight;
-        IdleCondition = () => _autonomousMover.ReachedTarget || !_playerTargetProvider.TargetInSight;
+        ChaseCondition = () => _lineOfSightChecker.TargetInSight;
+        IdleCondition = () => _autonomousMover.ReachedTarget || !_lineOfSightChecker.TargetInSight;
     }
 
     private void InitializeTransitions()

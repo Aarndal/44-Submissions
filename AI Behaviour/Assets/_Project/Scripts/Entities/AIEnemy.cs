@@ -1,6 +1,8 @@
 using UnityEngine;
 
-public class Enemy : Entity
+[DisallowMultipleComponent]
+[RequireComponent(typeof(NavMeshMovement))]
+public class AIEnemy : Entity
 {
     protected NavMeshMovement _autonomousMover;
 
@@ -9,6 +11,6 @@ public class Enemy : Entity
     protected override void Awake()
     {
         base.Awake();
-        _autonomousMover = AutonomousMover != null ? AutonomousMover : GetComponentInChildren<NavMeshMovement>();
+        _autonomousMover = AutonomousMover != null ? AutonomousMover : GetComponent<NavMeshMovement>();
     }
 }

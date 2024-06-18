@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 2435967547879663389}
   - component: {fileID: 2378384978915083277}
   - component: {fileID: 5904438204321389091}
-  m_Layer: 20
-  m_Name: PlayerTargetProvider
+  m_Layer: 21
+  m_Name: TargetProvider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -46,6 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _targetTag: Player
+  _checkRadius: 10
 --- !u!135 &5904438204321389091
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -79,7 +80,7 @@ GameObject:
   - component: {fileID: 2983246500891272054}
   - component: {fileID: 2729811121241375587}
   - component: {fileID: 8362288680501008987}
-  m_Layer: 20
+  m_Layer: 21
   m_Name: Wolf
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -101,6 +102,7 @@ Transform:
   m_Children:
   - {fileID: 3412496130563719700}
   - {fileID: 2435967547879663389}
+  - {fileID: 4372413455647940663}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 172.599, z: 0}
 --- !u!195 &2983246500891272054
@@ -137,7 +139,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 000f7b0eaad7f7745a3cb71d0e7e32af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AttackRange: 2
 --- !u!114 &8362288680501008987
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -150,8 +151,55 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83ff1fb643bebcd4082ad8b6fd7681e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerTargetProvider: {fileID: 2378384978915083277}
+  _targetProvider: {fileID: 2378384978915083277}
   _idleTime: 5
+--- !u!1 &2739602237779913669
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4372413455647940663}
+  - component: {fileID: 4408543736389774792}
+  m_Layer: 21
+  m_Name: LineOfSightChecker
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4372413455647940663
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2739602237779913669}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.5, z: 0.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 773072565026723162}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4408543736389774792
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2739602237779913669}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6038fb98be35bc94c85d335a71b7b514, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _targetProvider: {fileID: 2378384978915083277}
+  _fieldOfView: 120
+  _visionRange: 7.5
 --- !u!1 &5924624356113921161
 GameObject:
   m_ObjectHideFlags: 0
@@ -164,8 +212,8 @@ GameObject:
   - component: {fileID: 1945369050947993970}
   - component: {fileID: 3862474543588050279}
   - component: {fileID: 8369896721185757087}
-  m_Layer: 20
-  m_Name: Capsule
+  m_Layer: 21
+  m_Name: Object
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

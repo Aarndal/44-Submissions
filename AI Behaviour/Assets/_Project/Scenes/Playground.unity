@@ -958,15 +958,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Wolf
       objectReference: {fileID: 0}
-    - target: {fileID: 2378384978915083277, guid: f04d45b4accecb04e83e19824544d181,
+    - target: {fileID: 4408543736389774792, guid: f04d45b4accecb04e83e19824544d181,
         type: 3}
-      propertyPath: _visionRange
-      value: 60
-      objectReference: {fileID: 0}
-    - target: {fileID: 3412496130563719700, guid: f04d45b4accecb04e83e19824544d181,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
+      propertyPath: _targetedLayerMask.m_Bits
+      value: 1048576
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

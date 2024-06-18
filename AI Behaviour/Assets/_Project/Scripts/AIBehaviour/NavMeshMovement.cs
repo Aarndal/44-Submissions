@@ -1,11 +1,10 @@
 using UnityEngine;
 using UnityEngine.AI;
 
+[DisallowMultipleComponent]
 [RequireComponent(typeof(NavMeshAgent))]
 public class NavMeshMovement : MonoBehaviour, IAmAutonomousMovable
 {
-    public float AttackRange = 2.0f;
-
     public NavMeshAgent NavMeshAgent { get; private set; }
 
     public bool ReachedTarget { get; private set; }
@@ -31,7 +30,7 @@ public class NavMeshMovement : MonoBehaviour, IAmAutonomousMovable
             NavMeshAgent.isStopped = false;
             NavMeshAgent.SetDestination(targetProvider.Target.position);
 
-            ReachedTarget = DistanceToTarget <= AttackRange;
+            ReachedTarget = DistanceToTarget <= MaxDistanceToTarget;
         }
     }
 }

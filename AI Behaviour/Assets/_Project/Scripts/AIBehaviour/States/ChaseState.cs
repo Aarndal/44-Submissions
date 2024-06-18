@@ -17,6 +17,7 @@ public class ChaseState : State
 
     public override void OnEnter()
     {
+        AutonomousMover.NavMeshAgent.enabled = true;
         AutonomousMover.NavMeshAgent.isStopped = false;
     }
 

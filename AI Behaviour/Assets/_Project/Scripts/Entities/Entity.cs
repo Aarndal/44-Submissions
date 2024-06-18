@@ -1,5 +1,6 @@
 using UnityEngine;
 
+[DisallowMultipleComponent]
 public class Entity : MonoBehaviour
 {
     protected Animator _animator;

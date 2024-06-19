@@ -1,38 +1,64 @@
+using System.Linq;
 using UnityEngine;
+using UnityEngine.AI;
 
-[DisallowMultipleComponent]
-[RequireComponent(typeof(SphereCollider))]
 public class PlayerTargetProvider : TargetProvider
 {
     [SerializeField]
+    private AIEnemy _entity;
+
+    [SerializeField]
     private string _targetTag = "Player";
     [SerializeField]
-    private float _checkRadius = 10f;
+    private float _searchRadius = 10f;
+    [SerializeField]
+    private LayerMask _layerMask;
+    private NavMeshPath tempNavMeshPath;
 
-    private SphereCollider _collider;
-
-    public float CheckRadius => _checkRadius;
+    public float SearchRadius => _searchRadius;
 
     private void Awake()
     {
-        _collider = GetComponent<SphereCollider>();
     }
 
-    private void Start()
+    public override Transform GetTarget()
     {
-        _collider.isTrigger = true;
-        _collider.radius = _checkRadius;
+        Target = FindClosestPlayer();
+        return Target;
     }
 
-    private void OnTriggerEnter(Collider other)
+    private Transform FindClosestPlayer()
     {
-        if (other.CompareTag(_targetTag))
-            Target = other.transform;
-    }
+        var allPreyInSearchRadius = Physics.OverlapSphere(transform.position, _searchRadius, _layerMask).ToList();
+        var allPlayers = allPreyInSearchRadius.FindAll(prey => prey.transform.tag == _targetTag);
 
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag(_targetTag))
-            Target = null;
+        float distanceToClosestPlayer = float.MaxValue;
+        Transform closestPlayer = null;
+
+        for (int i = 0; i < allPlayers.Count; i++)
+        {
+            if (allPlayers[i] == null)
+                continue;
+
+            var player = allPlayers[i].transform;
+            tempNavMeshPath = new NavMeshPath();
+
+            bool hasPathToTarget = NavMesh.CalculatePath(transform.position, player.position, _entity.AutonomousMover.NavMeshAgent.areaMask, tempNavMeshPath);
+            if (hasPathToTarget == false)
+                continue;
+
+            float distance = Vector3.SqrMagnitude(transform.position - tempNavMeshPath.corners[0]);
+
+            for (int j = 1; j < tempNavMeshPath.corners.Length; j++)
+                distance += Vector3.SqrMagnitude(tempNavMeshPath.corners[j - 1] - tempNavMeshPath.corners[j]);
+
+            if (distance >= distanceToClosestPlayer)
+                continue;
+
+            distanceToClosestPlayer = distance;
+            closestPlayer = player;
+        }
+
+        return closestPlayer;
     }
 }

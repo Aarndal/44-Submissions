@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -10,12 +11,12 @@ public class StateMachine
     [SerializeField]
     private List<State> _states;
     [SerializeField]
-    private List<Transition> _anyTransitions;
+    private List<AnyTransition> _anyTransitions;
 
     private State _targetState;
 
     public List<State> States => _states;
-    public List<Transition> AnyTransitions => _anyTransitions;
+    public List<AnyTransition> AnyTransitions => _anyTransitions;
     public State CurrentState => _currentState;
 
     public StateMachine(State initialState)
@@ -54,7 +55,7 @@ public class StateMachine
 
     private State GetTargetState()
     {
-        foreach (Transition transition in _anyTransitions)
+        foreach (AnyTransition transition in _anyTransitions)
         {
             if (transition.Condition() == true)
                 return transition.TargetState;
@@ -84,7 +85,7 @@ public class StateMachine
             _states.Add(state);
     }
 
-    public void AddAnyTransition(Transition transition)
+    public void AddAnyTransition(AnyTransition transition)
     {
         if (!_anyTransitions.Contains(transition))
             _anyTransitions.Add(transition);

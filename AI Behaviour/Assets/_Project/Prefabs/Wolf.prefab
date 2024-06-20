@@ -45,8 +45,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb9cb6595ffd05a418a0741c3ffb196b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _autonomousMover: {fileID: 2729811121241375587}
   _targetTag: Player
-  _checkRadius: 10
+  _layerMask:
+    serializedVersion: 2
+    m_Bits: 1048576
+  _searchRadius: 7.5
+  _maxTargetsToSearch: 5
 --- !u!135 &5904438204321389091
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -198,6 +203,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _targetProvider: {fileID: 2378384978915083277}
+  _targetedLayerMask:
+    serializedVersion: 2
+    m_Bits: 1048576
   _fieldOfView: 120
   _visionRange: 7.5
 --- !u!1 &5924624356113921161

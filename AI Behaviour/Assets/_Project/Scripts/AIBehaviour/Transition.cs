@@ -19,7 +19,7 @@ public class Transition
     public Transition(State targetState, Func<bool> condition, string name)
     {
         TargetState = targetState;
-        _condition = condition;
+        Condition = condition;
         Name = name;
     }
 }

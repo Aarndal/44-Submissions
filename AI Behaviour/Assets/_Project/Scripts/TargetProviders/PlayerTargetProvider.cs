@@ -1,24 +1,56 @@
-using System.Linq;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
+[DisallowMultipleComponent]
+[RequireComponent(typeof(SphereCollider))]
 public class PlayerTargetProvider : TargetProvider
 {
+    [Header("References")]
     [SerializeField]
-    private AIEnemy _entity;
+    private NavMeshMovement _autonomousMover;
 
+    [Header("Variables")]
     [SerializeField]
     private string _targetTag = "Player";
     [SerializeField]
+    private LayerMask _layerMask;
+    [SerializeField]
     private float _searchRadius = 10f;
     [SerializeField]
-    private LayerMask _layerMask;
-    private NavMeshPath tempNavMeshPath;
+    private int _maxTargetsToSearch = 5;
+    
+    private int _numTargetsFound = 0;
+    private SphereCollider _sphereCollider;
+    private Collider[] _allTargetsInSearchRadius;
+    private List<Collider> _closestPlayers;
+    private NavMeshPath _tempNavMeshPath;
 
     public float SearchRadius => _searchRadius;
 
     private void Awake()
     {
+        _allTargetsInSearchRadius = new Collider[_maxTargetsToSearch];
+        _closestPlayers = new ();
+        _tempNavMeshPath = new NavMeshPath();
+
+        _sphereCollider = GetComponent<SphereCollider>();
+    }
+
+    private void Start()
+    {
+        _sphereCollider.radius = _searchRadius;
+        _sphereCollider.isTrigger = true;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        GetTarget();
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        GetTarget();
     }
 
     public override Transform GetTarget()
@@ -29,34 +61,37 @@ public class PlayerTargetProvider : TargetProvider
 
     private Transform FindClosestPlayer()
     {
-        var allPreyInSearchRadius = Physics.OverlapSphere(transform.position, _searchRadius, _layerMask).ToList();
-        var allPlayers = allPreyInSearchRadius.FindAll(prey => prey.transform.tag == _targetTag);
+        _closestPlayers.Clear();
+
+        _numTargetsFound = Physics.OverlapSphereNonAlloc(transform.position, _searchRadius, _allTargetsInSearchRadius, _layerMask, QueryTriggerInteraction.Ignore);
+        for (int i = 0; i < _numTargetsFound; i++)
+        {
+            if (_allTargetsInSearchRadius[i].transform.CompareTag(_targetTag))
+                _closestPlayers.Add(_allTargetsInSearchRadius[i]);
+        }
 
         float distanceToClosestPlayer = float.MaxValue;
         Transform closestPlayer = null;
 
-        for (int i = 0; i < allPlayers.Count; i++)
+        for (int i = 0; i < _closestPlayers.Count; i++)
         {
-            if (allPlayers[i] == null)
+            if (_closestPlayers[i] == null)
                 continue;
 
-            var player = allPlayers[i].transform;
-            tempNavMeshPath = new NavMeshPath();
-
-            bool hasPathToTarget = NavMesh.CalculatePath(transform.position, player.position, _entity.AutonomousMover.NavMeshAgent.areaMask, tempNavMeshPath);
+            bool hasPathToTarget = NavMesh.CalculatePath(transform.position, _closestPlayers[i].transform.position, _autonomousMover.NavMeshAgent.areaMask, _tempNavMeshPath);
             if (hasPathToTarget == false)
                 continue;
 
-            float distance = Vector3.SqrMagnitude(transform.position - tempNavMeshPath.corners[0]);
+            float sqrDistance = Vector3.SqrMagnitude(_tempNavMeshPath.corners[0] - transform.position);
 
-            for (int j = 1; j < tempNavMeshPath.corners.Length; j++)
-                distance += Vector3.SqrMagnitude(tempNavMeshPath.corners[j - 1] - tempNavMeshPath.corners[j]);
+            for (int j = 1; j < _tempNavMeshPath.corners.Length; j++)
+                sqrDistance += Vector3.SqrMagnitude(_tempNavMeshPath.corners[j] - _tempNavMeshPath.corners[j - 1]);
 
-            if (distance >= distanceToClosestPlayer)
+            if (sqrDistance >= distanceToClosestPlayer)
                 continue;
 
-            distanceToClosestPlayer = distance;
-            closestPlayer = player;
+            distanceToClosestPlayer = sqrDistance;
+            closestPlayer = _closestPlayers[i].transform;
         }
 
         return closestPlayer;

@@ -3,7 +3,7 @@ using UnityEngine.AI;
 
 [DisallowMultipleComponent]
 [RequireComponent(typeof(NavMeshAgent))]
-public class NavMeshMovement : MonoBehaviour, IAmAutonomousMovable
+public sealed class NavMeshMovement : MonoBehaviour, IAmAutonomousMovable
 {
     public NavMeshAgent NavMeshAgent { get; private set; }
 

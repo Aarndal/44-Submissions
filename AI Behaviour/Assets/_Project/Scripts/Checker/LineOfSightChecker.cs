@@ -6,8 +6,11 @@ public class LineOfSightChecker : MonoBehaviour
     public event Action<Transform> OnGainSight;
     public event Action<Transform> OnLostSight;
 
+    [Header("References")]
     [SerializeField]
     private TargetProvider _targetProvider;
+
+    [Header("Variables")]
     [SerializeField]
     private LayerMask _targetedLayerMask;
     [SerializeField]
@@ -35,6 +38,12 @@ public class LineOfSightChecker : MonoBehaviour
         }
     }
 
+    private void Awake()
+    {
+        if (_targetProvider == null)
+            throw new ArgumentNullException("Target Provider is not set.");
+    }
+
     private void Update()
     {
         if (!_targetProvider.HasTarget)
@@ -43,17 +52,16 @@ public class LineOfSightChecker : MonoBehaviour
         {
             Ray ray = new()
             {
-                origin = this.transform.position,
-                direction = (_targetProvider.Target.position - this.transform.position).normalized
+                origin = transform.position,
+                direction = (_targetProvider.Target.position - this.transform.position).normalized,
             };
-
-            TargetInSight = CheckLineOfSight(_targetProvider.Target, ray);
+            TargetInSight = CheckLineOfSight(ray);
 
             Debug.DrawRay(ray.origin, ray.direction * _visionRange, TargetInSight ? Color.green : Color.red);
         }
     }
 
-    private bool CheckLineOfSight(Transform target, Ray ray)
+    private bool CheckLineOfSight(Ray ray)
     {
         float dotProduct = Vector3.Dot(this.transform.forward, ray.direction);
 

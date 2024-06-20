@@ -19,9 +19,9 @@ public class Wolf : AIEnemy
 
     protected override void Awake()
     {
-        _lineOfSightChecker = GetComponentInChildren<LineOfSightChecker>();
-
         base.Awake();
+        
+        _lineOfSightChecker = GetComponentInChildren<LineOfSightChecker>();
 
         InitializeStates();
         InitializeConditions();
@@ -40,15 +40,20 @@ public class Wolf : AIEnemy
         _chase.AddTransition(_toIdle);
     }
 
-    private void OnEnable()
-    {
-        //_idle.IdleTimeIsUp += OnIdleTimeIsUp;
-        //_playerTargetProvider.PlayerInSight += OnPlayerInSight;
-    }
+    //private void OnEnable()
+    //{
+    //    _idle.IdleTimeIsUp += OnIdleTimeIsUp;
+    //    _playerTargetProvider.PlayerInSight += OnPlayerInSight;
+    //}
 
     private void Start()
     {
         Debug.LogWarning("Start State: " + _myFSM.CurrentState);
+    }
+    
+    private void FixedUpdate()
+    {
+        _myFSM.OnFixedUpdate();
     }
 
     private void Update()
@@ -56,30 +61,25 @@ public class Wolf : AIEnemy
         _myFSM.OnUpdate();
     }
 
-    private void FixedUpdate()
-    {
-        _myFSM.OnFixedUpdate();
-    }
-
     private void LateUpdate()
     {
         _myFSM.OnLateUpdate();
     }
 
-    private void OnDisable()
-    {
-        //_playerTargetProvider.PlayerInSight -= OnPlayerInSight;
-        //_idle.IdleTimeIsUp -= OnIdleTimeIsUp;
-    }
+    //private void OnDisable()
+    //{
+    //    _playerTargetProvider.PlayerInSight -= OnPlayerInSight;
+    //    _idle.IdleTimeIsUp -= OnIdleTimeIsUp;
+    //}
 
     //private void OnIdleTimeIsUp(bool ctx) => _toRoam.Condition = () => ctx;
     //private void OnPlayerInSight(bool ctx) => _toChase.Condition = () => ctx;
 
     private void InitializeStates()
     {
-        _idle = new IdleState(this, AutonomousMover, _idleTime);
-        _roam = new RoamState(this, AutonomousMover);
-        _chase = new ChaseState(this, AutonomousMover, _targetProvider);
+        _idle = new IdleState(this, _idleTime);
+        _roam = new RoamState(this);
+        _chase = new ChaseState(this, _targetProvider);
     }
 
     private void InitializeConditions()
@@ -91,8 +91,8 @@ public class Wolf : AIEnemy
 
     private void InitializeTransitions()
     {
-        _toRoam = new Transition(_roam, RoamCondition, "Transition to Roam");
-        _toChase = new Transition(_chase, ChaseCondition, "Transition to Chase");
-        _toIdle = new Transition(_idle, IdleCondition, "Transition to Idle");
+        _toRoam = new Transition("Transition to Roam", RoamCondition, _roam);
+        _toChase = new Transition("Transition to Chase", ChaseCondition, _chase);
+        _toIdle = new Transition("Transition to Idle", IdleCondition, _idle);
     }
 }

@@ -11,12 +11,12 @@ public class StateMachine
     [SerializeField]
     private List<State> _states;
     [SerializeField]
-    private List<AnyTransition> _anyTransitions;
+    private List<Transition> _anyTransitions;
 
     private State _targetState;
 
     public List<State> States => _states;
-    public List<AnyTransition> AnyTransitions => _anyTransitions;
+    public List<Transition> AnyTransitions => _anyTransitions;
     public State CurrentState => _currentState;
 
     public StateMachine(State initialState)
@@ -28,16 +28,16 @@ public class StateMachine
         _currentState = initialState;
     }
 
+    public void OnFixedUpdate()
+    {
+        _currentState.OnFixedUpdate();
+    }
+
     public void OnUpdate()
     {
         SwitchState();
 
         _currentState.OnUpdate();
-    }
-
-    public void OnFixedUpdate()
-    {
-        _currentState.OnFixedUpdate();
     }
 
     public void OnLateUpdate()
@@ -55,7 +55,7 @@ public class StateMachine
 
     private State GetTargetState()
     {
-        foreach (AnyTransition transition in _anyTransitions)
+        foreach (Transition transition in _anyTransitions)
         {
             if (transition.Condition() == true)
                 return transition.TargetState;
@@ -85,14 +85,14 @@ public class StateMachine
             _states.Add(state);
     }
 
-    public void AddAnyTransition(AnyTransition transition)
+    public void AddAnyTransition(Transition transition)
     {
         if (!_anyTransitions.Contains(transition))
             _anyTransitions.Add(transition);
     }
 
-    //public void SetCurrentState(State state)
-    //{
-    //   _currentState = state;
-    //}
+    public void SetCurrentState(State state)
+    {
+        _currentState = state;
+    }
 }

@@ -19,7 +19,7 @@ public class PlayerTargetProvider : TargetProvider
     private float _searchRadius = 10f;
     [SerializeField]
     private int _maxTargetsToSearch = 5;
-    
+
     private int _numTargetsFound = 0;
     private SphereCollider _sphereCollider;
     private Collider[] _allTargetsInSearchRadius;
@@ -31,7 +31,7 @@ public class PlayerTargetProvider : TargetProvider
     private void Awake()
     {
         _allTargetsInSearchRadius = new Collider[_maxTargetsToSearch];
-        _closestPlayers = new ();
+        _closestPlayers = new();
         _tempNavMeshPath = new NavMeshPath();
 
         _sphereCollider = GetComponent<SphereCollider>();

@@ -9,6 +9,8 @@ public class Wolf : AIEnemy
     private TargetProvider _targetProvider;
     [SerializeField]
     private float _idleTime = 10f;
+    [SerializeField]
+    private float _roamRadius = 10f;
 
     private LineOfSightChecker _lineOfSightChecker;
     
@@ -78,7 +80,7 @@ public class Wolf : AIEnemy
     private void InitializeStates()
     {
         _idle = new IdleState(this, _idleTime);
-        _roam = new RoamState(this);
+        _roam = new RoamState(this, _roamRadius);
         _chase = new ChaseState(this, _targetProvider);
     }
 

@@ -4,7 +4,7 @@ using UnityEngine.AI;
 
 [DisallowMultipleComponent]
 [RequireComponent(typeof(SphereCollider))]
-public class PlayerTargetProvider : TargetProvider
+public sealed class PlayerTargetProvider : TargetProvider
 {
     [Header("References")]
     [SerializeField]

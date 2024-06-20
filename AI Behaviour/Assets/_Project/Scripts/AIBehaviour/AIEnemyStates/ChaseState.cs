@@ -1,6 +1,6 @@
 
 //[CreateAssetMenu(fileName = "ChaseState", menuName = "AI/States/ChaseState")]
-public class ChaseState : AIEnemyState
+public sealed class ChaseState : AIEnemyState
 {
     public ChaseState(AIEnemy entity, TargetProvider targetProvider) : base(entity, targetProvider)
     {

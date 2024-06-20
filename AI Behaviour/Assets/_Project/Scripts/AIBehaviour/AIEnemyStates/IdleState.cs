@@ -2,13 +2,25 @@ using System;
 using UnityEngine;
 
 //[CreateAssetMenu(fileName = "IdleState", menuName = "AI/States/IdleState")]
-public class IdleState : AIEnemyState
+public sealed class IdleState : AIEnemyState
 {
     public event Action<bool> IdleTimeIsUp;
 
+    private bool _timeIsUp;
     private float _timer, _idleTime;
 
-    public bool TimeIsUp { get; private set; }
+    public bool TimeIsUp
+    {
+        get => _timeIsUp;
+        private set
+        {
+            if (_timeIsUp != value)
+            {
+                _timeIsUp = value;
+                IdleTimeIsUp?.Invoke(_timeIsUp);
+            }
+        }
+    }
 
     public IdleState(AIEnemy entity, float idleTime) : base(entity, null)
     {
@@ -18,10 +30,9 @@ public class IdleState : AIEnemyState
 
     public override void OnEnter()
     {
-        _timer = _idleTime; 
-        TimeIsUp = false;
-        IdleTimeIsUp?.Invoke(false);
         AIEnemy.AutonomousMover.NavMeshAgent.isStopped = true;
+        _timer = _idleTime;
+        TimeIsUp = false;
     }
 
     public override void OnUpdate()
@@ -29,14 +40,11 @@ public class IdleState : AIEnemyState
         _timer -= Time.deltaTime;
 
         if (_timer <= 0)
-        {
             TimeIsUp = true;
-            IdleTimeIsUp?.Invoke(true);
-        }
     }
 
     public override void OnExit()
     {
-        
+
     }
 }

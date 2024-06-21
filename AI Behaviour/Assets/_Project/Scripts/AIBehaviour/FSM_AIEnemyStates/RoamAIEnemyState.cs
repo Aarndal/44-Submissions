@@ -1,0 +1,42 @@
+﻿using UnityEngine;
+using UnityEngine.AI;
+
+//[CreateAssetMenu(fileName = "RoamState", menuName = "AI/States/RoamState")]
+public sealed class RoamAIEnemyState : AIEnemyState
+{
+    public float Radius { get; private set; }
+
+    public RoamAIEnemyState(AIEnemy entity, float radius) : base(entity, null)
+    {
+        Radius = radius;
+    }
+
+    public override void OnEnter()
+    {
+        AIEnemy.AutonomousMover.NavMeshAgent.enabled = true;
+        AIEnemy.AutonomousMover.NavMeshAgent.isStopped = false;
+        AIEnemy.AutonomousMover.NavMeshAgent.SetDestination(GenerateRandomWaypoint());
+    }
+
+    public override void OnFixedUpdate()
+    {
+        if (AIEnemy.transform.position == AIEnemy.AutonomousMover.NavMeshAgent.pathEndPosition)
+            AIEnemy.AutonomousMover.NavMeshAgent.SetDestination(GenerateRandomWaypoint());
+    }
+
+    public override void OnExit()
+    {
+
+    }
+
+    private Vector3 GenerateRandomWaypoint()
+    {
+        Vector2 rndPosInsideCircle = UnityEngine.Random.insideUnitCircle * Radius;
+        Vector3 rndPos = AIEnemy.AutonomousMover.CurrentPosition + new Vector3(rndPosInsideCircle.x, 0, rndPosInsideCircle.y);
+
+        if (NavMesh.SamplePosition(rndPos, out NavMeshHit hit, float.PositiveInfinity, NavMesh.AllAreas))
+            return hit.position;
+
+        return Vector3.zero;
+    }
+}

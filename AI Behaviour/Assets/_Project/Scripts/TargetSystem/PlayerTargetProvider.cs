@@ -6,6 +6,8 @@ using UnityEngine.AI;
 [RequireComponent(typeof(SphereCollider))]
 public sealed class PlayerTargetProvider : TargetProvider
 {
+    //To-DO: PreyTargetProvider -> LayerMask for Preys => Prioritization with Tags (Player, Bait,...)
+
     [Header("References")]
     [SerializeField]
     private NavMeshMovement _autonomousMover;

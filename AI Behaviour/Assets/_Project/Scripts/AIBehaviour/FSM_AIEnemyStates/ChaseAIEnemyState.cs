@@ -1,3 +1,5 @@
+using System.Collections;
+using UnityEngine;
 
 //[CreateAssetMenu(fileName = "ChaseState", menuName = "AI/States/ChaseState")]
 public sealed class ChaseAIEnemyState : AIEnemyState
@@ -8,12 +10,17 @@ public sealed class ChaseAIEnemyState : AIEnemyState
 
     public override void OnEnter()
     {
+        AIEnemy.Animator.Play("Base Layer.Howl");
         AIEnemy.AutonomousMover.NavMeshAgent.enabled = true;
         AIEnemy.AutonomousMover.NavMeshAgent.isStopped = false;
+        AIEnemy.AutonomousMover.NavMeshAgent.speed = 5.0f;
     }
 
     public override void OnUpdate()
     {
-        AIEnemy.AutonomousMover.MoveTo(TargetProvider);
+        AIEnemy.Animator.SetBool("HasHowled", true);
+
+        if (AIEnemy.Animator.GetCurrentAnimatorStateInfo(0).IsName("Base Layer.Run"))
+            AIEnemy.AutonomousMover.MoveTo(TargetProvider);
     }
 }

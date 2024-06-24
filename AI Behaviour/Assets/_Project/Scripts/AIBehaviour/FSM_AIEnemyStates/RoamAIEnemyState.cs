@@ -15,6 +15,7 @@ public sealed class RoamAIEnemyState : AIEnemyState
     {
         AIEnemy.AutonomousMover.NavMeshAgent.enabled = true;
         AIEnemy.AutonomousMover.NavMeshAgent.isStopped = false;
+        AIEnemy.AutonomousMover.NavMeshAgent.speed = 2.0f;
         AIEnemy.AutonomousMover.NavMeshAgent.SetDestination(GenerateRandomWaypoint());
     }
 
@@ -22,6 +23,11 @@ public sealed class RoamAIEnemyState : AIEnemyState
     {
         if (AIEnemy.transform.position == AIEnemy.AutonomousMover.NavMeshAgent.pathEndPosition)
             AIEnemy.AutonomousMover.NavMeshAgent.SetDestination(GenerateRandomWaypoint());
+    }
+
+    public override void OnUpdate()
+    {
+        AIEnemy.Animator.Play("Base Layer.Walk");
     }
 
     public override void OnExit()
@@ -32,7 +38,7 @@ public sealed class RoamAIEnemyState : AIEnemyState
     private Vector3 GenerateRandomWaypoint()
     {
         Vector2 rndPosInsideCircle = UnityEngine.Random.insideUnitCircle * Radius;
-        Vector3 rndPos = AIEnemy.AutonomousMover.CurrentPosition + new Vector3(rndPosInsideCircle.x, 0, rndPosInsideCircle.y);
+        Vector3 rndPos = AIEnemy.AutonomousMover.InitialPosition + new Vector3(rndPosInsideCircle.x, 0, rndPosInsideCircle.y);
 
         if (NavMesh.SamplePosition(rndPos, out NavMeshHit hit, float.PositiveInfinity, NavMesh.AllAreas))
             return hit.position;

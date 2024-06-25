@@ -10,10 +10,9 @@ public sealed class ChaseAIEnemyState : AIEnemyState
 
     public override void OnEnter()
     {
-        AIEnemy.Animator.Play("Base Layer.Howl");
-        AIEnemy.AutonomousMover.NavMeshAgent.enabled = true;
         AIEnemy.AutonomousMover.NavMeshAgent.isStopped = false;
         AIEnemy.AutonomousMover.NavMeshAgent.speed = 5.0f;
+        AIEnemy.Animator.Play("Base Layer.Howl");
     }
 
     public override void OnUpdate()

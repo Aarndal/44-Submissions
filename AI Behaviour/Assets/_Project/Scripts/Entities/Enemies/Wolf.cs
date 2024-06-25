@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class Wolf : FastFightingAIEnemy
 {
-    public Func<bool> RoamCondition, IdleCondition, ChaseCondition, AttackCondition;
+    public Func<bool> RoamCondition, IdleCondition, ChaseCondition, AttackCondition, CircleCondition;
 
     [SerializeField]
     private RandomWayPointTargetProvider _wayPointProvider;
@@ -14,20 +14,22 @@ public class Wolf : FastFightingAIEnemy
 
     [Header("Variables")]
     [SerializeField]
-    private float _idleTime = 10f;
+    private float _idleTime = 5f;
     [SerializeField]
     private float _roamRadius = 20f;
+    [SerializeField]
+    private float _attackRange = 2f;
 
-    
+
     private StateMachine _myFSM;
     private IdleAIEnemyState _idle;
-    private State _roam, _chase, _attack;
-    private Transition _toRoam, _toChase, _toIdle, _toAttack;
+    private State _roam, _chase, _attack, _circle;
+    private Transition _toRoam, _toChase, _toIdle, _toAttack, _toCircle;
 
     protected override void Awake()
     {
         base.Awake();
-        
+
         InitializeStates();
         InitializeConditions();
         InitializeTransitions();
@@ -43,23 +45,28 @@ public class Wolf : FastFightingAIEnemy
 
         _roam.AddTransition(_toChase);
 
+        _chase.AddTransition(_toIdle);
         _chase.AddTransition(_toAttack);
 
-        _attack.AddTransition(_toIdle);
         _attack.AddTransition(_toChase);
+        _attack.AddTransition(_toCircle);
+
+        _circle.AddTransition(_toChase);
+        _circle.AddTransition(_toAttack);
     }
 
-    //private void OnEnable()
-    //{
-    //    _idle.IdleTimeIsUp += OnIdleTimeIsUp;
-    //    _playerTargetProvider.PlayerInSight += OnPlayerInSight;
-    //}
+    private void OnEnable()
+    {
+        //    _idle.IdleTimeIsUp += OnIdleTimeIsUp;
+        //    _playerTargetProvider.PlayerInSight += OnPlayerInSight;
+    }
 
     private void Start()
     {
+        AutonomousMover.NavMeshAgent.enabled = true;
         Debug.LogWarning("Start State: " + _myFSM.CurrentState);
     }
-    
+
     private void FixedUpdate()
     {
         _myFSM.OnFixedUpdate();
@@ -75,11 +82,11 @@ public class Wolf : FastFightingAIEnemy
         _myFSM.OnLateUpdate();
     }
 
-    //private void OnDisable()
-    //{
-    //    _playerTargetProvider.PlayerInSight -= OnPlayerInSight;
-    //    _idle.IdleTimeIsUp -= OnIdleTimeIsUp;
-    //}
+    private void OnDisable()
+    {
+        //    _playerTargetProvider.PlayerInSight -= OnPlayerInSight;
+        //    _idle.IdleTimeIsUp -= OnIdleTimeIsUp;
+    }
 
     //private void OnIdleTimeIsUp(bool ctx) => _toRoam.Condition = () => ctx;
     //private void OnPlayerInSight(bool ctx) => _toChase.Condition = () => ctx;
@@ -90,14 +97,17 @@ public class Wolf : FastFightingAIEnemy
         _roam = new RoamAIEnemyState(this, _roamRadius);
         _chase = new ChaseAIEnemyState(this, _playerProvider);
         _attack = new AttackAIEnemyState(this, _playerProvider);
+        _circle = new CircleAIEnemyState(this, _playerProvider);
     }
 
     private void InitializeConditions()
     {
         IdleCondition = () => !_lineOfSightChecker.TargetInSight;
         RoamCondition = () => _idle.TimeIsUp;
-        ChaseCondition = () => _lineOfSightChecker.TargetInSight && _playerProvider.HasTarget;
-        AttackCondition = () => false;
+        ChaseCondition = () => _lineOfSightChecker.TargetInSight && (_playerProvider.Target.position - this.transform.position).sqrMagnitude > _attackRange * _attackRange;
+        //To-Do: Auslagerung in Methode innerhalb von TargetProvider.
+        AttackCondition = () => _lineOfSightChecker.TargetInSight && (_playerProvider.Target.position - this.transform.position).sqrMagnitude <= _attackRange * _attackRange;
+        CircleCondition = () => false;
     }
 
     private void InitializeTransitions()
@@ -106,5 +116,6 @@ public class Wolf : FastFightingAIEnemy
         _toRoam = new Transition("Transition to Roam", RoamCondition, _roam);
         _toChase = new Transition("Transition to Chase", ChaseCondition, _chase);
         _toAttack = new Transition("Transition to Attack", AttackCondition, _attack);
+        _toCircle = new Transition("Transition to Circle", CircleCondition, _circle);
     }
 }

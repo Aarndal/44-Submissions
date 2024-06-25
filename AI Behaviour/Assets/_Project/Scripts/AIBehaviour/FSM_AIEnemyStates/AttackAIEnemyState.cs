@@ -3,6 +3,7 @@
 public class AttackAIEnemyState : AIEnemyState
 {
     float _prevMinDistance;
+    bool _hasAttacked;
 
     public AttackAIEnemyState(AIEnemy entity, TargetProvider targetProvider) : base(entity, targetProvider)
     {
@@ -11,9 +12,15 @@ public class AttackAIEnemyState : AIEnemyState
     public override void OnEnter()
     {
         _prevMinDistance = AIEnemy.AutonomousMover.MinDistanceToTarget;
-        AIEnemy.AutonomousMover.MinDistanceToTarget = 0.0f;
+
+        AIEnemy.AutonomousMover.NavMeshAgent.isStopped = false;
+        AIEnemy.AutonomousMover.MinDistanceToTarget = 2.0f;
+    }
+
+    public override void OnUpdate()
+    {
         AIEnemy.Animator.Play("Base Layer.Attack01");
-        //AIEnemy.AutonomousMover.MoveTo(TargetProvider);
+        AIEnemy.AutonomousMover.MoveTo(TargetProvider);
     }
 
     public override void OnExit()

@@ -1,8 +1,10 @@
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 public class FightingAIEnemy : AIEnemy, ICanAttack, ICanDie
 {
+    public event Action<ICanAttack, IAmDamageable> HasAttacked;
+
     [SerializeField]
     private Weapon _weapon;
 
@@ -14,7 +16,10 @@ public class FightingAIEnemy : AIEnemy, ICanAttack, ICanDie
             return;
 
         if (collision.CompareTag("Player"))
+        {
             Attack(target);
+            HasAttacked?.Invoke(this, target);
+        }
     }
 
     public virtual void Attack(IAmDamageable target)

@@ -7,7 +7,7 @@ public sealed class NavMeshMovement : MonoBehaviour, IAmAutonomousMovable
 {
     public NavMeshAgent NavMeshAgent { get; private set; }
 
-    public bool ReachedTarget { get; private set; }
+    public bool ReachedTarget => DistanceToTarget <= MinDistanceToTarget;
 
     public float DistanceToTarget => NavMeshAgent.remainingDistance;
 
@@ -25,15 +25,16 @@ public sealed class NavMeshMovement : MonoBehaviour, IAmAutonomousMovable
 
     public void MoveTo(TargetProvider targetProvider)
     {
-        //if (!targetProvider.HasTarget)
-        //    NavMeshAgent.isStopped = true;
+        if (!targetProvider.HasTarget)
+        {
+            //NavMeshAgent.isStopped = true;
+            Debug.Log($"{gameObject.name} has no target");
+        }
 
         if (targetProvider.HasTarget)
         {
-            NavMeshAgent.isStopped = false;
+            //NavMeshAgent.isStopped = false;
             NavMeshAgent.SetDestination(targetProvider.Target.position);
-
-            ReachedTarget = DistanceToTarget <= MinDistanceToTarget;
         }
     }
 }

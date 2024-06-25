@@ -66,7 +66,7 @@ public class LineOfSightChecker : MonoBehaviour
         float dotProduct = Vector3.Dot(this.transform.forward, ray.direction);
 
         if (dotProduct >= Mathf.Cos(Mathf.Deg2Rad * _fieldOfView / 2))
-            if (Physics.Raycast(ray.origin, ray.direction, out RaycastHit hit, _visionRange))
+            if (Physics.Raycast(ray.origin, ray.direction, out RaycastHit hit, _visionRange, ~this.gameObject.layer, QueryTriggerInteraction.Ignore))
             {
                 LayerMask layerMask = 1 << hit.collider.gameObject.layer;
                 if ((_targetedLayerMask & layerMask) != 0)

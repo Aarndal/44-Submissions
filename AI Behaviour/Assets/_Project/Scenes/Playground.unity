@@ -960,8 +960,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2983246500891272054, guid: f04d45b4accecb04e83e19824544d181,
         type: 3}
+      propertyPath: m_AutoRepath
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2983246500891272054, guid: f04d45b4accecb04e83e19824544d181,
+        type: 3}
       propertyPath: m_StoppingDistance
-      value: 3
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8362288680501008987, guid: f04d45b4accecb04e83e19824544d181,
+        type: 3}
+      propertyPath: _attackRange
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

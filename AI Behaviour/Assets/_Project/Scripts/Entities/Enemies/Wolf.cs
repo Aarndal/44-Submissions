@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class Wolf : FastFightingAIEnemy
 {
-    public Func<bool> RoamCondition, IdleCondition, ChaseCondition, AttackCondition, CircleCondition;
+    public Func<bool> RoamCondition, IdleCondition, ChaseCondition, AttackCondition, CircleCondition, FleeCondition;
 
     [SerializeField]
     private RandomWayPointTargetProvider _wayPointProvider;
@@ -23,8 +23,8 @@ public class Wolf : FastFightingAIEnemy
 
     private StateMachine _myFSM;
     private IdleAIEnemyState _idle;
-    private State _roam, _chase, _attack, _circle;
-    private Transition _toRoam, _toChase, _toIdle, _toAttack, _toCircle;
+    private State _roam, _chase, _attack, _circle, _flee;
+    private Transition _toRoam, _toChase, _toIdle, _toAttack, _toCircle, _toFlee;
 
     protected override void Awake()
     {
@@ -35,24 +35,28 @@ public class Wolf : FastFightingAIEnemy
         InitializeTransitions();
 
         _myFSM = new(_idle);
-
-        _myFSM.AddState(_roam);
-        _myFSM.AddState(_chase);
-        _myFSM.AddState(_attack);
-
         _idle.AddTransition(_toRoam);
         _idle.AddTransition(_toChase);
 
+        _myFSM.AddState(_roam);
         _roam.AddTransition(_toChase);
 
+        _myFSM.AddState(_chase);
         _chase.AddTransition(_toIdle);
         _chase.AddTransition(_toAttack);
+        _chase.AddTransition(_toCircle);
 
+        _myFSM.AddState(_attack);
         _attack.AddTransition(_toChase);
         _attack.AddTransition(_toCircle);
 
+        _myFSM.AddState(_circle);
         _circle.AddTransition(_toChase);
         _circle.AddTransition(_toAttack);
+
+        _myFSM.AddState(_flee);
+        _myFSM.AddAnyTransition(_toFlee);
+        _flee.AddTransition(_toIdle);
     }
 
     private void OnEnable()
@@ -64,7 +68,9 @@ public class Wolf : FastFightingAIEnemy
     private void Start()
     {
         AutonomousMover.NavMeshAgent.enabled = true;
+        AutonomousMover.NavMeshAgent.stoppingDistance = _attackRange - 1.0f >= 0.5f ? _attackRange - 1.0f : _attackRange;
         Debug.LogWarning("Start State: " + _myFSM.CurrentState);
+
     }
 
     private void FixedUpdate()
@@ -98,16 +104,20 @@ public class Wolf : FastFightingAIEnemy
         _chase = new ChaseAIEnemyState(this, _playerProvider);
         _attack = new AttackAIEnemyState(this, _playerProvider);
         _circle = new CircleAIEnemyState(this, _playerProvider);
+        _flee = new FleeAIEnemyState(this, _playerProvider);
     }
 
     private void InitializeConditions()
     {
-        IdleCondition = () => !_lineOfSightChecker.TargetInSight;
+        IdleCondition = () =>
+        _myFSM.CurrentState == _chase && !_lineOfSightChecker.TargetInSight ||
+        _myFSM.CurrentState == _flee && _playerProvider.SqrDistanceToTarget >= 100f;
+
         RoamCondition = () => _idle.TimeIsUp;
-        ChaseCondition = () => _lineOfSightChecker.TargetInSight && (_playerProvider.Target.position - this.transform.position).sqrMagnitude > _attackRange * _attackRange;
-        //To-Do: Auslagerung in Methode innerhalb von TargetProvider.
-        AttackCondition = () => _lineOfSightChecker.TargetInSight && (_playerProvider.Target.position - this.transform.position).sqrMagnitude <= _attackRange * _attackRange;
-        CircleCondition = () => false;
+        ChaseCondition = () => _lineOfSightChecker.TargetInSight && _playerProvider.SqrDistanceToTarget > _attackRange * _attackRange && _myFSM.CurrentState != _circle;
+        AttackCondition = () => _playerProvider.SqrDistanceToTarget <= _attackRange * _attackRange && TargetIsFleeing();
+        CircleCondition = () => _playerProvider.SqrDistanceToTarget <= _attackRange * _attackRange && !TargetIsFleeing();
+        FleeCondition = () => false;
     }
 
     private void InitializeTransitions()
@@ -117,5 +127,22 @@ public class Wolf : FastFightingAIEnemy
         _toChase = new Transition("Transition to Chase", ChaseCondition, _chase);
         _toAttack = new Transition("Transition to Attack", AttackCondition, _attack);
         _toCircle = new Transition("Transition to Circle", CircleCondition, _circle);
+        _toFlee = new Transition("Transition to Flee", FleeCondition, _flee);
+    }
+
+    private bool TargetIsFleeing()
+    {
+        if (_playerProvider.HasTarget)
+        {
+            if (_playerProvider.Target.TryGetComponent<CharacterController>(out CharacterController playerCharacterController))
+                if (playerCharacterController.velocity.sqrMagnitude >= 20.0f)
+                    return true;
+
+            if (_playerProvider.Target.TryGetComponent<Rigidbody>(out Rigidbody playerRigidbody))
+                if (playerRigidbody.velocity.sqrMagnitude >= 20.0f)
+                    return true;
+        }
+
+        return false;
     }
 }

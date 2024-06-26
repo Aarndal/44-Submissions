@@ -6,7 +6,7 @@ using UnityEngine.AI;
 [RequireComponent(typeof(SphereCollider))]
 public sealed class PlayerTargetProvider : TargetProvider
 {
-    //To-DO: PreyTargetProvider -> LayerMask for Preys => Prioritization with Tags (Player, Bait,...)
+    //To-DO: PreyTargetProvider => Prioritization with Tags (Player, Bait,...)
 
     [Header("References")]
     [SerializeField]
@@ -46,20 +46,13 @@ public sealed class PlayerTargetProvider : TargetProvider
     }
 
     private void OnTriggerEnter(Collider other)
-    {
-        GetTarget();
-    }
+        => GetTarget();
 
     private void OnTriggerExit(Collider other)
-    {
-        GetTarget();
-    }
+        => GetTarget();
 
     public override Transform GetTarget()
-    {
-        Target = FindClosestPlayer();
-        return Target;
-    }
+        => Target = FindClosestPlayer();
 
     private Transform FindClosestPlayer()
     {

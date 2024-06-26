@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.Events;
 
 /// <summary>
-/// Responsible for player health management.
+/// Responsible for health management.
 /// </summary>
 public abstract class Health : MonoBehaviour
 {

@@ -15,11 +15,14 @@ public sealed class ChaseAIEnemyState : AIEnemyState
         AIEnemy.Animator.Play("Base Layer.Howl");
     }
 
+    public override void OnFixedUpdate()
+    {
+        if (AIEnemy.Animator.GetCurrentAnimatorStateInfo(0).IsName("Base Layer.Run"))
+            AIEnemy.AutonomousMover.MoveTo(TargetProvider);
+    }
+
     public override void OnUpdate()
     {
         AIEnemy.Animator.SetBool("HasHowled", true);
-
-        if (AIEnemy.Animator.GetCurrentAnimatorStateInfo(0).IsName("Base Layer.Run"))
-            AIEnemy.AutonomousMover.MoveTo(TargetProvider);
     }
 }

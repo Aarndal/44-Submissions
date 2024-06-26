@@ -13,14 +13,18 @@ public class AttackAIEnemyState : AIEnemyState
     {
         _prevMinDistance = AIEnemy.AutonomousMover.MinDistanceToTarget;
 
-        AIEnemy.AutonomousMover.NavMeshAgent.isStopped = false;
-        AIEnemy.AutonomousMover.MinDistanceToTarget = 2.0f;
+        AIEnemy.AutonomousMover.NavMeshAgent.isStopped = true;
+        AIEnemy.AutonomousMover.MinDistanceToTarget = 1.5f;
+    }
+
+    public override void OnFixedUpdate()
+    {
+        AIEnemy.AutonomousMover.MoveTo(TargetProvider);
     }
 
     public override void OnUpdate()
     {
         AIEnemy.Animator.Play("Base Layer.Attack01");
-        AIEnemy.AutonomousMover.MoveTo(TargetProvider);
     }
 
     public override void OnExit()

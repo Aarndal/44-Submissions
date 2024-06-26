@@ -29,11 +29,6 @@ public sealed class RoamAIEnemyState : AIEnemyState
         AIEnemy.Animator.Play("Base Layer.Walk");
     }
 
-    public override void OnExit()
-    {
-
-    }
-
     private Vector3 GenerateRandomWaypoint()
     {
         Vector2 rndPosInsideCircle = UnityEngine.Random.insideUnitCircle * Radius;

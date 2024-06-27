@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
@@ -30,6 +31,8 @@ public sealed class PlayerTargetProvider : TargetProvider
 
     public float SearchRadius => _searchRadius;
 
+    public bool TargetIsFleeing { get; private set; }
+
     private void Awake()
     {
         _allTargetsInSearchRadius = new Collider[_maxTargetsToSearch];
@@ -46,10 +49,18 @@ public sealed class PlayerTargetProvider : TargetProvider
     }
 
     private void OnTriggerEnter(Collider other)
-        => GetTarget();
+    {
+        GetTarget();
+    }
 
     private void OnTriggerExit(Collider other)
         => GetTarget();
+
+    private void Update()
+    {
+        if (HasTarget)
+            TargetIsFleeing = IsTargetFleeingCheck();
+    }
 
     public override Transform GetTarget()
         => Target = FindClosestPlayer();
@@ -90,5 +101,20 @@ public sealed class PlayerTargetProvider : TargetProvider
         }
 
         return closestPlayer;
+    }
+
+    private bool IsTargetFleeingCheck()
+    {
+        if (Target.TryGetComponent<CharacterController>(out CharacterController playerCharacterController))
+            if (playerCharacterController.velocity.sqrMagnitude >= 20.0f)
+                return true;
+            else return false;
+
+        if (Target.TryGetComponent<Rigidbody>(out Rigidbody playerRigidbody))
+            if (playerRigidbody.velocity.sqrMagnitude >= 20.0f)
+                return true;
+            else return false;
+
+        throw new ArgumentNullException($"{Target.name} has neither CharacterController nor Rigidbody.");
     }
 }

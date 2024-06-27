@@ -1,4 +1,5 @@
 using System;
+using System.Threading;
 using UnityEngine;
 
 public class LineOfSightChecker : MonoBehaviour
@@ -18,7 +19,9 @@ public class LineOfSightChecker : MonoBehaviour
     [SerializeField]
     private float _visionRange = 10f;
 
-    private bool _targetInSight;
+    private bool _targetInSight = false;
+    //private float _timer = 0.0f;
+    //private float _searchTime = 5.0f;
 
     public bool TargetInSight
     {
@@ -44,10 +47,22 @@ public class LineOfSightChecker : MonoBehaviour
             throw new ArgumentNullException("Target Provider is not set.");
     }
 
+    //To-DO: Turn LingOfSightObject with Target when TargetInSight
+
     private void Update()
     {
         if (!_targetProvider.HasTarget)
+        {
+            //_timer += Time.deltaTime;
+            //if (_timer >= _searchTime)
+            //{
+            //    TargetInSight = false;
+            //    _searchTime = UnityEngine.Random.Range(5f, 10f);
+            //    _timer = 0.0f;
+            //}
+
             TargetInSight = false;
+        }
         else
         {
             Ray ray = new()
@@ -55,7 +70,23 @@ public class LineOfSightChecker : MonoBehaviour
                 origin = transform.position,
                 direction = (_targetProvider.Target.position - this.transform.position).normalized,
             };
+
             TargetInSight = CheckLineOfSight(ray);
+
+            //if (!CheckLineOfSight(ray))
+            //{
+                //Debug.Log(_timer + " | " + _searchTime);
+
+                //_timer += Time.deltaTime;
+                //if (_timer >= _searchTime)
+                //{
+                //    TargetInSight = false;
+                //    _searchTime = UnityEngine.Random.Range(5f, 10f);
+                //    _timer = 0.0f;
+                //}
+            //}
+            //else
+            //    TargetInSight = true;
 
             Debug.DrawRay(ray.origin, ray.direction * _visionRange, TargetInSight ? Color.green : Color.red);
         }

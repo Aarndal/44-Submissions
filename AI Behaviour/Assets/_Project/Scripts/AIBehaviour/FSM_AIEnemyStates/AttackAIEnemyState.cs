@@ -14,7 +14,9 @@ public class AttackAIEnemyState : AIEnemyState
         _prevMinDistance = AIEnemy.AutonomousMover.MinDistanceToTarget;
 
         AIEnemy.AutonomousMover.NavMeshAgent.isStopped = true;
-        AIEnemy.AutonomousMover.MinDistanceToTarget = 1.5f;
+        AIEnemy.AutonomousMover.NavMeshAgent.ResetPath();
+
+        AIEnemy.AutonomousMover.MinDistanceToTarget = 0.1f;
     }
 
     public override void OnFixedUpdate()

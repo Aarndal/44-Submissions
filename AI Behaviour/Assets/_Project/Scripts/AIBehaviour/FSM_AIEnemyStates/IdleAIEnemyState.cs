@@ -31,6 +31,8 @@ public sealed class IdleAIEnemyState : AIEnemyState
     public override void OnEnter()
     {
         AIEnemy.AutonomousMover.NavMeshAgent.isStopped = true;
+        AIEnemy.AutonomousMover.NavMeshAgent.ResetPath();
+
         _timer = _idleTime;
         TimeIsUp = false;
         AIEnemy.Animator.Play("Base Layer.Idle");

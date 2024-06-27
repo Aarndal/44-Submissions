@@ -14,6 +14,8 @@ public sealed class RoamAIEnemyState : AIEnemyState
     public override void OnEnter()
     {
         AIEnemy.AutonomousMover.NavMeshAgent.isStopped = false;
+        AIEnemy.AutonomousMover.NavMeshAgent.ResetPath();
+
         AIEnemy.AutonomousMover.NavMeshAgent.speed = 2.0f;
         AIEnemy.AutonomousMover.NavMeshAgent.SetDestination(GenerateRandomWaypoint());
     }

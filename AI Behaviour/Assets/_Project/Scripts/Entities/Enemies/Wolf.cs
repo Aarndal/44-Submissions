@@ -17,13 +17,16 @@ public class Wolf : FastFightingAIEnemy
     private float _idleTime = 5f;
     [SerializeField]
     private float _roamRadius = 20f;
+    [SerializeField, Range(2.0f, 5.0f)]
+    private float _attackRange = 4.0f;
     [SerializeField]
-    private float _attackRange = 2f;
-
+    private float _fleeDistance = 100f;
 
     private StateMachine _myFSM;
     private IdleAIEnemyState _idle;
-    private State _roam, _chase, _attack, _circle, _flee;
+    private ChaseAIEnemyState _chase;
+    private FleeAIEnemyState _flee;
+    private State _roam, _attack, _circle;
     private Transition _toRoam, _toChase, _toIdle, _toAttack, _toCircle, _toFlee;
 
     protected override void Awake()
@@ -68,9 +71,12 @@ public class Wolf : FastFightingAIEnemy
     private void Start()
     {
         AutonomousMover.NavMeshAgent.enabled = true;
-        AutonomousMover.NavMeshAgent.stoppingDistance = _attackRange - 1.0f >= 0.5f ? _attackRange - 1.0f : _attackRange;
-        Debug.LogWarning("Start State: " + _myFSM.CurrentState);
 
+        AutonomousMover.MinDistanceToTarget = AutonomousMover.MinDistanceToTarget >= _attackRange ? _attackRange - 0.1f : AutonomousMover.MinDistanceToTarget;
+
+        _flee.FleeDistance = _fleeDistance;
+
+        Debug.LogWarning("Start State: " + _myFSM.CurrentState);
     }
 
     private void FixedUpdate()
@@ -101,7 +107,7 @@ public class Wolf : FastFightingAIEnemy
     {
         _idle = new IdleAIEnemyState(this, _idleTime);
         _roam = new RoamAIEnemyState(this, _roamRadius);
-        _chase = new ChaseAIEnemyState(this, _playerProvider);
+        _chase = new ChaseAIEnemyState(this, _playerProvider, _lineOfSightChecker);
         _attack = new AttackAIEnemyState(this, _playerProvider);
         _circle = new CircleAIEnemyState(this, _playerProvider);
         _flee = new FleeAIEnemyState(this, _playerProvider);
@@ -111,12 +117,14 @@ public class Wolf : FastFightingAIEnemy
     {
         IdleCondition = () =>
         _myFSM.CurrentState == _chase && !_lineOfSightChecker.TargetInSight ||
-        _myFSM.CurrentState == _flee && _playerProvider.SqrDistanceToTarget >= 100f;
+        _myFSM.CurrentState == _flee && _playerProvider.SqrDistanceToTarget >= _flee.FleeDistance * _flee.FleeDistance;
 
         RoamCondition = () => _idle.TimeIsUp;
-        ChaseCondition = () => _lineOfSightChecker.TargetInSight && _playerProvider.SqrDistanceToTarget > _attackRange * _attackRange && _myFSM.CurrentState != _circle;
-        AttackCondition = () => _playerProvider.SqrDistanceToTarget <= _attackRange * _attackRange && TargetIsFleeing();
-        CircleCondition = () => _playerProvider.SqrDistanceToTarget <= _attackRange * _attackRange && !TargetIsFleeing();
+
+        ChaseCondition = () => (_lineOfSightChecker.TargetInSight || _myFSM.CurrentState == _circle || _myFSM.CurrentState == _attack) && _playerProvider.SqrDistanceToTarget > _attackRange * _attackRange;
+
+        AttackCondition = () => (_lineOfSightChecker.TargetInSight || _playerProvider.HasTarget) && _playerProvider.SqrDistanceToTarget <= _attackRange * _attackRange && _playerProvider.TargetIsFleeing;
+        CircleCondition = () => (_lineOfSightChecker.TargetInSight || _playerProvider.HasTarget) && _playerProvider.SqrDistanceToTarget <= _attackRange * _attackRange && !_playerProvider.TargetIsFleeing;
         FleeCondition = () => false;
     }
 
@@ -128,21 +136,5 @@ public class Wolf : FastFightingAIEnemy
         _toAttack = new Transition("Transition to Attack", AttackCondition, _attack);
         _toCircle = new Transition("Transition to Circle", CircleCondition, _circle);
         _toFlee = new Transition("Transition to Flee", FleeCondition, _flee);
-    }
-
-    private bool TargetIsFleeing()
-    {
-        if (_playerProvider.HasTarget)
-        {
-            if (_playerProvider.Target.TryGetComponent<CharacterController>(out CharacterController playerCharacterController))
-                if (playerCharacterController.velocity.sqrMagnitude >= 20.0f)
-                    return true;
-
-            if (_playerProvider.Target.TryGetComponent<Rigidbody>(out Rigidbody playerRigidbody))
-                if (playerRigidbody.velocity.sqrMagnitude >= 20.0f)
-                    return true;
-        }
-
-        return false;
     }
 }

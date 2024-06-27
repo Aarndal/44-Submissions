@@ -1,11 +1,12 @@
-
-
-using System;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class FleeAIEnemyState : AIEnemyState
 {
+    private float _fleeDistance = 100f;
+    
+    public float FleeDistance { get => _fleeDistance; set => _fleeDistance = value; }
+
     public FleeAIEnemyState(AIEnemy entity, TargetProvider targetProvider) : base(entity, targetProvider)
     {
     }
@@ -13,6 +14,8 @@ public class FleeAIEnemyState : AIEnemyState
     public override void OnEnter()
     {
         AIEnemy.AutonomousMover.NavMeshAgent.isStopped = false;
+        AIEnemy.AutonomousMover.NavMeshAgent.ResetPath();
+
         AIEnemy.AutonomousMover.NavMeshAgent.speed = 5.0f;
         AIEnemy.AutonomousMover.NavMeshAgent.SetDestination(GenerateRandomWaypoint());
     }
@@ -30,7 +33,7 @@ public class FleeAIEnemyState : AIEnemyState
 
     private Vector3 GenerateRandomWaypoint()
     {
-        Vector2 rndPosInsideCircle = UnityEngine.Random.insideUnitCircle * 100f;
+        Vector2 rndPosInsideCircle = UnityEngine.Random.insideUnitCircle * FleeDistance;
         Vector3 rndPos = TargetProvider.Target.position + new Vector3(rndPosInsideCircle.x, 0, rndPosInsideCircle.y);
 
         if (NavMesh.SamplePosition(rndPos, out NavMeshHit hit, float.PositiveInfinity, NavMesh.AllAreas))

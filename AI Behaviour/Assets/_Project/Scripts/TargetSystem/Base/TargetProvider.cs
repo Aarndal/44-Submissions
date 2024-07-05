@@ -4,8 +4,28 @@ using UnityEngine;
 [Serializable]
 public abstract class TargetProvider : MonoBehaviour
 {
+    public event Action TargetDetected;
+    public event Action TargetLost;
+
     public Transform Target { get; protected set; }
-    public bool HasTarget { get { return Target != null && Target.gameObject.activeInHierarchy; } }
+    public bool HasTarget
+    {
+        get
+        {
+            return Target != null && Target.gameObject.activeInHierarchy;
+            
+            //if (Target != null && Target.gameObject.activeInHierarchy)
+            //{
+            //    TargetDetected?.Invoke();
+            //    return true;
+            //}
+            //else
+            //{
+            //    TargetLost?.Invoke();
+            //    return false;
+            //}
+        }
+    }
     public float SqrDistanceToTarget
     {
         get

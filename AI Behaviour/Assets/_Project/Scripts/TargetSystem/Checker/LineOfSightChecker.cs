@@ -1,5 +1,5 @@
 using System;
-using System.Threading;
+using System.Collections;
 using UnityEngine;
 
 public class LineOfSightChecker : MonoBehaviour
@@ -20,8 +20,6 @@ public class LineOfSightChecker : MonoBehaviour
     private float _visionRange = 10f;
 
     private bool _targetInSight = false;
-    //private float _timer = 0.0f;
-    //private float _searchTime = 5.0f;
 
     public bool TargetInSight
     {
@@ -52,17 +50,7 @@ public class LineOfSightChecker : MonoBehaviour
     private void Update()
     {
         if (!_targetProvider.HasTarget)
-        {
-            //_timer += Time.deltaTime;
-            //if (_timer >= _searchTime)
-            //{
-            //    TargetInSight = false;
-            //    _searchTime = UnityEngine.Random.Range(5f, 10f);
-            //    _timer = 0.0f;
-            //}
-
             TargetInSight = false;
-        }
         else
         {
             Ray ray = new()
@@ -73,23 +61,21 @@ public class LineOfSightChecker : MonoBehaviour
 
             TargetInSight = CheckLineOfSight(ray);
 
-            //if (!CheckLineOfSight(ray))
-            //{
-                //Debug.Log(_timer + " | " + _searchTime);
-
-                //_timer += Time.deltaTime;
-                //if (_timer >= _searchTime)
-                //{
-                //    TargetInSight = false;
-                //    _searchTime = UnityEngine.Random.Range(5f, 10f);
-                //    _timer = 0.0f;
-                //}
-            //}
-            //else
-            //    TargetInSight = true;
-
             Debug.DrawRay(ray.origin, ray.direction * _visionRange, TargetInSight ? Color.green : Color.red);
         }
+
+        StartCoroutine(Rotate());
+    }
+
+    private IEnumerator Rotate()
+    {
+        yield return new WaitForSeconds(1);
+
+        if (TargetInSight)
+            this.transform.rotation = Quaternion.LookRotation(_targetProvider.Target.position - this.transform.position);
+
+        if (!TargetInSight)
+            this.transform.rotation = Quaternion.LookRotation(this.transform.forward);
     }
 
     private bool CheckLineOfSight(Ray ray)
@@ -99,9 +85,9 @@ public class LineOfSightChecker : MonoBehaviour
         if (dotProduct >= Mathf.Cos(Mathf.Deg2Rad * _fieldOfView / 2))
             if (Physics.Raycast(ray.origin, ray.direction, out RaycastHit hit, _visionRange, ~this.gameObject.layer, QueryTriggerInteraction.Ignore))
             {
-                LayerMask layerMask = 1 << hit.collider.gameObject.layer;
-                if ((_targetedLayerMask & layerMask) != 0)
-                    return true;
+                    LayerMask layerMask = 1 << hit.collider.gameObject.layer;
+                    if ((_targetedLayerMask & layerMask) != 0)
+                        return true;
             }
 
         return false;

@@ -4,62 +4,58 @@ using UnityEngine;
 public class StateMachine
 {
     //private readonly Dictionary<State, List<Transition>> _transitions;
-    [SerializeField]
-    private State _currentState;
-    [SerializeField]
-    private List<State> _states;
-    [SerializeField]
-    private List<Transition> _anyTransitions;
-
     private State _targetState;
 
-    public List<State> States => _states;
-    public List<Transition> AnyTransitions => _anyTransitions;
-    public State CurrentState => _currentState;
+    [field: SerializeField]
+    public State CurrentState { get; protected set; }
+    [field: SerializeField]
+    public List<State> States { get; }
+    [field: SerializeField]
+    public List<Transition> AnyTransitions { get; }
 
     public StateMachine(State initialState)
     {
-        _states = new();
-        _anyTransitions = new();
+        States = new();
+        AnyTransitions = new();
 
         AddState(initialState);
-        _currentState = initialState;
+        CurrentState = initialState;
     }
 
     public void OnFixedUpdate()
     {
-        _currentState.OnFixedUpdate();
+        CurrentState.OnFixedUpdate();
     }
 
     public void OnUpdate()
     {
         SwitchState();
 
-        _currentState.OnUpdate();
+        CurrentState.OnUpdate();
     }
 
     public void OnLateUpdate()
     {
-        _currentState.OnLateUpdate();
+        CurrentState.OnLateUpdate();
     }
 
     public void SwitchState()
     {
         _targetState = GetTargetState();
 
-        if (_targetState != null && _targetState != _currentState)
+        if (_targetState != null && _targetState != CurrentState)
             TransitionTo(_targetState);
     }
 
     private State GetTargetState()
     {
-        foreach (Transition transition in _anyTransitions)
+        foreach (Transition transition in AnyTransitions)
         {
             if (transition.Condition() == true)
                 return transition.TargetState;
         }
 
-        foreach (Transition transition in _currentState.Transitions)
+        foreach (Transition transition in CurrentState.Transitions)
         {
             if (transition.Condition() == true)
                 return transition.TargetState;
@@ -72,25 +68,25 @@ public class StateMachine
     {
         Debug.LogWarning($"Transitioning from {CurrentState} to {targetState}");
 
-        _currentState.OnExit();
+        CurrentState.OnExit();
         targetState.OnEnter();
-        _currentState = targetState;
+        CurrentState = targetState;
     }
 
     public void AddState(State state)
     {
-        if (!_states.Contains(state))
-            _states.Add(state);
+        if (!States.Contains(state))
+            States.Add(state);
     }
 
     public void AddAnyTransition(Transition transition)
     {
-        if (!_anyTransitions.Contains(transition))
-            _anyTransitions.Add(transition);
+        if (!AnyTransitions.Contains(transition))
+            AnyTransitions.Add(transition);
     }
 
     public void SetCurrentState(State state)
     {
-        _currentState = state;
+        CurrentState = state;
     }
 }

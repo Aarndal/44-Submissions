@@ -72,10 +72,10 @@ public class LineOfSightChecker : MonoBehaviour
         yield return new WaitForSeconds(1);
 
         if (TargetInSight)
-            this.transform.rotation = Quaternion.LookRotation(_targetProvider.Target.position - this.transform.position);
+            this.transform.rotation = Quaternion.LookRotation((_targetProvider.Target.position - this.transform.position).normalized, this.transform.up);
 
         if (!TargetInSight)
-            this.transform.rotation = Quaternion.LookRotation(this.transform.forward);
+            this.transform.rotation = Quaternion.LookRotation(this.transform.parent.transform.forward, this.transform.up);
     }
 
     private bool CheckLineOfSight(Ray ray)

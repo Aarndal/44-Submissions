@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -11,12 +12,15 @@ public class FleeAIEnemyState : AIEnemyState
     {
     }
 
-    public override void OnEnter()
+    public async override Task OnEnter()
     {
         AIEnemy.AutonomousMover.NavMeshAgent.isStopped = false;
         AIEnemy.AutonomousMover.NavMeshAgent.ResetPath();
 
         AIEnemy.AutonomousMover.NavMeshAgent.speed = 5.0f;
+
+        await Task.Yield();
+
         AIEnemy.AutonomousMover.NavMeshAgent.SetDestination(GenerateRandomWaypoint());
     }
 

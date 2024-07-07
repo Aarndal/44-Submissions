@@ -1,8 +1,5 @@
-
-
-using System;
+using System.Threading.Tasks;
 using UnityEngine;
-using UnityEngine.AI;
 
 public class CircleAIEnemyState : AIEnemyState
 {
@@ -16,7 +13,7 @@ public class CircleAIEnemyState : AIEnemyState
     {
     }
 
-    public override void OnEnter()
+    public async override Task OnEnter()
     {
         _prevAngularSpeed = AIEnemy.AutonomousMover.NavMeshAgent.angularSpeed;
         _prevStoppingDistance = AIEnemy.AutonomousMover.MinDistanceToTarget;
@@ -30,6 +27,8 @@ public class CircleAIEnemyState : AIEnemyState
         AIEnemy.AutonomousMover.NavMeshAgent.speed = 3.0f;
         AIEnemy.AutonomousMover.NavMeshAgent.angularSpeed = 800f;
         AIEnemy.AutonomousMover.MinDistanceToTarget = 0.0f;
+
+        await Task.Yield();
 
         AIEnemy.AutonomousMover.NavMeshAgent.SetDestination(GenerateRandomWaypoint());
     }
@@ -45,12 +44,14 @@ public class CircleAIEnemyState : AIEnemyState
         AIEnemy.Animator.Play("Base Layer.Walk");
     }
 
-    public override void OnExit()
+    public async override Task OnExit()
     {
         AIEnemy.AutonomousMover.NavMeshAgent.angularSpeed = _prevAngularSpeed;
         AIEnemy.AutonomousMover.MinDistanceToTarget = _prevStoppingDistance;
 
         AIEnemy.AutonomousMover.NavMeshAgent.autoBraking = true;
+
+        await Task.Yield();
     }
 
     private Vector3 GenerateRandomWaypoint()

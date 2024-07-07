@@ -1,4 +1,4 @@
-
+using System.Threading.Tasks;
 
 public class AttackAIEnemyState : AIEnemyState
 {
@@ -9,7 +9,7 @@ public class AttackAIEnemyState : AIEnemyState
     {
     }
 
-    public override void OnEnter()
+    public async override Task OnEnter()
     {
         _prevMinDistance = AIEnemy.AutonomousMover.MinDistanceToTarget;
 
@@ -17,6 +17,8 @@ public class AttackAIEnemyState : AIEnemyState
         AIEnemy.AutonomousMover.NavMeshAgent.ResetPath();
 
         AIEnemy.AutonomousMover.MinDistanceToTarget = 0.1f;
+        
+        await Task.Yield();
     }
 
     public override void OnFixedUpdate()
@@ -29,8 +31,9 @@ public class AttackAIEnemyState : AIEnemyState
         AIEnemy.Animator.Play("Base Layer.Attack01");
     }
 
-    public override void OnExit()
+    public async override Task OnExit()
     {
         AIEnemy.AutonomousMover.MinDistanceToTarget = _prevMinDistance;
+        await Task.Yield();
     }
 }

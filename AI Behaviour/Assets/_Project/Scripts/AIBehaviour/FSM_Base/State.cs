@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 [Serializable]
 public abstract class State
@@ -13,7 +14,7 @@ public abstract class State
         Transitions = new();
     }
 
-    public virtual void OnEnter() { }
+    public async virtual Task OnEnter() { await Task.Yield(); }
 
     public virtual void OnFixedUpdate() { }
 
@@ -21,7 +22,7 @@ public abstract class State
 
     public virtual void OnLateUpdate() { }
 
-    public virtual void OnExit() { }
+    public async virtual Task OnExit() { await Task.Yield(); }
 
     public void AddTransition(Transition transition)
     {

@@ -107,7 +107,7 @@ public class Wolf : FastFightingAIEnemy
     {
         _idle = new IdleAIEnemyState(this, _idleTime);
         _roam = new RoamAIEnemyState(this, _roamRadius);
-        _chase = new ChaseAIEnemyState(this, _playerProvider, _lineOfSightChecker);
+        _chase = new ChaseAIEnemyState(this, _playerProvider);
         _attack = new AttackAIEnemyState(this, _playerProvider);
         _circle = new CircleAIEnemyState(this, _playerProvider);
         _flee = new FleeAIEnemyState(this, _playerProvider);

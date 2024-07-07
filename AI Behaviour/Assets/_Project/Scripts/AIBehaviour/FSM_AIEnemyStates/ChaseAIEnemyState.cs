@@ -1,16 +1,15 @@
-using System.Collections;
-using UnityEngine;
+using System.Threading.Tasks;
 
 //[CreateAssetMenu(fileName = "ChaseState", menuName = "AI/States/ChaseState")]
 public sealed class ChaseAIEnemyState : AIEnemyState
 {
     private float _prevStoppingDistance;
 
-    public ChaseAIEnemyState(AIEnemy entity, TargetProvider targetProvider, LineOfSightChecker sightChecker) : base(entity, targetProvider)
+    public ChaseAIEnemyState(AIEnemy entity, TargetProvider targetProvider) : base(entity, targetProvider)
     {
     }
 
-    public override void OnEnter()
+    public async override Task OnEnter()
     {
         AIEnemy.AutonomousMover.NavMeshAgent.autoBraking = false;
 
@@ -18,7 +17,8 @@ public sealed class ChaseAIEnemyState : AIEnemyState
         AIEnemy.AutonomousMover.NavMeshAgent.ResetPath();
 
         AIEnemy.AutonomousMover.NavMeshAgent.speed = 5.0f;
-        
+        await Task.Yield();
+
         AIEnemy.Animator.Play("Base Layer.Howl");
     }
 
@@ -33,8 +33,9 @@ public sealed class ChaseAIEnemyState : AIEnemyState
         AIEnemy.Animator.SetBool("HasHowled", true);
     }
 
-    public override void OnExit()
+    public async override Task OnExit()
     {
         AIEnemy.AutonomousMover.NavMeshAgent.autoBraking = true;
+        await Task.Yield();
     }
 }

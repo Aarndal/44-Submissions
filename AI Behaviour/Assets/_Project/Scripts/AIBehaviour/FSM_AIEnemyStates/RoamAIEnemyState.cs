@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Threading.Tasks;
+using UnityEngine;
 using UnityEngine.AI;
 
 //[CreateAssetMenu(fileName = "RoamState", menuName = "AI/States/RoamState")]
@@ -11,13 +12,16 @@ public sealed class RoamAIEnemyState : AIEnemyState
         Radius = radius;
     }
 
-    public override void OnEnter()
+    public async override Task OnEnter()
     {
         AIEnemy.AutonomousMover.NavMeshAgent.isStopped = false;
         AIEnemy.AutonomousMover.NavMeshAgent.stoppingDistance = 0.0f;
         AIEnemy.AutonomousMover.NavMeshAgent.ResetPath();
 
         AIEnemy.AutonomousMover.NavMeshAgent.speed = 2.0f;
+
+        await Task.Yield();
+
         AIEnemy.AutonomousMover.NavMeshAgent.SetDestination(GenerateRandomWaypoint());
     }
 

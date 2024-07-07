@@ -1,4 +1,5 @@
 using System;
+using System.Threading.Tasks;
 using UnityEngine;
 
 //[CreateAssetMenu(fileName = "IdleState", menuName = "AI/States/IdleState")]
@@ -28,13 +29,16 @@ public sealed class IdleAIEnemyState : AIEnemyState
         _timer = _idleTime;
     }
 
-    public override void OnEnter()
+    public async override Task OnEnter()
     {
         AIEnemy.AutonomousMover.NavMeshAgent.isStopped = true;
         AIEnemy.AutonomousMover.NavMeshAgent.ResetPath();
 
         _timer = _idleTime;
         TimeIsUp = false;
+
+        await Task.Yield();
+
         AIEnemy.Animator.Play("Base Layer.Idle");
     }
 

@@ -45,8 +45,6 @@ public class LineOfSightChecker : MonoBehaviour
             throw new ArgumentNullException("Target Provider is not set.");
     }
 
-    //To-DO: Turn LingOfSightObject with Target when TargetInSight
-
     private void Update()
     {
         if (!_targetProvider.HasTarget)
@@ -83,12 +81,18 @@ public class LineOfSightChecker : MonoBehaviour
         float dotProduct = Vector3.Dot(this.transform.forward, ray.direction);
 
         if (dotProduct >= Mathf.Cos(Mathf.Deg2Rad * _fieldOfView / 2))
-            if (Physics.Raycast(ray.origin, ray.direction, out RaycastHit hit, _visionRange, ~this.gameObject.layer, QueryTriggerInteraction.Ignore))
+        {
+            int toHitLayerMask = 1 << this.gameObject.layer | 1 << 2; // 2 is build-in "Ignore Raycast" layer
+            toHitLayerMask = ~toHitLayerMask; // gets reversed layerMasks
+
+            if (Physics.Raycast(ray.origin, ray.direction, out RaycastHit hit, _visionRange, toHitLayerMask, QueryTriggerInteraction.Ignore))
             {
-                    LayerMask layerMask = 1 << hit.collider.gameObject.layer;
-                    if ((_targetedLayerMask & layerMask) != 0)
-                        return true;
+                LayerMask layerMask = 1 << hit.collider.gameObject.layer;
+
+                if ((_targetedLayerMask & layerMask) != 0)
+                    return true;
             }
+        }
 
         return false;
     }

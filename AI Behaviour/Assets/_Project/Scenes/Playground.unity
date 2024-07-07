@@ -906,7 +906,7 @@ PrefabInstance:
     - target: {fileID: 773072565026723162, guid: f04d45b4accecb04e83e19824544d181,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -8.31
       objectReference: {fileID: 0}
     - target: {fileID: 773072565026723162, guid: f04d45b4accecb04e83e19824544d181,
         type: 3}
@@ -968,6 +968,11 @@ PrefabInstance:
       propertyPath: m_StoppingDistance
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 4408543736389774792, guid: f04d45b4accecb04e83e19824544d181,
+        type: 3}
+      propertyPath: _toHitLayerMasks.m_Bits
+      value: 1048577
+      objectReference: {fileID: 0}
     - target: {fileID: 8362288680501008987, guid: f04d45b4accecb04e83e19824544d181,
         type: 3}
       propertyPath: _attackRange
@@ -1010,6 +1015,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Box_350x250x200_Prefab
+      objectReference: {fileID: 0}
+    - target: {fileID: 2742374090662089873, guid: 09aade0ecefd01e4b8f7661acf64f5c2,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2851502387910328280, guid: 09aade0ecefd01e4b8f7661acf64f5c2,
         type: 3}

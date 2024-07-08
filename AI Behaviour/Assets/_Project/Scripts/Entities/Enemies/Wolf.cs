@@ -32,12 +32,14 @@ public class Wolf : FastFightingAIEnemy
     protected override void Awake()
     {
         base.Awake();
+        
+        _myFSM = new();
 
         InitializeStates();
         InitializeConditions();
         InitializeTransitions();
 
-        _myFSM = new(_idle);
+        _myFSM.SetInitialState(_idle);
         _idle.AddTransition(_toRoam);
         _idle.AddTransition(_toChase);
 
@@ -105,12 +107,12 @@ public class Wolf : FastFightingAIEnemy
 
     private void InitializeStates()
     {
-        _idle = new IdleAIEnemyState(this, _idleTime);
-        _roam = new RoamAIEnemyState(this, _roamRadius);
-        _chase = new ChaseAIEnemyState(this, _playerProvider);
-        _attack = new AttackAIEnemyState(this, _playerProvider);
-        _circle = new CircleAIEnemyState(this, _playerProvider);
-        _flee = new FleeAIEnemyState(this, _playerProvider);
+        _idle = new IdleAIEnemyState(_myFSM, this, _idleTime);
+        _roam = new RoamAIEnemyState(_myFSM, this, _roamRadius);
+        _chase = new ChaseAIEnemyState(_myFSM, this, _playerProvider);
+        _attack = new AttackAIEnemyState(_myFSM, this, _playerProvider);
+        _circle = new CircleAIEnemyState(_myFSM, this, _playerProvider);
+        _flee = new FleeAIEnemyState(_myFSM, this, _playerProvider);
     }
 
     private void InitializeConditions()
@@ -119,14 +121,14 @@ public class Wolf : FastFightingAIEnemy
         _myFSM.CurrentState == _chase && !_lineOfSightChecker.TargetInSight ||
         _myFSM.CurrentState == _flee && _playerProvider.SqrDistanceToTarget >= _flee.FleeDistance * _flee.FleeDistance;
 
-        //RoamCondition = () => _idle.TimeIsUp;
-        RoamCondition = () => false;
-        //ChaseCondition = () => (_lineOfSightChecker.TargetInSight || _myFSM.CurrentState == _circle || _myFSM.CurrentState == _attack) && _playerProvider.SqrDistanceToTarget > _attackRange * _attackRange;
-        ChaseCondition = () => false;
-        //AttackCondition = () => (_lineOfSightChecker.TargetInSight) && _playerProvider.SqrDistanceToTarget <= _attackRange * _attackRange && _playerProvider.TargetIsFleeing;
-        //CircleCondition = () => (_lineOfSightChecker.TargetInSight) && _playerProvider.SqrDistanceToTarget <= _attackRange * _attackRange && !_playerProvider.TargetIsFleeing;
-        AttackCondition = () => false;
-        CircleCondition = () => false;
+        RoamCondition = () => _idle.TimeIsUp;
+        //RoamCondition = () => false;
+        ChaseCondition = () => (_lineOfSightChecker.TargetInSight || _myFSM.CurrentState == _circle || _myFSM.CurrentState == _attack) && _playerProvider.SqrDistanceToTarget > _attackRange * _attackRange;
+        //ChaseCondition = () => false;
+        AttackCondition = () => (_lineOfSightChecker.TargetInSight) && _playerProvider.SqrDistanceToTarget <= _attackRange * _attackRange && _playerProvider.TargetIsFleeing;
+        CircleCondition = () => (_lineOfSightChecker.TargetInSight) && _playerProvider.SqrDistanceToTarget <= _attackRange * _attackRange && !_playerProvider.TargetIsFleeing;
+        //AttackCondition = () => false;
+        //CircleCondition = () => false;
         FleeCondition = () => false;
     }
 

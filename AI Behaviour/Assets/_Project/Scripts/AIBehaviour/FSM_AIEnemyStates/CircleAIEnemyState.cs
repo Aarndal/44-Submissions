@@ -9,7 +9,7 @@ public class CircleAIEnemyState : AIEnemyState
     private float _currentAngle = Mathf.PI / 6; // Current angle in radians
     private float _angleIncrement = Mathf.PI / 6; // Angle increment for each waypoint (15 degrees in this case)
 
-    public CircleAIEnemyState(AIEnemy entity, TargetProvider targetProvider) : base(entity, targetProvider)
+    public CircleAIEnemyState(StateMachine fsm, AIEnemy entity, TargetProvider targetProvider) : base(fsm, entity, targetProvider)
     {
     }
 

@@ -7,7 +7,7 @@ public sealed class RoamAIEnemyState : AIEnemyState
 {
     public float Radius { get; private set; }
 
-    public RoamAIEnemyState(AIEnemy entity, float radius) : base(entity, null)
+    public RoamAIEnemyState(StateMachine fsm, AIEnemy entity, float radius) : base(fsm, entity, null)
     {
         Radius = radius;
     }

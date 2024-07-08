@@ -1,5 +1,6 @@
 using System;
 using System.Threading.Tasks;
+using Unity.VisualScripting;
 using UnityEngine;
 
 //[CreateAssetMenu(fileName = "IdleState", menuName = "AI/States/IdleState")]
@@ -23,7 +24,7 @@ public sealed class IdleAIEnemyState : AIEnemyState
         }
     }
 
-    public IdleAIEnemyState(AIEnemy entity, float idleTime) : base(entity, null)
+    public IdleAIEnemyState(StateMachine fsm, AIEnemy entity, float idleTime) : base(fsm, entity, null)
     {
         _idleTime = idleTime;
         _timer = _idleTime;

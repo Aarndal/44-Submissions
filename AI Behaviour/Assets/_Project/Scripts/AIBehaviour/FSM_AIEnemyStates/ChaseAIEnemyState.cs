@@ -5,7 +5,7 @@ public sealed class ChaseAIEnemyState : AIEnemyState
 {
     private float _prevStoppingDistance;
 
-    public ChaseAIEnemyState(AIEnemy entity, TargetProvider targetProvider) : base(entity, targetProvider)
+    public ChaseAIEnemyState(StateMachine fsm, AIEnemy entity, TargetProvider targetProvider) : base(fsm, entity, targetProvider)
     {
     }
 
@@ -19,7 +19,12 @@ public sealed class ChaseAIEnemyState : AIEnemyState
         AIEnemy.AutonomousMover.NavMeshAgent.speed = 5.0f;
         await Task.Yield();
 
-        AIEnemy.Animator.Play("Base Layer.Howl");
+        FSM.History.Pop();
+
+        if (FSM.History.Peek() is IdleAIEnemyState or RoamAIEnemyState)
+            AIEnemy.Animator.Play("Base Layer.Howl");
+
+        FSM.History.Push(this);
     }
 
     public override void OnFixedUpdate()
@@ -30,7 +35,8 @@ public sealed class ChaseAIEnemyState : AIEnemyState
 
     public override void OnUpdate()
     {
-        AIEnemy.Animator.SetBool("HasHowled", true);
+        if (AIEnemy.Animator.GetCurrentAnimatorStateInfo(0).IsName("Base Layer.Howl"))
+            AIEnemy.Animator.SetBool("HasHowled", true);
     }
 
     public async override Task OnExit()

@@ -5,7 +5,7 @@ public class AttackAIEnemyState : AIEnemyState
     float _prevMinDistance;
     bool _hasAttacked;
 
-    public AttackAIEnemyState(AIEnemy entity, TargetProvider targetProvider) : base(entity, targetProvider)
+    public AttackAIEnemyState(StateMachine fsm, AIEnemy entity, TargetProvider targetProvider) : base(fsm, entity, targetProvider)
     {
     }
 

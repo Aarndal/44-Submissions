@@ -1,9 +1,12 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class StateMachine
 {
+    private bool _isTransitioning = false;
+
     private State _currentState;
     private State _targetState;
 
@@ -22,16 +25,14 @@ public class StateMachine
     public Stack<State> History { get; }
 
 
-    public StateMachine(State initialState)
+    public StateMachine()
     {
         States = new();
         AnyTransitions = new();
         History = new();
-
-        AddState(initialState);
-        CurrentState = initialState;
     }
 
+    #region Unity Build-In Callbacks
     public void OnFixedUpdate()
     {
         CurrentState.OnFixedUpdate();
@@ -48,12 +49,14 @@ public class StateMachine
     {
         CurrentState.OnLateUpdate();
     }
+    #endregion
 
-    public async void SwitchState()
+    #region Private Methods
+    private async void SwitchState()
     {
         _targetState = GetTargetState();
 
-        if (_targetState != null && _targetState != CurrentState)
+        if (_targetState != null && _targetState != CurrentState && !_isTransitioning)
             await TransitionTo(_targetState);
     }
 
@@ -76,21 +79,27 @@ public class StateMachine
 
     private async Task TransitionTo(State targetState)
     {
-        Debug.LogWarning($"Transitioning from {CurrentState} to {targetState}");
+        _isTransitioning = true;
 
-        if(!States.Contains(targetState))
+        if (!States.Contains(targetState))
             States.Add(targetState);
 
         if (!History.Contains(targetState))
             History.Push(targetState);
+
+        Debug.LogWarning($"Transitioning from {CurrentState} to {targetState}");
 
         if (CurrentState != null)
             await CurrentState.OnExit();
 
         await targetState.OnEnter();
         CurrentState = targetState;
-    }
 
+        _isTransitioning = false;
+    }
+    #endregion
+
+    #region Public Methods
     public void AddState(State state)
     {
         States.Add(state);
@@ -101,4 +110,14 @@ public class StateMachine
         if (!AnyTransitions.Contains(transition))
             AnyTransitions.Add(transition);
     }
+
+    public void SetInitialState(State state)
+    {
+        if (!States.Contains(state))
+            States.Add(state);
+
+        History.Push(state);
+        CurrentState = state;
+    }
+    #endregion
 }

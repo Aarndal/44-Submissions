@@ -5,12 +5,15 @@ using System.Threading.Tasks;
 [Serializable]
 public abstract class State
 {
+    public StateMachine FSM { get; protected set; }
     public Entity Entity { get; protected set; }
     public List<Transition> Transitions { get; protected set; }
 
-    public State(Entity entity)
+    public State(StateMachine fsm, Entity entity)
     {
+        FSM = fsm;
         Entity = entity;
+
         Transitions = new();
     }
 

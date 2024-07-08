@@ -8,7 +8,7 @@ public class FleeAIEnemyState : AIEnemyState
     
     public float FleeDistance { get => _fleeDistance; set => _fleeDistance = value; }
 
-    public FleeAIEnemyState(AIEnemy entity, TargetProvider targetProvider) : base(entity, targetProvider)
+    public FleeAIEnemyState(StateMachine fsm, AIEnemy entity, TargetProvider targetProvider) : base(fsm, entity, targetProvider)
     {
     }
 

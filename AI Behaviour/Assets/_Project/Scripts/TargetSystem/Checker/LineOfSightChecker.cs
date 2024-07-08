@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class LineOfSightChecker : MonoBehaviour
 {
-    public event Action<Transform> OnGainSight;
-    public event Action<Transform> OnLostSight;
+    public event Action<Transform> GainedSight;
+    public event Action<Transform> LostSight;
 
     [Header("References")]
     [SerializeField]
@@ -15,7 +15,7 @@ public class LineOfSightChecker : MonoBehaviour
     [SerializeField]
     private LayerMask _targetedLayerMask;
     [SerializeField]
-    private float _fieldOfView = 120f;
+    private float _fieldOfView = 120f; // View angle in degrees
     [SerializeField]
     private float _visionRange = 10f;
 
@@ -32,9 +32,9 @@ public class LineOfSightChecker : MonoBehaviour
                 Debug.Log("Target in Sight: " + TargetInSight);
 
                 if (_targetInSight)
-                    OnGainSight?.Invoke(_targetProvider.Target);
+                    GainedSight?.Invoke(_targetProvider.Target);
                 else
-                    OnLostSight?.Invoke(_targetProvider.Target);
+                    LostSight?.Invoke(_targetProvider.Target);
             }
         }
     }
@@ -57,7 +57,7 @@ public class LineOfSightChecker : MonoBehaviour
                 direction = (_targetProvider.Target.position - this.transform.position).normalized,
             };
 
-            TargetInSight = CheckLineOfSight(ray);
+            TargetInSight = LineOfSightCheck(ray);
 
             Debug.DrawRay(ray.origin, ray.direction * _visionRange, TargetInSight ? Color.green : Color.red);
         }
@@ -76,20 +76,20 @@ public class LineOfSightChecker : MonoBehaviour
             this.transform.rotation = Quaternion.LookRotation(this.transform.parent.transform.forward, this.transform.up);
     }
 
-    private bool CheckLineOfSight(Ray ray)
+    private bool LineOfSightCheck(Ray ray)
     {
-        float dotProduct = Vector3.Dot(this.transform.forward, ray.direction);
+        float cosOfAngleToTarget = Vector3.Dot(this.transform.forward, ray.direction); // division by magnitudes is not needed because both vectors are normalized => Magnitude = 1
 
-        if (dotProduct >= Mathf.Cos(Mathf.Deg2Rad * _fieldOfView / 2))
+        if (cosOfAngleToTarget >= Mathf.Cos(Mathf.Deg2Rad * _fieldOfView / 2f)) // ">=" because the greater the angle, the smaller the cosine
         {
-            int toHitLayerMask = 1 << this.gameObject.layer | 1 << 2; // 2 is build-in "Ignore Raycast" layer
+            int toHitLayerMask = 1 << this.gameObject.layer | 1 << 2; // 2 represents the build-in "Ignore Raycast" layer
             toHitLayerMask = ~toHitLayerMask; // gets reversed layerMasks
 
             if (Physics.Raycast(ray.origin, ray.direction, out RaycastHit hit, _visionRange, toHitLayerMask, QueryTriggerInteraction.Ignore))
             {
-                LayerMask layerMask = 1 << hit.collider.gameObject.layer;
+                LayerMask hitLayerMask = 1 << hit.collider.gameObject.layer;
 
-                if ((_targetedLayerMask & layerMask) != 0)
+                if ((_targetedLayerMask & hitLayerMask) != 0)
                     return true;
             }
         }

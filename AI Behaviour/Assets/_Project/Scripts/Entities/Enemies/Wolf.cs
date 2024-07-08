@@ -67,7 +67,7 @@ public class Wolf : FastFightingAIEnemy
     private void OnEnable()
     {
         //    _idle.IdleTimeIsUp += OnIdleTimeIsUp;
-        //    _playerTargetProvider.PlayerInSight += OnPlayerInSight;
+        //    _lineOfSightChecker.GainedSight += OnGainedSight;
     }
 
     private void Start()
@@ -98,12 +98,12 @@ public class Wolf : FastFightingAIEnemy
 
     private void OnDisable()
     {
-        //    _playerTargetProvider.PlayerInSight -= OnPlayerInSight;
+        //    _lineOfSightChecker.GainedSight -= OnGainedSight;
         //    _idle.IdleTimeIsUp -= OnIdleTimeIsUp;
     }
 
     //private void OnIdleTimeIsUp(bool ctx) => _toRoam.Condition = () => ctx;
-    //private void OnPlayerInSight(bool ctx) => _toChase.Condition = () => ctx;
+    //private void OnGainedSight(bool ctx) => _toChase.Condition = () => ctx;
 
     private void InitializeStates()
     {

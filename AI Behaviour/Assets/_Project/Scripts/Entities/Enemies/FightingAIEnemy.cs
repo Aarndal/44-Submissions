@@ -17,6 +17,7 @@ public class FightingAIEnemy : AIEnemy, ICanAttack, ICanDie
 
         if (collision.CompareTag("Player"))
         {
+            Debug.LogFormat($"Test: {name} attacked Player!");
             Attack(target);
             HasAttacked?.Invoke(this, target);
         }

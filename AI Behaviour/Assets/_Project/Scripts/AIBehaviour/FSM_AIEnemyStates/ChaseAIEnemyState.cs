@@ -23,8 +23,10 @@ public sealed class ChaseAIEnemyState : AIEnemyState
 
         if (FSM.History.Peek() is IdleAIEnemyState or RoamAIEnemyState)
             AIEnemy.Animator.Play("Base Layer.Howl");
+        else
+            AIEnemy.Animator.Play("Base Layer.Run");
 
-        FSM.History.Push(this);
+            FSM.History.Push(this);
     }
 
     public override void OnFixedUpdate()

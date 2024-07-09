@@ -14,8 +14,10 @@ public class SearchAIEnemyState : AIEnemyState
 
     public SearchAIEnemyState(StateMachine fsm, AIEnemy entity, TargetProvider targetProvider) : base(fsm, entity, targetProvider) { }
 
-    public async override Task OnEnter()
+    public override void OnEnter()
     {
+        LostTarget = false;
+        
         AIEnemy.AutonomousMover.NavMeshAgent.autoBraking = false;
 
         AIEnemy.AutonomousMover.NavMeshAgent.isStopped = false;
@@ -24,47 +26,71 @@ public class SearchAIEnemyState : AIEnemyState
         AIEnemy.AutonomousMover.NavMeshAgent.speed = 5.0f;
 
         _currentTargetPos = TargetProvider.Target.position;
-        
-        await Task.Yield();
-        
+
         AIEnemy.Animator.Play("Base Layer.Run");
     }
 
-    public override void OnFixedUpdate()
+    public override void OnUpdate()
     {
         SearchForTarget();
     }
 
+    public override void OnExit()
+    {
+        //LostTarget = false;
+    }
+
     private async void SearchForTarget()
     {
-        await SearchLastKnownPosition(_currentTargetPos);
+        AIEnemy.AutonomousMover.NavMeshAgent.SetDestination(_currentTargetPos);
+        await SearchLastKnownPosition();
 
         _currentTargetPos = TargetProvider.Target.position;
-
-        await SearchFirstCornerOfCurrenPosition(_currentTargetPos);
+        await SearchFirstCornerOfCurrenPosition();
     }
 
-    private async Task SearchLastKnownPosition(Vector3 pos)
+    private async Task SearchLastKnownPosition()
     {
-        AIEnemy.AutonomousMover.NavMeshAgent.SetDestination(pos);
+        //while (AIEnemy.transform.position != AIEnemy.AutonomousMover.NavMeshAgent.pathEndPosition || AIEnemy.AutonomousMover.DistanceToTarget > 0.5f)
+        //    await Task.Yield();
 
-        while (AIEnemy.transform.position != AIEnemy.AutonomousMover.NavMeshAgent.pathEndPosition || AIEnemy.AutonomousMover.DistanceToTarget > 0.5f)
-            await Task.Yield();
+        if (!AIEnemy.AutonomousMover.NavMeshAgent.pathPending)
+        {
+            if (AIEnemy.AutonomousMover.DistanceToTarget <= AIEnemy.AutonomousMover.MinDistanceToTarget)
+            {
+                if (!AIEnemy.AutonomousMover.NavMeshAgent.hasPath || AIEnemy.AutonomousMover.NavMeshAgent.velocity.sqrMagnitude == 0f)
+                {
+                    await Task.Yield();
+                }
+            }
+        }
+
     }
 
-    private async Task SearchFirstCornerOfCurrenPosition(Vector3 pos)
+    private async Task SearchFirstCornerOfCurrenPosition()
     {
-        bool hasPathToTarget = !NavMesh.CalculatePath(AIEnemy.transform.position, pos, AIEnemy.AutonomousMover.NavMeshAgent.areaMask, _tempNavMeshPath);
+        bool hasPathToTarget = NavMesh.CalculatePath(AIEnemy.transform.position, _currentTargetPos, AIEnemy.AutonomousMover.NavMeshAgent.areaMask, _tempNavMeshPath);
 
-        if(!hasPathToTarget)
+        if (!hasPathToTarget)
             LostTarget = true;
 
         //_tempNavMeshPath.GetCornersNonAlloc(_tempCorners);
 
         AIEnemy.AutonomousMover.NavMeshAgent.SetDestination(_tempNavMeshPath.corners[1]);
 
-        while (AIEnemy.transform.position != AIEnemy.AutonomousMover.NavMeshAgent.pathEndPosition || AIEnemy.AutonomousMover.DistanceToTarget > 0.5f)
-            await Task.Yield();
+        //while (AIEnemy.transform.position != AIEnemy.AutonomousMover.NavMeshAgent.pathEndPosition || AIEnemy.AutonomousMover.DistanceToTarget > 0.5f)
+        //    await Task.Yield();
+
+        if (!AIEnemy.AutonomousMover.NavMeshAgent.pathPending)
+        {
+            if (AIEnemy.AutonomousMover.DistanceToTarget <= AIEnemy.AutonomousMover.MinDistanceToTarget)
+            {
+                if (!AIEnemy.AutonomousMover.NavMeshAgent.hasPath || AIEnemy.AutonomousMover.NavMeshAgent.velocity.sqrMagnitude == 0f)
+                {
+                    await Task.Yield();
+                }
+            }
+        }
 
         LostTarget = true;
     }

@@ -4,8 +4,8 @@ using UnityEngine;
 [Serializable]
 public abstract class TargetProvider : MonoBehaviour
 {
-    public event Action TargetDetected;
-    public event Action TargetLost;
+    //public event Action TargetDetected;
+    //public event Action TargetLost;
 
     public Transform Target { get; protected set; }
     public bool HasTarget

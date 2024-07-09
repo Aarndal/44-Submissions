@@ -3,16 +3,13 @@ using System.Threading.Tasks;
 public class AttackAIEnemyState : AIEnemyState
 {
     float _prevMinDistance;
-    bool _hasAttacked;
 
-    public AttackAIEnemyState(StateMachine fsm, AIEnemy entity, TargetProvider targetProvider) : base(fsm, entity, targetProvider)
-    {
-    }
+    public AttackAIEnemyState(StateMachine fsm, AIEnemy entity, TargetProvider targetProvider) : base(fsm, entity, targetProvider) { }
 
     public async override Task OnEnter()
     {
         _prevMinDistance = AIEnemy.AutonomousMover.MinDistanceToTarget;
-        AIEnemy.AutonomousMover.MinDistanceToTarget = AIEnemy.AutonomousMover.NavMeshAgent.radius + 0.5f; //To-DO: Change this to a variable
+        AIEnemy.AutonomousMover.MinDistanceToTarget = AIEnemy.AutonomousMover.NavMeshAgent.radius + 1.25f; //To-DO: Change this to a variable
         AIEnemy.AutonomousMover.NavMeshAgent.autoBraking = true;
 
         await Task.Yield();
@@ -20,10 +17,10 @@ public class AttackAIEnemyState : AIEnemyState
 
     public override void OnFixedUpdate()
     {
-        if (AIEnemy.AutonomousMover.DistanceToTarget <= AIEnemy.AutonomousMover.MinDistanceToTarget)
+        if (TargetProvider.SqrDistanceToTarget <= AIEnemy.AutonomousMover.MinDistanceToTarget * AIEnemy.AutonomousMover.MinDistanceToTarget)
         {
             AIEnemy.AutonomousMover.NavMeshAgent.isStopped = true;
-            AIEnemy.Animator.Play("Base Layer.Attack01");
+            AIEnemy.Animator.Play("Base Layer.Attack02");
             AIEnemy.AutonomousMover.NavMeshAgent.ResetPath();
         }
         else

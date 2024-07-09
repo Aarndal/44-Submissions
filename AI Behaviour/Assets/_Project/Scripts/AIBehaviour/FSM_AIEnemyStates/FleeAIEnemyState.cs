@@ -4,13 +4,11 @@ using UnityEngine.AI;
 
 public class FleeAIEnemyState : AIEnemyState
 {
-    private float _fleeDistance = 100f;
-    
-    public float FleeDistance { get => _fleeDistance; set => _fleeDistance = value; }
+    private float _defaultFleeDistance = 100f;
 
-    public FleeAIEnemyState(StateMachine fsm, AIEnemy entity, TargetProvider targetProvider) : base(fsm, entity, targetProvider)
-    {
-    }
+    public float FleeDistance { get => _defaultFleeDistance; set => _defaultFleeDistance = value; }
+
+    public FleeAIEnemyState(StateMachine fsm, AIEnemy entity, TargetProvider targetProvider) : base(fsm, entity, targetProvider) { }
 
     public async override Task OnEnter()
     {

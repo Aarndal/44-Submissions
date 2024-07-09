@@ -2,12 +2,13 @@ using UnityEngine;
 
 public class FastFightingAIEnemy : FightingAIEnemy
 {
-    private int _evadeChance = 20;
-
-    public int EvadeChance { get => _evadeChance; set => _evadeChance = value; }
+    public int EvadeChance { get ; protected set; }
 
     public override void TakeDamage(int damage)
     {
+        if (EvadeChance > 100 || EvadeChance < 1)
+            EvadeChance = 20;
+
         bool evaded = Random.Range(1, 101) == EvadeChance;
 
         if (evaded == true)

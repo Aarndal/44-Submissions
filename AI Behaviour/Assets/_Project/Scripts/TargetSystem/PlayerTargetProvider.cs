@@ -48,13 +48,9 @@ public sealed class PlayerTargetProvider : TargetProvider
         _sphereCollider.isTrigger = true;
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        GetTarget();
-    }
+    private void OnTriggerEnter(Collider other) => GetTarget();
 
-    private void OnTriggerExit(Collider other)
-        => GetTarget();
+    private void OnTriggerExit(Collider other) => GetTarget();
 
     private void Update()
     {
@@ -62,8 +58,7 @@ public sealed class PlayerTargetProvider : TargetProvider
             TargetIsFleeing = IsTargetFleeingCheck();
     }
 
-    public override Transform GetTarget()
-        => Target = FindClosestPlayer();
+    public override Transform GetTarget() => Target = FindClosestPlayer();
 
     private Transform FindClosestPlayer()
     {

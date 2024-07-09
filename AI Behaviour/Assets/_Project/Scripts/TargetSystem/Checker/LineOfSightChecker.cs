@@ -21,7 +21,7 @@ public class LineOfSightChecker : MonoBehaviour
 
     private bool _targetInSight = false;
 
-    public Transform LastKnownTargetPosition { get; set; }
+    //public Transform LastKnownTargetPosition { get; set; }
 
     public bool TargetInSight
     {

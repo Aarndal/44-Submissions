@@ -1,12 +1,14 @@
+using System;
 using System.Threading.Tasks;
+using UnityEngine;
 
 //[CreateAssetMenu(fileName = "ChaseState", menuName = "AI/States/ChaseState")]
 public sealed class ChaseAIEnemyState : AIEnemyState
 {
-    private float _prevStoppingDistance;
+    
 
-    public ChaseAIEnemyState(StateMachine fsm, AIEnemy entity, TargetProvider targetProvider) : base(fsm, entity, targetProvider)
-    {
+    public ChaseAIEnemyState(StateMachine fsm, AIEnemy entity, TargetProvider targetProvider) : base(fsm, entity, targetProvider) 
+    { 
     }
 
     public async override Task OnEnter()
@@ -17,6 +19,7 @@ public sealed class ChaseAIEnemyState : AIEnemyState
         AIEnemy.AutonomousMover.NavMeshAgent.ResetPath();
 
         AIEnemy.AutonomousMover.NavMeshAgent.speed = 5.0f;
+
         await Task.Yield();
 
         FSM.History.Pop();
@@ -26,7 +29,7 @@ public sealed class ChaseAIEnemyState : AIEnemyState
         else
             AIEnemy.Animator.Play("Base Layer.Run");
 
-            FSM.History.Push(this);
+        FSM.History.Push(this);
     }
 
     public override void OnFixedUpdate()
@@ -34,6 +37,7 @@ public sealed class ChaseAIEnemyState : AIEnemyState
         if (AIEnemy.Animator.GetCurrentAnimatorStateInfo(0).IsName("Base Layer.Run"))
             AIEnemy.AutonomousMover.MoveTo(TargetProvider);
     }
+
 
     public override void OnUpdate()
     {

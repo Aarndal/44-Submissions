@@ -14,7 +14,7 @@ public class SearchAIEnemyState : AIEnemyState
 
     public SearchAIEnemyState(StateMachine fsm, AIEnemy entity, TargetProvider targetProvider) : base(fsm, entity, targetProvider) { }
 
-    public override void OnEnter()
+    public async override Task OnEnter()
     {
         LostTarget = false;
         
@@ -27,6 +27,8 @@ public class SearchAIEnemyState : AIEnemyState
 
         _currentTargetPos = TargetProvider.Target.position;
 
+        await Task.Yield();
+
         AIEnemy.Animator.Play("Base Layer.Run");
     }
 
@@ -35,9 +37,11 @@ public class SearchAIEnemyState : AIEnemyState
         SearchForTarget();
     }
 
-    public override void OnExit()
+    public async override Task OnExit()
     {
         //LostTarget = false;
+
+        await Task.Yield();
     }
 
     private async void SearchForTarget()

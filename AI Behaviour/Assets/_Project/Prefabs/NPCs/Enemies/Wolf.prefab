@@ -51,7 +51,7 @@ MonoBehaviour:
   _layerMask:
     serializedVersion: 2
     m_Bits: 1048576
-  _searchRadius: 7.5
+  _searchRadius: 15
   _maxTargetsToSearch: 5
 --- !u!135 &5904438204321389091
 SphereCollider:
@@ -72,7 +72,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 7.5
+  m_Radius: 15
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &6703755451336345788
 MonoBehaviour:
@@ -296,8 +296,8 @@ MonoBehaviour:
   _targetedLayerMask:
     serializedVersion: 2
     m_Bits: 1048576
-  _fieldOfView: 120
-  _visionRange: 8
+  _fieldOfView: 240
+  _visionRange: 10
 --- !u!1001 &6190725420891749860
 PrefabInstance:
   m_ObjectHideFlags: 0

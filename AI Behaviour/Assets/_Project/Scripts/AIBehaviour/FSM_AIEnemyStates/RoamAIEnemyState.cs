@@ -33,16 +33,15 @@ public sealed class RoamAIEnemyState : AIEnemyState
         AIEnemy.AutonomousMover.NavMeshAgent.SetDestination(GenerateRandomWaypoint());
     }
 
-    public override void OnFixedUpdate()
+    public async override void OnFixedUpdate()
     {
         if (AIEnemy.AutonomousMover.ReachedTarget || AIEnemy.AutonomousMover.NavMeshAgent.isPathStale || !AIEnemy.AutonomousMover.NavMeshAgent.hasPath)
         {
-            Debug.LogFormat($"ReachedTarget: {AIEnemy.AutonomousMover.ReachedTarget}");
-            Debug.LogFormat($"Path is stale: {AIEnemy.AutonomousMover.NavMeshAgent.isPathStale}");
-            Debug.LogFormat($"Has path: {AIEnemy.AutonomousMover.NavMeshAgent.hasPath}");
+            Debug.LogWarning($"DistanceToTarget: {AIEnemy.AutonomousMover.DistanceToTarget} | StoppingDistance: {AIEnemy.AutonomousMover.MinDistanceToTarget}");
             AIEnemy.AutonomousMover.NavMeshAgent.SetDestination(GenerateRandomWaypoint());
-            Debug.LogFormat($"New destination: {AIEnemy.AutonomousMover.NavMeshAgent.destination}");
+            await Task.Yield();
         }
+
     }
 
     public override void OnUpdate()

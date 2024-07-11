@@ -14,11 +14,8 @@ public sealed class NavMeshMovement : MonoBehaviour, IAmAutonomousMovable
         get => _reachedTarget;
         set
         {
-            if (!NavMeshAgent.pathPending &&
-                (DistanceToTarget <= MinDistanceToTarget || NavMeshAgent.transform.position == NavMeshAgent.pathEndPosition))
-                _reachedTarget = true;
-            else
-                _reachedTarget = false;
+            if (_reachedTarget != value)
+                _reachedTarget = value;
         }
     }
 
@@ -36,6 +33,20 @@ public sealed class NavMeshMovement : MonoBehaviour, IAmAutonomousMovable
     private void OnEnable()
         => InitialPosition = this.transform.position;
 
+    private void Update()
+    {
+        _reachedTarget = IsTargetReached();
+    }
+
+    private bool IsTargetReached()
+    {
+        if (!NavMeshAgent.pathPending && NavMeshAgent.hasPath)
+            if (DistanceToTarget <= MinDistanceToTarget || (NavMeshAgent.transform.position - NavMeshAgent.pathEndPosition).sqrMagnitude <= 0.1f)
+                return true;
+
+        return false;
+    }
+
     public void MoveTo(TargetProvider targetProvider)
     {
         if (!targetProvider.HasTarget)
@@ -46,7 +57,7 @@ public sealed class NavMeshMovement : MonoBehaviour, IAmAutonomousMovable
 
         if (targetProvider.HasTarget)
         {
-            NavMeshAgent.isStopped = false;
+            //NavMeshAgent.isStopped = false;
             NavMeshAgent.SetDestination(targetProvider.Target.position);
         }
     }

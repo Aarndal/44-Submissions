@@ -9,6 +9,7 @@ public class SearchAIEnemyState : AIEnemyState
     private Vector3 _lastKnownPosition;
 
     private NavMeshPath _tempNavMeshPath;
+    private float _prevStoppingDistance;
 
     public bool LostTarget { get; private set; }
 
@@ -25,12 +26,15 @@ public class SearchAIEnemyState : AIEnemyState
 
         AIEnemy.AutonomousMover.NavMeshAgent.speed = 3.0f;
 
+        _prevStoppingDistance = AIEnemy.AutonomousMover.MinDistanceToTarget;
+        AIEnemy.AutonomousMover.MinDistanceToTarget = 0.5f;
+
         AIEnemy.AutonomousMover.NavMeshAgent.ResetPath();
-        
+
         await Task.Yield();
 
         _lastKnownPosition = TargetProvider.Target.position;
-        
+
         AIEnemy.AutonomousMover.MoveTo(TargetProvider);
         _isSearchingLastKnownPosition = true;
 
@@ -67,6 +71,7 @@ public class SearchAIEnemyState : AIEnemyState
         _isSearchingLastKnownPosition = false;
         _isMovingToCurrentPosition = false;
 
+        AIEnemy.AutonomousMover.MinDistanceToTarget = _prevStoppingDistance;
         await Task.Yield();
     }
 

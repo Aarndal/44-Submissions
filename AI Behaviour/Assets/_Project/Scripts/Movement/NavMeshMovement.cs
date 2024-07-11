@@ -5,9 +5,22 @@ using UnityEngine.AI;
 [RequireComponent(typeof(NavMeshAgent))]
 public sealed class NavMeshMovement : MonoBehaviour, IAmAutonomousMovable
 {
+    private bool _reachedTarget;
+
     public NavMeshAgent NavMeshAgent { get; private set; }
 
-    public bool ReachedTarget => DistanceToTarget <= MinDistanceToTarget;
+    public bool ReachedTarget
+    {
+        get => _reachedTarget;
+        set
+        {
+            if (!NavMeshAgent.pathPending &&
+                (DistanceToTarget <= MinDistanceToTarget || NavMeshAgent.transform.position == NavMeshAgent.pathEndPosition))
+                _reachedTarget = true;
+            else
+                _reachedTarget = false;
+        }
+    }
 
     public float DistanceToTarget => NavMeshAgent.remainingDistance;
 
@@ -33,7 +46,7 @@ public sealed class NavMeshMovement : MonoBehaviour, IAmAutonomousMovable
 
         if (targetProvider.HasTarget)
         {
-            //NavMeshAgent.isStopped = false;
+            NavMeshAgent.isStopped = false;
             NavMeshAgent.SetDestination(targetProvider.Target.position);
         }
     }

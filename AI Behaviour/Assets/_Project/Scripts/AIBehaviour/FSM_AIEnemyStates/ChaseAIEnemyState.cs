@@ -1,15 +1,9 @@
-using System;
 using System.Threading.Tasks;
-using UnityEngine;
 
 //[CreateAssetMenu(fileName = "ChaseState", menuName = "AI/States/ChaseState")]
 public sealed class ChaseAIEnemyState : AIEnemyState
 {
-    
-
-    public ChaseAIEnemyState(StateMachine fsm, AIEnemy entity, TargetProvider targetProvider) : base(fsm, entity, targetProvider) 
-    { 
-    }
+    public ChaseAIEnemyState(StateMachine fsm, AIEnemy entity, TargetProvider targetProvider) : base(fsm, entity, targetProvider) { }
 
     public async override Task OnEnter()
     {

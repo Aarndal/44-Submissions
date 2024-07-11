@@ -550,7 +550,7 @@ MonoBehaviour:
     m_Bits: 55
   m_UseGeometry: 0
   m_DefaultArea: 0
-  m_GenerateLinks: 0
+  m_GenerateLinks: 1
   m_IgnoreNavMeshAgent: 1
   m_IgnoreNavMeshObstacle: 1
   m_OverrideTileSize: 0
@@ -916,7 +916,7 @@ PrefabInstance:
     - target: {fileID: 773072565026723162, guid: f04d45b4accecb04e83e19824544d181,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 10.6
+      value: 10.64
       objectReference: {fileID: 0}
     - target: {fileID: 773072565026723162, guid: f04d45b4accecb04e83e19824544d181,
         type: 3}

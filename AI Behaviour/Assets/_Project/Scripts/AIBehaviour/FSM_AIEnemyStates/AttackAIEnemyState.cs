@@ -9,7 +9,7 @@ public class AttackAIEnemyState : AIEnemyState
     public async override Task OnEnter()
     {
         _prevMinDistance = AIEnemy.AutonomousMover.MinDistanceToTarget;
-        AIEnemy.AutonomousMover.MinDistanceToTarget = AIEnemy.AutonomousMover.NavMeshAgent.radius + 1.25f; //To-DO: Change this to a variable
+        AIEnemy.AutonomousMover.NavMeshAgent.stoppingDistance = AIEnemy.AutonomousMover.NavMeshAgent.radius + 1.25f; //To-DO: Change this to a variable
         AIEnemy.AutonomousMover.NavMeshAgent.autoBraking = true;
 
         await Task.Yield();
@@ -17,6 +17,10 @@ public class AttackAIEnemyState : AIEnemyState
 
     public override void OnFixedUpdate()
     {
+        // Treshhold für Übergänge einfügen
+        // Velocity über Transform.position bekommen
+        // ExitTime & Transition Duration für Übergang von Attack zu Run einfügen
+
         if (TargetProvider.SqrDistanceToTarget <= AIEnemy.AutonomousMover.MinDistanceToTarget * AIEnemy.AutonomousMover.MinDistanceToTarget)
         {
             AIEnemy.AutonomousMover.NavMeshAgent.isStopped = true;

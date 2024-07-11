@@ -35,7 +35,7 @@ public class CircleAIEnemyState : AIEnemyState
 
     public override void OnFixedUpdate()
     {
-        if (AIEnemy.transform.position == AIEnemy.AutonomousMover.NavMeshAgent.pathEndPosition)
+        if (AIEnemy.AutonomousMover.ReachedTarget)
             AIEnemy.AutonomousMover.NavMeshAgent.SetDestination(GenerateRandomWaypoint());
     }
 

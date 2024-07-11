@@ -1,4 +1,5 @@
 using System;
+using System.Threading.Tasks;
 using UnityEngine;
 
 public class FightingAIEnemy : AIEnemy, ICanAttack, ICanDie
@@ -7,19 +8,23 @@ public class FightingAIEnemy : AIEnemy, ICanAttack, ICanDie
 
     [SerializeField]
     private Weapon _weapon;
+    //[SerializeField]
+    //private int _attackDelay = 500;
 
     public Weapon Weapon { get => _weapon; protected set => _weapon = value; }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerEnter(Collider collision)
     {
         if (!collision.TryGetComponent<IAmDamageable>(out var target))
             return;
 
         if (collision.CompareTag("Player"))
         {
-            Debug.LogFormat($"Test: {name} attacked Player!");
+            //Debug.LogFormat($"{name} is attacking {collision.gameObject.tag}!");
+            //await Task.Delay(_attackDelay);
             Attack(target);
             HasAttacked?.Invoke(this, target);
+            Debug.LogFormat($"{name} has attacked {collision.gameObject.tag}!");
         }
     }
 

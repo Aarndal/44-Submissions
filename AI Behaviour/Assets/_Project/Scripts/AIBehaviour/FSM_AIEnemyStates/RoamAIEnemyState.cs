@@ -1,10 +1,13 @@
 ﻿using System.Threading.Tasks;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
 //[CreateAssetMenu(fileName = "RoamState", menuName = "AI/States/RoamState")]
 public sealed class RoamAIEnemyState : AIEnemyState
 {
+    private float _prevStoppingDistance;
+
     public float Radius { get; private set; }
 
     public RoamAIEnemyState(StateMachine fsm, AIEnemy entity, float radius) : base(fsm, entity, null)
@@ -15,7 +18,12 @@ public sealed class RoamAIEnemyState : AIEnemyState
     public async override Task OnEnter()
     {
         AIEnemy.AutonomousMover.NavMeshAgent.isStopped = false;
-        AIEnemy.AutonomousMover.NavMeshAgent.stoppingDistance = 0.0f;
+        AIEnemy.AutonomousMover.NavMeshAgent.autoRepath = true;
+        AIEnemy.AutonomousMover.NavMeshAgent.autoBraking = true;
+
+        _prevStoppingDistance = AIEnemy.AutonomousMover.MinDistanceToTarget;
+        AIEnemy.AutonomousMover.MinDistanceToTarget = 0.5f;
+
         AIEnemy.AutonomousMover.NavMeshAgent.ResetPath();
 
         AIEnemy.AutonomousMover.NavMeshAgent.speed = 2.0f;
@@ -27,13 +35,28 @@ public sealed class RoamAIEnemyState : AIEnemyState
 
     public override void OnFixedUpdate()
     {
-        if (AIEnemy.transform.position == AIEnemy.AutonomousMover.NavMeshAgent.pathEndPosition || AIEnemy.AutonomousMover.DistanceToTarget <= 0.5f)
+        if (AIEnemy.AutonomousMover.ReachedTarget || AIEnemy.AutonomousMover.NavMeshAgent.isPathStale || !AIEnemy.AutonomousMover.NavMeshAgent.hasPath)
+        {
+            Debug.LogFormat($"ReachedTarget: {AIEnemy.AutonomousMover.ReachedTarget}");
+            Debug.LogFormat($"Path is stale: {AIEnemy.AutonomousMover.NavMeshAgent.isPathStale}");
+            Debug.LogFormat($"Has path: {AIEnemy.AutonomousMover.NavMeshAgent.hasPath}");
             AIEnemy.AutonomousMover.NavMeshAgent.SetDestination(GenerateRandomWaypoint());
+            Debug.LogFormat($"New destination: {AIEnemy.AutonomousMover.NavMeshAgent.destination}");
+        }
     }
 
     public override void OnUpdate()
     {
-        AIEnemy.Animator.Play("Base Layer.Walk");
+        if (AIEnemy.AutonomousMover.NavMeshAgent.velocity.sqrMagnitude <= 0.01f)
+            AIEnemy.Animator.Play("Base Layer.Idle");
+        else
+            AIEnemy.Animator.Play("Base Layer.Walk");
+    }
+
+    public async override Task OnExit()
+    {
+        AIEnemy.AutonomousMover.MinDistanceToTarget = _prevStoppingDistance;
+        await Task.Yield();
     }
 
     private Vector3 GenerateRandomWaypoint()
@@ -44,6 +67,6 @@ public sealed class RoamAIEnemyState : AIEnemyState
         if (NavMesh.SamplePosition(rndPos, out NavMeshHit hit, float.PositiveInfinity, NavMesh.AllAreas))
             return hit.position;
 
-        return Vector3.zero;
+        return AIEnemy.AutonomousMover.InitialPosition;
     }
 }

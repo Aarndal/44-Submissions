@@ -26,6 +26,8 @@ public class FightingAIEnemy : AIEnemy, ICanAttack, ICanDie
             Debug.LogWarning($"{name} has no assigned Weapon.");
     }
 
+
+    //!!!!!!!!!Wird nicht aufgerufen!!!!!!
     private void OnEnable()
     {
         _animationEventBroadcaster.AnimationEventTriggered += OnAttackAnimation;

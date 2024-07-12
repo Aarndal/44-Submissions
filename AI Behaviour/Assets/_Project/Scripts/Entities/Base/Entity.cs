@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [DisallowMultipleComponent]
-public class Entity : MonoBehaviour
+public abstract class Entity : MonoBehaviour
 {
     [Header("References")]
     [SerializeField]

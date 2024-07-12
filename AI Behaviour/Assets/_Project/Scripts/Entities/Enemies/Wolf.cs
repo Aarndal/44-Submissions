@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-public class Wolf : FastFightingAIEnemy
+public sealed class Wolf : FastFightingAIEnemy
 {
     public Func<bool> RoamCondition, IdleCondition, ChaseCondition, SearchCondition, AttackCondition, CircleCondition, FleeCondition;
 

@@ -86,6 +86,8 @@ public class StateMachine
         if (!History.Contains(targetState))
             History.Push(targetState);
 
+        //History length checken und gegebenfalls untersten State entfernen
+
         Debug.LogWarning($"Transitioning from {CurrentState} to {targetState}");
 
         if (CurrentState != null)
@@ -112,8 +114,7 @@ public class StateMachine
 
     public void SetInitialState(State state)
     {
-        if (!States.Contains(state))
-            States.Add(state);
+        States.Add(state);
 
         History.Push(state);
         CurrentState = state;

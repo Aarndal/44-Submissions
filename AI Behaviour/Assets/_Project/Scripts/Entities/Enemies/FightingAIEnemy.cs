@@ -1,5 +1,4 @@
 using System;
-using System.Threading.Tasks;
 using UnityEngine;
 
 public class FightingAIEnemy : AIEnemy, ICanAttack, ICanDie
@@ -8,10 +7,35 @@ public class FightingAIEnemy : AIEnemy, ICanAttack, ICanDie
 
     [SerializeField]
     private Weapon _weapon;
+    [SerializeField]
+    private Collider _attackCollider;
+
     //[SerializeField]
     //private int _attackDelay = 500;
 
     public Weapon Weapon { get => _weapon; protected set => _weapon = value; }
+
+    protected override void Awake()
+    {
+        base.Awake();
+
+        if (_attackCollider == null)
+            Debug.LogWarning($"{name} has no assigned TriggerCollider");
+
+        if (_weapon == null)
+            Debug.LogWarning($"{name} has no assigned Weapon.");
+    }
+
+    private void OnEnable()
+    {
+        _animationEventBroadcaster.AnimationEventTriggered += OnAttackAnimation;
+    }
+
+    private void Start()
+    {
+        _attackCollider.isTrigger = true;
+        _attackCollider.enabled = false;
+    }
 
     private void OnTriggerEnter(Collider collision)
     {
@@ -25,6 +49,22 @@ public class FightingAIEnemy : AIEnemy, ICanAttack, ICanDie
             Attack(target);
             HasAttacked?.Invoke(this, target);
             Debug.LogFormat($"{name} has attacked {collision.gameObject.tag}!");
+        }
+    }
+
+    private void OnDisable()
+    {
+        _animationEventBroadcaster.AnimationEventTriggered -= OnAttackAnimation;
+    }
+
+    private void OnAttackAnimation(AnimationEvent args)
+    {
+        if (args.stringParameter == "Attack")
+        {
+            if (args.intParameter == 0)
+                _attackCollider.enabled = false;
+            else
+                _attackCollider.enabled = true;
         }
     }
 
@@ -43,4 +83,5 @@ public class FightingAIEnemy : AIEnemy, ICanAttack, ICanDie
     {
         Destroy(this.gameObject);
     }
+
 }

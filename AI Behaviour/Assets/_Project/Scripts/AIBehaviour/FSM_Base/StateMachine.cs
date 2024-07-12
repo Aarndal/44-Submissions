@@ -1,9 +1,13 @@
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
 
 public class StateMachine
 {
+    private readonly ReaderWriterLockSlim Lock = new(LockRecursionPolicy.SupportsRecursion);
+    private readonly int MinHistorySize = 5;
+
     private bool _isTransitioning = false;
 
     private State _currentState;
@@ -18,17 +22,16 @@ public class StateMachine
                 _currentState = value;
         }
     }
-
-    public HashSet<State> States { get; }
-    public List<Transition> AnyTransitions { get; }
-    public Stack<State> History { get; }
+    public HashSet<State> States { get; protected set; }
+    public List<Transition> AnyTransitions { get; protected set; }
+    public Stack<State> History { get; protected set; }
 
 
     public StateMachine()
     {
         States = new();
         AnyTransitions = new();
-        History = new();
+        History = new(MinHistorySize);
     }
 
     #region Unity Build-In Callbacks
@@ -80,13 +83,15 @@ public class StateMachine
     {
         _isTransitioning = true;
 
-        if (!States.Contains(targetState))
-            States.Add(targetState);
+        AddState(targetState);
 
-        if (!History.Contains(targetState))
-            History.Push(targetState);
+        if (History.Count >= States.Count && History.Count >= MinHistorySize) // check to regulate the size of the History
+        {
+            History.Clear();
+            History.Push(CurrentState);
+        }
 
-        //History length checken und gegebenfalls untersten State entfernen
+        History.Push(targetState);
 
         Debug.LogWarning($"Transitioning from {CurrentState} to {targetState}");
 
@@ -101,10 +106,24 @@ public class StateMachine
     #endregion
 
     #region Public Methods
-    public void AddState(State state)
+    public bool AddState(State state)
     {
-        States.Add(state);
+        //---------------------------
+        //https://josipmisko.com/posts/c-sharp-hashset
+
+        try
+        {
+            Lock.EnterWriteLock();
+            return States.Add(state); // No need of using the Contains method to check if the element is already contained within the HashSet
+        }
+        finally
+        {
+            if (Lock.IsWriteLockHeld) Lock.ExitWriteLock();
+        }
+
+        //---------------------------
     }
+
 
     public void AddAnyTransition(Transition transition)
     {
@@ -114,8 +133,7 @@ public class StateMachine
 
     public void SetInitialState(State state)
     {
-        States.Add(state);
-
+        AddState(state);
         History.Push(state);
         CurrentState = state;
     }

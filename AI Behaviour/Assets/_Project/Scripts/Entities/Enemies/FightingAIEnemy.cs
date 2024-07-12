@@ -26,14 +26,7 @@ public class FightingAIEnemy : AIEnemy, ICanAttack, ICanDie
             Debug.LogWarning($"{name} has no assigned Weapon.");
     }
 
-
-    //!!!!!!!!!Wird nicht aufgerufen!!!!!!
-    private void OnEnable()
-    {
-        _animationEventBroadcaster.AnimationEventTriggered += OnAttackAnimation;
-    }
-
-    private void Start()
+    protected virtual void Start()
     {
         _attackCollider.isTrigger = true;
         _attackCollider.enabled = false;
@@ -54,15 +47,12 @@ public class FightingAIEnemy : AIEnemy, ICanAttack, ICanDie
         }
     }
 
-    private void OnDisable()
+    protected override void OnAnimationEvenTriggered(AnimationEvent args)
     {
-        _animationEventBroadcaster.AnimationEventTriggered -= OnAttackAnimation;
-    }
-
-    private void OnAttackAnimation(AnimationEvent args)
-    {
+        Debug.Log("AnimationEvent invoked!");
         if (args.stringParameter == "Attack")
         {
+            Debug.LogFormat($"AnimationEvent is {args.stringParameter}Event.\nAttack State: {args.intParameter}");
             if (args.intParameter == 0)
                 _attackCollider.enabled = false;
             else

@@ -70,14 +70,17 @@ public class Wolf : FastFightingAIEnemy
         _flee.AddTransition(_toIdle);
     }
 
-    private void OnEnable()
+    protected override void OnEnable()
     {
+        base.OnEnable();
         //    _idle.IdleTimeIsUp += OnIdleTimeIsUp;
         //    _lineOfSightChecker.GainedSight += OnGainedSight;
     }
 
-    private void Start()
+    protected override void Start()
     {
+        base.Start();
+
         this.AutonomousMover.NavMeshAgent.enabled = true;
         this.AutonomousMover.MinDistanceToTarget = AutonomousMover.MinDistanceToTarget >= _attackRange ? _attackRange - 0.1f : AutonomousMover.MinDistanceToTarget;
 
@@ -103,8 +106,9 @@ public class Wolf : FastFightingAIEnemy
         _myFSM.OnLateUpdate();
     }
 
-    private void OnDisable()
+    protected override void OnDisable()
     {
+        base.OnDisable();
         //    _lineOfSightChecker.GainedSight -= OnGainedSight;
         //    _idle.IdleTimeIsUp -= OnIdleTimeIsUp;
     }

@@ -16,15 +16,21 @@ public abstract class Entity : MonoBehaviour
         _animator = Animator != null ? Animator : GetComponentInChildren<Animator>();
     }
 
-    //!!!!!!!!!Wird nicht aufgerufen!!!!!!
     protected virtual void OnEnable()
     {
-        _animationEventBroadcaster.AnimationEventTriggered += OnAnimationEvenTriggered;
+        if (_animationEventBroadcaster != null)
+            _animationEventBroadcaster.AnimationEventTriggered += OnAnimationEvenTriggered;
+    }
+
+    protected virtual void Start()
+    {
+        Animator.enabled = true;
     }
 
     protected virtual void OnDisable()
     {
-        _animationEventBroadcaster.AnimationEventTriggered -= OnAnimationEvenTriggered;
+        if (_animationEventBroadcaster != null)
+            _animationEventBroadcaster.AnimationEventTriggered -= OnAnimationEvenTriggered;
     }
 
     protected virtual void OnAnimationEvenTriggered(AnimationEvent args) { }

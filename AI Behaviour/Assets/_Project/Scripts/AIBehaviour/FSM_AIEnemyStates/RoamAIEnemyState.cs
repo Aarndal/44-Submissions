@@ -1,7 +1,4 @@
 ﻿using System.Threading.Tasks;
-using Unity.VisualScripting;
-using UnityEngine;
-using UnityEngine.AI;
 
 //[CreateAssetMenu(fileName = "RoamState", menuName = "AI/States/RoamState")]
 public sealed class RoamAIEnemyState : AIEnemyState
@@ -10,10 +7,7 @@ public sealed class RoamAIEnemyState : AIEnemyState
 
     public float Radius { get; private set; }
 
-    public RoamAIEnemyState(StateMachine fsm, AIEnemy entity, float radius) : base(fsm, entity, null)
-    {
-        Radius = radius;
-    }
+    public RoamAIEnemyState(StateMachine fsm, AIEnemy entity, RandomWayPointTargetProvider targetProvider) : base(fsm, entity, targetProvider) { }
 
     public async override Task OnEnter()
     {
@@ -28,20 +22,21 @@ public sealed class RoamAIEnemyState : AIEnemyState
 
         AIEnemy.AutonomousMover.NavMeshAgent.speed = 2.0f;
 
+        TargetProvider.GetTarget();
+
         await Task.Yield();
 
-        AIEnemy.AutonomousMover.NavMeshAgent.SetDestination(GenerateRandomWaypoint());
+        AIEnemy.AutonomousMover.MoveTo(TargetProvider);
     }
 
     public async override void OnFixedUpdate()
     {
         if (AIEnemy.AutonomousMover.ReachedTarget || AIEnemy.AutonomousMover.NavMeshAgent.isPathStale || !AIEnemy.AutonomousMover.NavMeshAgent.hasPath)
         {
-            Debug.LogWarning($"DistanceToTarget: {AIEnemy.AutonomousMover.DistanceToTarget} | StoppingDistance: {AIEnemy.AutonomousMover.MinDistanceToTarget}");
-            AIEnemy.AutonomousMover.NavMeshAgent.SetDestination(GenerateRandomWaypoint());
+            TargetProvider.GetTarget();
             await Task.Yield();
+            AIEnemy.AutonomousMover.MoveTo(TargetProvider);
         }
-
     }
 
     public override void OnUpdate()
@@ -56,16 +51,5 @@ public sealed class RoamAIEnemyState : AIEnemyState
     {
         AIEnemy.AutonomousMover.MinDistanceToTarget = _prevStoppingDistance;
         await Task.Yield();
-    }
-
-    private Vector3 GenerateRandomWaypoint()
-    {
-        Vector2 rndPosInsideCircle = UnityEngine.Random.insideUnitCircle * Radius;
-        Vector3 rndPos = AIEnemy.AutonomousMover.InitialPosition + new Vector3(rndPosInsideCircle.x, 0, rndPosInsideCircle.y);
-
-        if (NavMesh.SamplePosition(rndPos, out NavMeshHit hit, float.PositiveInfinity, NavMesh.AllAreas))
-            return hit.position;
-
-        return AIEnemy.AutonomousMover.InitialPosition;
     }
 }

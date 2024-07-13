@@ -5,8 +5,8 @@ public sealed class Wolf : FastFightingAIEnemy
 {
     public Func<bool> RoamCondition, IdleCondition, ChaseCondition, SearchCondition, AttackCondition, CircleCondition, FleeCondition;
 
-    //[SerializeField]
-    //private RandomWayPointTargetProvider _wayPointProvider;
+    [SerializeField]
+    private RandomWayPointTargetProvider _wayPointProvider;
     [SerializeField]
     private PlayerTargetProvider _playerProvider;
     [SerializeField]
@@ -87,6 +87,7 @@ public sealed class Wolf : FastFightingAIEnemy
         this.EvadeChance = _evadeChance;
 
         _flee.FleeDistance = _fleeDistance;
+        _wayPointProvider.GenerationRadius = _roamRadius;
 
         Debug.LogWarning("Start State: " + _myFSM.CurrentState);
     }
@@ -119,7 +120,7 @@ public sealed class Wolf : FastFightingAIEnemy
     private void InitializeStates()
     {
         _idle = new IdleAIEnemyState(_myFSM, this, _idleTime);
-        _roam = new RoamAIEnemyState(_myFSM, this, _roamRadius);
+        _roam = new RoamAIEnemyState(_myFSM, this, _wayPointProvider);
         _chase = new ChaseAIEnemyState(_myFSM, this, _playerProvider);
         _search = new SearchAIEnemyState(_myFSM, this, _playerProvider);
         _attack = new AttackAIEnemyState(_myFSM, this, _playerProvider);

@@ -38,9 +38,11 @@ public class FleeAIEnemyState : AIEnemyState
         Vector2 rndPosInsideCircle = UnityEngine.Random.insideUnitCircle * FleeDistance;
         Vector3 rndPos = TargetProvider.Target.position + new Vector3(rndPosInsideCircle.x, 0, rndPosInsideCircle.y);
 
+        //Vector3 fleePos = (AIEnemy.transform.position - TargetProvider.Target.position).normalized * FleeDistance;
+
         if (NavMesh.SamplePosition(rndPos, out NavMeshHit hit, float.PositiveInfinity, NavMesh.AllAreas))
             return hit.position;
 
-        return Vector3.zero;
+        return AIEnemy.AutonomousMover.InitialPosition;
     }
 }

@@ -4,7 +4,7 @@ public class AttackAIEnemyState : AIEnemyState
 {
     float _prevMinDistance;
 
-    public AttackAIEnemyState(StateMachine fsm, AIEnemy entity, TargetProvider targetProvider) : base(fsm, entity, targetProvider) { }
+    public AttackAIEnemyState(StateMachine fsm, AIEnemy entity, PlayerTargetProvider targetProvider) : base(fsm, entity, targetProvider) { }
 
     public async override Task OnEnter()
     {

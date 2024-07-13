@@ -11,7 +11,7 @@ public class CircleAIEnemyState : AIEnemyState
     private float _prevAngularSpeed;
     private float _prevStoppingDistance;
 
-    public CircleAIEnemyState(StateMachine fsm, AIEnemy entity, TargetProvider targetProvider) : base(fsm, entity, targetProvider) { }
+    public CircleAIEnemyState(StateMachine fsm, AIEnemy entity, PlayerTargetProvider targetProvider) : base(fsm, entity, targetProvider) { }
 
     public async override Task OnEnter()
     {

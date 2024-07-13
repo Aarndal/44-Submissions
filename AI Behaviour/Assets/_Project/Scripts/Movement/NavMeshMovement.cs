@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -5,6 +6,8 @@ using UnityEngine.AI;
 [RequireComponent(typeof(NavMeshAgent))]
 public sealed class NavMeshMovement : MonoBehaviour, IAmAutonomousMovable
 {
+    private readonly int DefaultUpdateSpeed = 100;
+
     private bool _reachedTarget;
 
     public NavMeshAgent NavMeshAgent { get; private set; }
@@ -27,18 +30,24 @@ public sealed class NavMeshMovement : MonoBehaviour, IAmAutonomousMovable
 
     public Vector3 CurrentPosition => this.transform.position;
 
+    public int UpdateSpeed { get; private set; }
+
     private void Awake()
-        => NavMeshAgent = NavMeshAgent != null ? NavMeshAgent : GetComponent<NavMeshAgent>();
+    {
+        NavMeshAgent = NavMeshAgent != null ? NavMeshAgent : GetComponent<NavMeshAgent>();
+
+        UpdateSpeed = DefaultUpdateSpeed;
+    }
 
     private void OnEnable()
         => InitialPosition = this.transform.position;
 
     private void Update()
     {
-        _reachedTarget = IsTargetReached();
+        _reachedTarget = HasReachedTargetCheck();
     }
 
-    private bool IsTargetReached()
+    private bool HasReachedTargetCheck()
     {
         if (!NavMeshAgent.pathPending && NavMeshAgent.hasPath)
             if (DistanceToTarget <= MinDistanceToTarget || (NavMeshAgent.transform.position - NavMeshAgent.pathEndPosition).sqrMagnitude <= 0.1f)
@@ -47,18 +56,19 @@ public sealed class NavMeshMovement : MonoBehaviour, IAmAutonomousMovable
         return false;
     }
 
-    public void MoveTo(TargetProvider targetProvider)
+    public async void MoveTo(TargetProvider targetProvider)
     {
         if (!targetProvider.HasTarget)
         {
-            //NavMeshAgent.isStopped = true;
+            NavMeshAgent.isStopped = true;
             Debug.Log($"{gameObject.name} has no target");
         }
 
         if (targetProvider.HasTarget)
         {
-            //NavMeshAgent.isStopped = false;
+            NavMeshAgent.isStopped = false;
             NavMeshAgent.SetDestination(targetProvider.Target.position);
+            await Task.Delay(UpdateSpeed);
         }
     }
 }

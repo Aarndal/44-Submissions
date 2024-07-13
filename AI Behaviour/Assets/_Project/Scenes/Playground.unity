@@ -523,6 +523,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2114283753834967213}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1282004395 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6703755451336345788, guid: f04d45b4accecb04e83e19824544d181,
+    type: 3}
+  m_PrefabInstance: {fileID: 6108375021385763250}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7dfaac483a6682438f08efe1443393f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1413997970 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1888427756403250876, guid: 09aade0ecefd01e4b8f7661acf64f5c2,
@@ -968,6 +980,11 @@ PrefabInstance:
       propertyPath: m_Center.z
       value: 0.9
       objectReference: {fileID: 0}
+    - target: {fileID: 8362288680501008987, guid: f04d45b4accecb04e83e19824544d181,
+        type: 3}
+      propertyPath: _wayPointProvider
+      value: 
+      objectReference: {fileID: 1282004395}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

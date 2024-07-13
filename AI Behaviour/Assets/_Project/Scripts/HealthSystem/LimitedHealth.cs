@@ -9,7 +9,7 @@ public class LimitedHealth : Health
 
     public override void IncreaseCurrentHealth(int amount)
     {
-        _currentHealth = Mathf.Clamp(_currentHealth + amount, 0, _maxHealth);
+        CurrentHealth = Mathf.Clamp(CurrentHealth + amount, 0, _maxHealth);
         Debug.LogFormat($"{name} Health: {CurrentHealth} / {MaxHealth}");
     }
 

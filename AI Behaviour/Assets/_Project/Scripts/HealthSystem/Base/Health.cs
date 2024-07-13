@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -6,21 +7,42 @@ using UnityEngine.Events;
 /// </summary>
 public abstract class Health : MonoBehaviour
 {
+    public event Action HealthChanged;
+    public event Action HealthDecreased;
+    public event Action HealthIncreased;
     public UnityEvent ZeroHealth;
-    
+
     [Header("Values")]
     [SerializeField, Min(1)]
     protected int _currentHealth;
-    
-    public int CurrentHealth => _currentHealth;
+
+    public int CurrentHealth
+    {
+        get => _currentHealth;
+        protected set
+        {
+            if (_currentHealth != value)
+            {
+                HealthChanged?.Invoke();
+
+                if(value < _currentHealth)
+                    HealthDecreased?.Invoke();
+
+                if(value > _currentHealth)
+                    HealthIncreased?.Invoke();
+
+                _currentHealth = value;
+            }
+        }
+    }
 
     public abstract void IncreaseCurrentHealth(int amount);
 
     public virtual void DecreaseCurrentHealth(int amount)
     {
-        _currentHealth = Mathf.Clamp(_currentHealth - amount, 0, int.MaxValue);
+        CurrentHealth = Mathf.Clamp(CurrentHealth - amount, 0, int.MaxValue);
 
-        if(_currentHealth <= 0)
+        if (CurrentHealth <= 0)
             ZeroHealth.Invoke();
     }
 }

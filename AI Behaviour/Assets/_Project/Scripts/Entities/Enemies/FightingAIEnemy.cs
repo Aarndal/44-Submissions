@@ -73,7 +73,8 @@ public class FightingAIEnemy : AIEnemy, ICanAttack, ICanDie
 
     public virtual void Die()
     {
-        Destroy(this.gameObject);
+        this.gameObject.SetActive(false);
+        //Destroy(this.gameObject);
     }
 
 }

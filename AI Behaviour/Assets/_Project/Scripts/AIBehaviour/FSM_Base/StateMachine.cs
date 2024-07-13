@@ -35,6 +35,11 @@ public class StateMachine
     }
 
     #region Unity Build-In Callbacks
+    public async void OnStart()
+    {
+        await CurrentState.OnEnter();
+    }
+
     public void OnFixedUpdate()
     {
         CurrentState.OnFixedUpdate();

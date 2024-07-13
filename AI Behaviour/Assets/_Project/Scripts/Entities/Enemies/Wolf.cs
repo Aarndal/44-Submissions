@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using UnityEngine;
 
 public sealed class Wolf : FastFightingAIEnemy
@@ -13,12 +14,12 @@ public sealed class Wolf : FastFightingAIEnemy
     private LineOfSightChecker _lineOfSightChecker;
 
     [Header("Variables")]
+    [SerializeField, Range(1.0f, 60.0f)]
+    private float _idleTime = 5.0f;
     [SerializeField]
-    private float _idleTime = 5f;
+    private float _roamRadius = 20.0f;
     [SerializeField]
-    private float _roamRadius = 20f;
-    [SerializeField]
-    private float _fleeDistance = 100f;
+    private float _fleeDistance = 100.0f;
     [SerializeField, Range(2.0f, 5.0f)]
     private float _attackRange = 4.0f;
     [SerializeField, Range(1, 100)]
@@ -41,38 +42,14 @@ public sealed class Wolf : FastFightingAIEnemy
         InitializeConditions();
         InitializeTransitions();
 
-        _myFSM.SetInitialState(_idle);
-        _idle.AddTransition(_toRoam);
-        _idle.AddTransition(_toChase);
-
-        _myFSM.AddState(_roam);
-        _roam.AddTransition(_toChase);
-
-        _myFSM.AddState(_search);
-        _search.AddTransition(_toChase);
-        _search.AddTransition(_toIdle);
-
-        _myFSM.AddState(_chase);
-        _chase.AddTransition(_toSearch);
-        _chase.AddTransition(_toAttack);
-        _chase.AddTransition(_toCircle);
-
-        _myFSM.AddState(_attack);
-        _attack.AddTransition(_toChase);
-        _attack.AddTransition(_toCircle);
-
-        _myFSM.AddState(_circle);
-        _circle.AddTransition(_toChase);
-        _circle.AddTransition(_toAttack);
-
-        _myFSM.AddState(_flee);
-        _myFSM.AddAnyTransition(_toFlee);
-        _flee.AddTransition(_toIdle);
+        StartCoroutine(AddStatesToFSM());
+        StartCoroutine(AddTransitions());
     }
 
     protected override void OnEnable()
     {
         base.OnEnable();
+
         //    _idle.IdleTimeIsUp += OnIdleTimeIsUp;
         //    _lineOfSightChecker.GainedSight += OnGainedSight;
     }
@@ -86,8 +63,12 @@ public sealed class Wolf : FastFightingAIEnemy
 
         this.EvadeChance = _evadeChance;
 
-        _flee.FleeDistance = _fleeDistance;
         _wayPointProvider.GenerationRadius = _roamRadius;
+
+        _idle.IdleTime = _idleTime;
+        _flee.FleeDistance = _fleeDistance;
+
+        _myFSM.OnStart();
 
         Debug.LogWarning("Start State: " + _myFSM.CurrentState);
     }
@@ -110,6 +91,7 @@ public sealed class Wolf : FastFightingAIEnemy
     protected override void OnDisable()
     {
         base.OnDisable();
+
         //    _lineOfSightChecker.GainedSight -= OnGainedSight;
         //    _idle.IdleTimeIsUp -= OnIdleTimeIsUp;
     }
@@ -119,7 +101,7 @@ public sealed class Wolf : FastFightingAIEnemy
 
     private void InitializeStates()
     {
-        _idle = new IdleAIEnemyState(_myFSM, this, _idleTime);
+        _idle = new IdleAIEnemyState(_myFSM, this);
         _roam = new RoamAIEnemyState(_myFSM, this, _wayPointProvider);
         _chase = new ChaseAIEnemyState(_myFSM, this, _playerProvider);
         _search = new SearchAIEnemyState(_myFSM, this, _playerProvider);
@@ -162,5 +144,44 @@ public sealed class Wolf : FastFightingAIEnemy
         _toAttack = new Transition("Transition to Attack", AttackCondition, _attack);
         _toCircle = new Transition("Transition to Circle", CircleCondition, _circle);
         _toFlee = new Transition("Transition to Flee", FleeCondition, _flee);
+    }
+
+    private IEnumerator AddStatesToFSM()
+    {
+        _myFSM.SetInitialState(_idle);
+        _myFSM.AddState(_roam);
+        _myFSM.AddState(_chase);
+        _myFSM.AddState(_search);
+        _myFSM.AddState(_attack);
+        _myFSM.AddState(_circle);
+        _myFSM.AddState(_flee);
+
+        yield return null;
+    }
+
+    private IEnumerator AddTransitions()
+    {
+        _idle.AddTransition(_toRoam);
+        _idle.AddTransition(_toChase);
+
+        _roam.AddTransition(_toChase);
+
+        _search.AddTransition(_toChase);
+        _search.AddTransition(_toIdle);
+
+        _chase.AddTransition(_toSearch);
+        _chase.AddTransition(_toAttack);
+        _chase.AddTransition(_toCircle);
+
+        _attack.AddTransition(_toChase);
+        _attack.AddTransition(_toCircle);
+
+        _circle.AddTransition(_toChase);
+        _circle.AddTransition(_toAttack);
+
+        _myFSM.AddAnyTransition(_toFlee);
+        _flee.AddTransition(_toIdle);
+
+        yield return null;
     }
 }

@@ -7,8 +7,26 @@ public sealed class IdleAIEnemyState : AIEnemyState
 {
     public event Action<bool> IdleTimeIsUp;
 
+    public readonly float MinIdleTime = 5.0f;
+
     private bool _timeIsUp = false;
     private float _timer = 0f, _idleTime = 0f, _animationLoopCount = 0f;
+
+    public float IdleTime
+    {
+        get => _idleTime < MinIdleTime ? MinIdleTime : _idleTime;
+        set
+        {
+            if (_idleTime != value)
+                _idleTime = value;
+
+            if (_idleTime < MinIdleTime)
+            {
+                _idleTime = MinIdleTime;
+                Debug.LogFormat("IdelTime has been set to MinIdleTime.");
+            }
+        }
+    }
 
     public bool TimeIsUp
     {
@@ -23,19 +41,18 @@ public sealed class IdleAIEnemyState : AIEnemyState
         }
     }
 
-    public IdleAIEnemyState(StateMachine fsm, AIEnemy entity, float idleTime) : base(fsm, entity, null)
+    public IdleAIEnemyState(StateMachine fsm, AIEnemy entity) : base(fsm, entity, null)
     {
-        _idleTime = idleTime;
-        _timer = _idleTime;
+        _timer = IdleTime;
     }
 
     public async override Task OnEnter()
     {
+        _timer = IdleTime;
+        TimeIsUp = false;
+
         AIEnemy.AutonomousMover.NavMeshAgent.isStopped = true;
         AIEnemy.AutonomousMover.NavMeshAgent.ResetPath();
-
-        _timer = _idleTime;
-        TimeIsUp = false;
 
         await Task.Yield();
 
@@ -46,7 +63,7 @@ public sealed class IdleAIEnemyState : AIEnemyState
     {
         //------------------
         //https://github.com/llamacademy/ai-series-part-47/blob/main/Assets/Scripts/FSM/States/IdleState.cs
-        
+
         AnimatorStateInfo currentAnimatorState = AIEnemy.Animator.GetCurrentAnimatorStateInfo(0);
 
         if (currentAnimatorState.normalizedTime >= _animationLoopCount + 1)
@@ -67,7 +84,7 @@ public sealed class IdleAIEnemyState : AIEnemyState
                     _animationLoopCount = 0;
                 else
                     _animationLoopCount++;
-                
+
                 AIEnemy.Animator.Play("Base Layer.Sit");
             }
             else
@@ -76,7 +93,7 @@ public sealed class IdleAIEnemyState : AIEnemyState
                     _animationLoopCount = 0;
                 else
                     _animationLoopCount++;
-                
+
                 AIEnemy.Animator.Play("Base Layer.Dig");
             }
         }
@@ -86,5 +103,15 @@ public sealed class IdleAIEnemyState : AIEnemyState
 
         if (_timer <= 0)
             TimeIsUp = true;
+    }
+
+    public async override Task OnExit()
+    {
+        _timer = IdleTime;
+
+        await Task.Yield();
+
+        if (TimeIsUp)
+            TimeIsUp = false;
     }
 }

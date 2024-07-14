@@ -13,4 +13,9 @@ public class AIEnemy : Enemy
         base.Awake();
         _autonomousMover = AutonomousMover != null ? AutonomousMover : GetComponent<NavMeshMovement>();
     }
+
+    protected virtual void Update()
+    {
+        Animator.SetFloat("Velocity", AutonomousMover.NavMeshAgent.velocity.magnitude);
+    }
 }

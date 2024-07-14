@@ -78,8 +78,10 @@ public sealed class Wolf : FastFightingAIEnemy
         _myFSM.OnFixedUpdate();
     }
 
-    private void Update()
+    protected override void Update()
     {
+        base.Update();
+
         _myFSM.OnUpdate();
     }
 

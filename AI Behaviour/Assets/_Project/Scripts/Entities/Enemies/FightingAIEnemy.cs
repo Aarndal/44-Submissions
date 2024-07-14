@@ -34,7 +34,7 @@ public class FightingAIEnemy : AIEnemy, ICanAttack, ICanDie
         _attackCollider.enabled = false;
     }
 
-    private void OnTriggerEnter(Collider collision)
+    protected void OnTriggerEnter(Collider collision)
     {
         if (!collision.TryGetComponent<IAmDamageable>(out var target))
             return;
@@ -44,7 +44,6 @@ public class FightingAIEnemy : AIEnemy, ICanAttack, ICanDie
             //Debug.LogFormat($"{name} is attacking {collision.gameObject.tag}!");
             //await Task.Delay(_attackDelay);
             Attack(target);
-            HasAttacked?.Invoke(this, target);
             Debug.LogFormat($"{name} has attacked {collision.gameObject.tag}!");
         }
     }
@@ -69,6 +68,7 @@ public class FightingAIEnemy : AIEnemy, ICanAttack, ICanDie
         }
 
         Weapon.Attack(target);
+        HasAttacked?.Invoke(this, target);
     }
 
     public virtual void Die()
@@ -76,5 +76,4 @@ public class FightingAIEnemy : AIEnemy, ICanAttack, ICanDie
         this.gameObject.SetActive(false);
         //Destroy(this.gameObject);
     }
-
 }

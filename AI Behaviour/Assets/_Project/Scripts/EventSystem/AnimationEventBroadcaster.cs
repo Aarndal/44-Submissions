@@ -9,6 +9,5 @@ public class AnimationEventBroadcaster : MonoBehaviour
     public void OnAnimationEvent(AnimationEvent eventArgs)
     {
         AnimationEventTriggered?.Invoke(eventArgs);
-        Debug.LogFormat($"{eventArgs.stringParameter}Event: {eventArgs.intParameter}");
     }
 }

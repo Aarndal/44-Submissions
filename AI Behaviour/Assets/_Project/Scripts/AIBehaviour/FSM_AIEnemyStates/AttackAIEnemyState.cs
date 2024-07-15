@@ -9,10 +9,9 @@ public class AttackAIEnemyState : AIEnemyState
     public async override Task OnEnter()
     {
         _prevMinDistance = AIEnemy.AutonomousMover.MinDistanceToTarget;
-        AIEnemy.AutonomousMover.NavMeshAgent.stoppingDistance = AIEnemy.AutonomousMover.NavMeshAgent.radius + 1.25f; //To-DO: Change this to a variable
         AIEnemy.AutonomousMover.NavMeshAgent.autoBraking = true;
-
         await Task.Yield();
+        AIEnemy.AutonomousMover.NavMeshAgent.stoppingDistance = AIEnemy.AutonomousMover.NavMeshAgent.radius + 1.25f; //To-DO: Change this to a variable
     }
 
     public override void OnFixedUpdate()

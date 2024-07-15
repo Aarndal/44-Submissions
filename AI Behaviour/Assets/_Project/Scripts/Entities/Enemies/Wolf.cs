@@ -14,14 +14,19 @@ public sealed class Wolf : FastFightingAIEnemy
     private LineOfSightChecker _lineOfSightChecker;
 
     [Header("Variables")]
+    [Tooltip("How long should the Wolf stay in its Idle state in seconds.")]
     [SerializeField, Range(1.0f, 60.0f)]
     private float _idleTime = 5.0f;
+    [Tooltip("How far should the Wolf roam around its spawn point.")]
     [SerializeField]
     private float _roamRadius = 20.0f;
+    [Tooltip("Distance to flee from the attacker.")]
     [SerializeField]
     private float _fleeDistance = 100.0f;
+    [Tooltip("MinDistance for triggering an attack.")]
     [SerializeField, Range(2.0f, 5.0f)]
     private float _attackRange = 4.0f;
+    [Tooltip("Probability of evading an attack, in percent.")]
     [SerializeField, Range(1, 100)]
     private int _evadeChance = 20;
 
@@ -58,7 +63,6 @@ public sealed class Wolf : FastFightingAIEnemy
     {
         base.Start();
 
-        this.AutonomousMover.NavMeshAgent.enabled = true;
         this.AutonomousMover.MinDistanceToTarget = AutonomousMover.MinDistanceToTarget >= _attackRange ? _attackRange - 0.1f : AutonomousMover.MinDistanceToTarget;
 
         this.EvadeChance = _evadeChance;

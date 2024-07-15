@@ -2,12 +2,12 @@
 
 public class Condition : IPredicate
 {
-    readonly Func<bool> func;
+    public Func<bool> Event;
 
-    public Condition(Func<bool> func)
+    public Condition(Func<bool> @event)
     {
-        this.func = func;
+        this.Event = @event;
     }
 
-    public bool IsMet() => func.Invoke();
+    public bool IsMet() => Event.Invoke();
 }

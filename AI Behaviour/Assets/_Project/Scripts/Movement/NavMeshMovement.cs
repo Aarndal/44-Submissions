@@ -11,7 +11,6 @@ public sealed class NavMeshMovement : MonoBehaviour, IAmAutonomousMovable
     private bool _reachedTarget;
 
     public NavMeshAgent NavMeshAgent { get; private set; }
-
     public bool ReachedTarget
     {
         get => _reachedTarget;
@@ -21,31 +20,26 @@ public sealed class NavMeshMovement : MonoBehaviour, IAmAutonomousMovable
                 _reachedTarget = value;
         }
     }
-
-    public float DistanceToTarget => NavMeshAgent.remainingDistance;
-
-    public float MinDistanceToTarget { get => NavMeshAgent.stoppingDistance; set => NavMeshAgent.stoppingDistance = value; }
-
-    public Vector3 InitialPosition { get; private set; }
-
-    public Vector3 CurrentPosition => this.transform.position;
-
     public int UpdateSpeed { get; private set; }
+    public float DistanceToTarget => NavMeshAgent.remainingDistance;
+    public float MinDistanceToTarget { get => NavMeshAgent.stoppingDistance; set => NavMeshAgent.stoppingDistance = value; }
+    public Vector3 InitialPosition { get; private set; }
+    public Vector3 CurrentPosition => this.transform.position;
 
     private void Awake()
     {
         NavMeshAgent = NavMeshAgent != null ? NavMeshAgent : GetComponent<NavMeshAgent>();
-
         UpdateSpeed = DefaultUpdateSpeed;
     }
 
     private void OnEnable()
         => InitialPosition = this.transform.position;
 
+    private void Start()
+        => NavMeshAgent.enabled = true;
+
     private void Update()
-    {
-        _reachedTarget = HasReachedTargetCheck();
-    }
+        => _reachedTarget = HasReachedTargetCheck();
 
     private bool HasReachedTargetCheck()
     {

@@ -12,7 +12,7 @@ PlayerSettings:
   targetDevice: 2
   useOnDemandResources: 0
   accelerometerFrequency: 60
-  companyName: DefaultCompany
+  companyName: Aarndal
   productName: AI Behaviour
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
@@ -850,8 +850,8 @@ PlayerSettings:
   apiCompatibilityLevelPerPlatform: {}
   m_RenderingPath: 1
   m_MobileRenderingPath: 1
-  metroPackageName: AI Behaviour
-  metroPackageVersion: 
+  metroPackageName: AIBehaviour
+  metroPackageVersion: 1.0.0.0
   metroCertificatePath: 
   metroCertificatePassword: 
   metroCertificateSubject: 
@@ -859,7 +859,7 @@ PlayerSettings:
   metroCertificateNotAfter: 0000000000000000
   metroApplicationDescription: AI Behaviour
   wsaImages: {}
-  metroTileShortName: 
+  metroTileShortName: AI Behaviour
   metroTileShowName: 0
   metroMediumTileShowName: 0
   metroLargeTileShowName: 0

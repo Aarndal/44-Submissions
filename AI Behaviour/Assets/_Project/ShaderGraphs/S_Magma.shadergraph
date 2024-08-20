@@ -1049,6 +1049,7 @@
     "m_OutputNode": {
         "m_Id": ""
     },
+    "m_SubDatas": [],
     "m_ActiveTargets": [
         {
             "m_Id": "7a993e0b02be44818da51bd2e714ac5f"
@@ -1153,10 +1154,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -570.0,
-            "y": -33.9999885559082,
-            "width": 150.99996948242188,
-            "height": 34.000003814697269
+            "x": -570.4000244140625,
+            "y": -32.80000305175781,
+            "width": 151.19998168945313,
+            "height": 33.600006103515628
         }
     },
     "m_Slots": [
@@ -1947,10 +1948,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -569.9999389648438,
-            "y": 553.0,
-            "width": 153.0,
-            "height": 34.0
+            "x": -570.4000854492188,
+            "y": 553.5999755859375,
+            "width": 152.80001831054688,
+            "height": 33.60003662109375
         }
     },
     "m_Slots": [
@@ -4707,7 +4708,7 @@
     "hlslDeclarationOverride": 0,
     "m_Hidden": false,
     "m_Value": {
-        "r": 1.0,
+        "r": 4.0,
         "g": 0.0,
         "b": 0.0,
         "a": 1.0

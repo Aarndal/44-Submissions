@@ -25,7 +25,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _CoverNormalMap:
-        m_Texture: {fileID: 2800000, guid: cc4a59714d92c9647bf74461c8275303, type: 3}
+        m_Texture: {fileID: 2800000, guid: 2069aba57d0aaae4e9f6961aba5e3690, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _CoverTexture:
@@ -41,7 +41,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _RockNormalMap:
-        m_Texture: {fileID: 2800000, guid: 85b63e9b81f3b224483dadc250521276, type: 3}
+        m_Texture: {fileID: 2800000, guid: e2c84046a63771c489a95c0dbf602fbb, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _RockTexture:
@@ -70,7 +70,7 @@ Material:
     - _CoverAmountY: 1
     - _CoverAmountZ: 0
     - _CoverContrast: 11.5
-    - _CoverFadeLevel: 2.28
+    - _CoverFadeLevel: 2.5
     - _CoverNormalStrength: 1.26
     - _CoverOffset: 0.56
     - _CoverOffsetX: 0.08
@@ -79,16 +79,16 @@ Material:
     - _CoverPlacementX: 1
     - _CoverPlacementY: 1
     - _CoverPlacementZ: 1
-    - _CoverY: 0.827
+    - _CoverY: 0.8
     - _NormalMapOffset: 0
     - _NormalMapStrength: 10.24
     - _QueueControl: 0
     - _QueueOffset: 0
     - _RockNormalStrength: 1.85
     - _TopAmount: 0.678
-    - _VertexScale: 2.92
-    - _VertexStrength: 0.28
-    - _VertexVerticalStrength: 0.56
+    - _VertexScale: 2.9
+    - _VertexStrength: 0.3
+    - _VertexVerticalStrength: 0.5
     m_Colors:
     - _CoverOffset: {r: 1, g: 1, b: 1, a: 0}
     - _Test: {r: 0.37, g: 0.85, b: 0, a: 0}

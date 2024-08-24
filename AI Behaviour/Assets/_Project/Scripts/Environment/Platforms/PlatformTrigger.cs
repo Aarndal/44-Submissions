@@ -9,6 +9,7 @@ public class PlatformTrigger : MonoBehaviour
 
     private void OnTriggerEnter(Collider collider)
     {
+        Debug.LogFormat("OnTriggerEnter" + collider.gameObject.name);
         if (collider.CompareTag("Player"))
             if (platform.IsActive)
                 StartCoroutine(DeactivatePlatform());

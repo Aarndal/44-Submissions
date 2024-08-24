@@ -34,5 +34,4 @@ public abstract class Entity : MonoBehaviour
     }
 
     protected virtual void OnAnimationEvenTriggered(AnimationEvent args) { }
-
 }

@@ -25,11 +25,11 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _CoverNormalMap:
-        m_Texture: {fileID: 2800000, guid: 42fb0017ec097cf49b9e098fab38f953, type: 3}
+        m_Texture: {fileID: 2800000, guid: cc4a59714d92c9647bf74461c8275303, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _CoverTexture:
-        m_Texture: {fileID: 2800000, guid: cc7ce33dec77597478ca0aecdd5db3cd, type: 3}
+        m_Texture: {fileID: 2800000, guid: ee3037e896a6ee74d8ee7ec3ad97eeea, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DiffuseBottom:
@@ -41,11 +41,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _RockNormalMap:
-        m_Texture: {fileID: 2800000, guid: 013eae058e20109449e6a22c5df6d476, type: 3}
+        m_Texture: {fileID: 2800000, guid: 85b63e9b81f3b224483dadc250521276, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _RockTexture:
-        m_Texture: {fileID: 2800000, guid: ccf95ae995984b745beff09057ac26cb, type: 3}
+        m_Texture: {fileID: 2800000, guid: 7dc4f8d0a4f4bd64fbde807d173a0f79, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SampleTexture2D_0893c2677a4b450285caaf0b57f4d571_Texture_1_Texture2D:
@@ -69,23 +69,26 @@ Material:
     - _CoverAmountX: 0
     - _CoverAmountY: 1
     - _CoverAmountZ: 0
-    - _CoverContrast: 5
-    - _CoverFadeLevel: 1.9
-    - _CoverNormalStrength: 1
+    - _CoverContrast: 11.5
+    - _CoverFadeLevel: 2.28
+    - _CoverNormalStrength: 1.26
     - _CoverOffset: 0.56
-    - _CoverOffsetX: 0.17
+    - _CoverOffsetX: 0.08
     - _CoverOffsetY: 1
-    - _CoverOffsetZ: 0.34
+    - _CoverOffsetZ: -0
     - _CoverPlacementX: 1
     - _CoverPlacementY: 1
     - _CoverPlacementZ: 1
-    - _CoverY: 0.74
+    - _CoverY: 0.827
     - _NormalMapOffset: 0
     - _NormalMapStrength: 10.24
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _RockNormalStrength: 1
+    - _RockNormalStrength: 1.85
     - _TopAmount: 0.678
+    - _VertexScale: 2.92
+    - _VertexStrength: 0.28
+    - _VertexVerticalStrength: 0.56
     m_Colors:
     - _CoverOffset: {r: 1, g: 1, b: 1, a: 0}
     - _Test: {r: 0.37, g: 0.85, b: 0, a: 0}

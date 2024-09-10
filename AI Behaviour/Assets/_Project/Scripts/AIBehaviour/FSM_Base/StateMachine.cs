@@ -95,6 +95,7 @@ public class StateMachine
         {
             History.Clear();
             History.Push(CurrentState);
+            //TO-DO: also add state before current state!!!
         }
 
         History.Push(targetState);

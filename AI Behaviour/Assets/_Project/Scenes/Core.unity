@@ -455,11 +455,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 3004629566080465027, guid: 7d001cacf887eb14cbf269a09e3ec3ba,
-        type: 3}
-      propertyPath: StarterAssetsInputs
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 5052264629267279113, guid: 7d001cacf887eb14cbf269a09e3ec3ba,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -514,16 +509,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: UI_TouchScreenInput
-      objectReference: {fileID: 0}
-    - target: {fileID: 7137023482562969817, guid: 7d001cacf887eb14cbf269a09e3ec3ba,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7921911991004155457, guid: 7d001cacf887eb14cbf269a09e3ec3ba,
-        type: 3}
-      propertyPath: playerInput
-      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

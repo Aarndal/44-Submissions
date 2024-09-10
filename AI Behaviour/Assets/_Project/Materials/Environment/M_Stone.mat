@@ -73,7 +73,7 @@ Material:
     - _CoverFadeLevel: 2.5
     - _CoverNormalStrength: 1.26
     - _CoverOffset: 0.56
-    - _CoverOffsetX: 0.08
+    - _CoverOffsetX: 0.07
     - _CoverOffsetY: 1
     - _CoverOffsetZ: -0
     - _CoverPlacementX: 1
@@ -86,7 +86,7 @@ Material:
     - _QueueOffset: 0
     - _RockNormalStrength: 1.85
     - _TopAmount: 0.678
-    - _VertexScale: 2.9
+    - _VertexScale: 3.16
     - _VertexStrength: 0.3
     - _VertexVerticalStrength: 0.5
     m_Colors:

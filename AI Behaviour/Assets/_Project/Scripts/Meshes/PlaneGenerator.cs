@@ -7,10 +7,6 @@ public class PlaneGenerator : MonoBehaviour
 {
     private const float NoiseOffSetX = 509;
     private const float NoiseOffSetY = 241;
-    
-    private Mesh _mesh;
-    private MeshFilter _meshFilter;
-    private MeshRenderer _meshRenderer;
 
     [SerializeField]
     private Material _mainMaterial;
@@ -18,6 +14,14 @@ public class PlaneGenerator : MonoBehaviour
     private int _resolution;
     [SerializeField, Min(1)]
     private float _size = 4.0f;
+    [SerializeField]
+    private Texture2D _heightMap;
+    [SerializeField]
+    private float _maxHeight;
+
+    private MeshFilter _meshFilter;
+    private MeshRenderer _meshRenderer;
+    private Mesh _mesh;
 
     private void Awake()
     {
@@ -30,11 +34,12 @@ public class PlaneGenerator : MonoBehaviour
         _meshRenderer.sharedMaterial = _mainMaterial;
     }
 
-    private void Update()
+    private void Start()
     {
         GeneratePlane();
     }
 
+    [ContextMenu("Generate Plane")]
     private void GeneratePlane()
     {
         Vector3[] verts = new Vector3[_resolution * _resolution];
@@ -42,17 +47,23 @@ public class PlaneGenerator : MonoBehaviour
 
         //Generate Mesh
         int triIndex = 0;
+        Vector3 noisePos = Vector3.zero;
+
         for (int y = 0, i = 0; y < _resolution; y++)
         {
             for (int x = 0; x < _resolution; x++, i++)
             {
                 Vector2 percentage = new Vector2(x,y) / (_resolution -1);
-                percentage -= Vector2.one * 0.5f;
-
+                //percentage -= Vector2.one * 0.5f;
+                
                 Vector3 planePos = (Vector3.right * percentage.x + Vector3.forward * percentage.y) * _size;
-                verts[i] = planePos;
-                //Vector3 noisePos = planePos + Vector3.up * Mathf.PerlinNoise(planePos.x + NoiseOffSetX, planePos.z + NoiseOffSetY);
-                //verts[i] = noisePos;
+                //verts[i] = planePos;
+
+                Color color = _heightMap.GetPixelBilinear((planePos.x / _size), (planePos.z / _size));
+
+                //noisePos = planePos + Vector3.up * Mathf.PerlinNoise(planePos.x + NoiseOffSetX, planePos.z + NoiseOffSetY);
+                noisePos = new Vector3(planePos.x, planePos.y + (_maxHeight * color.grayscale), planePos.z);
+                verts[i] = noisePos;
 
                 if (y < _resolution - 1 && x < _resolution - 1)
                 {

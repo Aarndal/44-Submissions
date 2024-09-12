@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
+using UnityEditor.VersionControl;
 using UnityEngine;
 
 [RequireComponent(typeof(MeshFilter), typeof(MeshRenderer))]
@@ -8,6 +10,8 @@ public class PlaneGenerator : MonoBehaviour
     private const float NoiseOffSetX = 509;
     private const float NoiseOffSetY = 241;
 
+    [SerializeField]
+    private string _generatedMeshName;
     [SerializeField]
     private Material _mainMaterial;
     [SerializeField, Range(2, 255)]
@@ -44,6 +48,7 @@ public class PlaneGenerator : MonoBehaviour
     {
         Vector3[] verts = new Vector3[_resolution * _resolution];
         int[] tris = new int[2 * 3 * (_resolution - 1) * (_resolution - 1)];
+        Vector2[] uvs = new Vector2[_resolution * _resolution];
 
         //Generate Mesh
         int triIndex = 0;
@@ -57,13 +62,12 @@ public class PlaneGenerator : MonoBehaviour
                 //percentage -= Vector2.one * 0.5f;
                 
                 Vector3 planePos = (Vector3.right * percentage.x + Vector3.forward * percentage.y) * _size;
-                //verts[i] = planePos;
 
                 Color color = _heightMap.GetPixelBilinear((planePos.x / _size), (planePos.z / _size));
 
-                //noisePos = planePos + Vector3.up * Mathf.PerlinNoise(planePos.x + NoiseOffSetX, planePos.z + NoiseOffSetY);
                 noisePos = new Vector3(planePos.x, planePos.y + (_maxHeight * color.grayscale), planePos.z);
                 verts[i] = noisePos;
+                uvs[i] = new Vector2(x, y);
 
                 if (y < _resolution - 1 && x < _resolution - 1)
                 {
@@ -84,6 +88,18 @@ public class PlaneGenerator : MonoBehaviour
         _mesh.Clear();
         _mesh.vertices = verts;
         _mesh.triangles = tris;
+        _mesh.uv = uvs;
         _mesh.RecalculateNormals();
+
+    }
+
+    [ContextMenu("Save Mesh")]
+    private void SaveMesh()
+    {
+        string meshPath = "Assets/";
+        meshPath += _generatedMeshName;
+        meshPath += ".asset";
+
+        AssetDatabase.CreateAsset(_mesh, meshPath);
     }
 }

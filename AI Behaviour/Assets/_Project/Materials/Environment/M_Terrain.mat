@@ -54,13 +54,13 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Height_00: 5.5
-    - _Height_01: 0.2
-    - _Height_02: 2.5
-    - _Height_03: 7.2
+    - _Height_00: -2.6
+    - _Height_01: 28.6
+    - _Height_02: 30.2
+    - _Height_03: 34.83
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _Sharpness: 0.25
+    - _Sharpness: 0.75
     - _lowertheshold: 0.2
     - _lowertheshold_upper: 0.7
     - _maxHeight: 50

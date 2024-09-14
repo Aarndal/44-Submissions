@@ -86,9 +86,9 @@ Material:
     - _QueueOffset: 0
     - _RockNormalStrength: 1.85
     - _TopAmount: 0.678
-    - _VertexScale: 3.16
-    - _VertexStrength: 0.3
-    - _VertexVerticalStrength: 0.5
+    - _VertexScale: 3
+    - _VertexStrength: 0.35
+    - _VertexVerticalStrength: 0.55
     m_Colors:
     - _CoverOffset: {r: 1, g: 1, b: 1, a: 0}
     - _Test: {r: 0.37, g: 0.85, b: 0, a: 0}

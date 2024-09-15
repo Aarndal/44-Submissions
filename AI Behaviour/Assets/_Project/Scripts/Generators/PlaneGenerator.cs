@@ -1,17 +1,21 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEditor;
-using UnityEditor.VersionControl;
 using UnityEngine;
 
+[ExecuteInEditMode]
 [RequireComponent(typeof(MeshFilter), typeof(MeshRenderer))]
 public class PlaneGenerator : MonoBehaviour
 {
-    private const float NoiseOffSetX = 509;
-    private const float NoiseOffSetY = 241;
+    [SerializeField]
+    private MeshFilter _meshFilter;
+    [SerializeField]
+    private MeshRenderer _meshRenderer;
+
+    [Space]
 
     [SerializeField]
-    private string _generatedMeshName;
+    private string _meshPath = "Assets/";
+    [SerializeField]
+    private string _meshName;
     [SerializeField]
     private Material _mainMaterial;
     [SerializeField, Range(2, 255)]
@@ -22,37 +26,47 @@ public class PlaneGenerator : MonoBehaviour
     private Texture2D _heightMap;
     [SerializeField]
     private float _maxHeight;
-
-    private MeshFilter _meshFilter;
-    private MeshRenderer _meshRenderer;
+    
     private Mesh _mesh;
 
-    private void Awake()
-    {
-        _meshFilter = GetComponent<MeshFilter>();
-        _meshRenderer = GetComponent<MeshRenderer>();
+    //private void Awake()
+    //{
+        //_meshFilter = GetComponent<MeshFilter>();
+        //_meshRenderer = GetComponent<MeshRenderer>();
 
-        _mesh = new();
-        _mesh.name = "MyPlaneGenerator";
-        _meshFilter.sharedMesh = _mesh;
-        _meshRenderer.sharedMaterial = _mainMaterial;
-    }
+        //_mesh = new()
+        //{
+        //    name = _meshName
+        //};
 
-    private void Start()
-    {
-        GeneratePlane();
-    }
+        //_meshFilter.sharedMesh = _mesh;
+        //_meshRenderer.sharedMaterial = _mainMaterial;
+    //}
 
+    //private void Start()
+    //{
+    //    GeneratePlane();
+    //}
+
+#if UNITY_EDITOR
     [ContextMenu("Generate Plane")]
     private void GeneratePlane()
     {
+        _mesh = new()
+        {
+            name = _meshName
+        };
+
+        _meshFilter.sharedMesh = _mesh;
+        _meshRenderer.sharedMaterial = _mainMaterial;
+
         Vector3[] verts = new Vector3[_resolution * _resolution];
         int[] tris = new int[2 * 3 * (_resolution - 1) * (_resolution - 1)];
         Vector2[] uvs = new Vector2[_resolution * _resolution];
 
         //Generate Mesh
         int triIndex = 0;
-        Vector3 noisePos = Vector3.zero;
+        Vector3 noisePos;
 
         for (int y = 0, i = 0; y < _resolution; y++)
         {
@@ -96,10 +110,12 @@ public class PlaneGenerator : MonoBehaviour
     [ContextMenu("Save Mesh")]
     private void SaveMesh()
     {
-        string meshPath = "Assets/";
-        meshPath += _generatedMeshName;
+        string meshPath = _meshPath;
+        meshPath += _meshName;
         meshPath += ".asset";
 
         AssetDatabase.CreateAsset(_mesh, meshPath);
     }
+#endif
+
 }

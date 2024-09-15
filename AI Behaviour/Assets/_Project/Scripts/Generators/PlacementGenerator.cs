@@ -4,7 +4,6 @@ using UnityEngine;
 [ExecuteInEditMode]
 public class PlacementGenerator : MonoBehaviour
 {
-
     [SerializeField]
     private GameObject _prefab;
     [SerializeField]
@@ -25,7 +24,6 @@ public class PlacementGenerator : MonoBehaviour
     private Vector2 _rotationRange;
     [SerializeField]
     private Vector3 _minScale, _maxScale;
-
 
 #if UNITY_EDITOR
     [ContextMenu("Generate Prefabs")]
@@ -68,4 +66,5 @@ public class PlacementGenerator : MonoBehaviour
             DestroyImmediate(transform.GetChild(0).gameObject);
     }
 #endif
+
 }

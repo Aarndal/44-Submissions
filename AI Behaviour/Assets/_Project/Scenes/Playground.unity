@@ -58585,6 +58585,31 @@ PrefabInstance:
       propertyPath: m_Name
       value: Portal
       objectReference: {fileID: 0}
+    - target: {fileID: 4938022868487430927, guid: eb6c61da388bad543bc9f4d8db303019,
+        type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[2].m_Value
+      value: 100000
+      objectReference: {fileID: 0}
+    - target: {fileID: 4938022868487430927, guid: eb6c61da388bad543bc9f4d8db303019,
+        type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[3].m_Value
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4938022868487430927, guid: eb6c61da388bad543bc9f4d8db303019,
+        type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[4].m_Value
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4938022868487430927, guid: eb6c61da388bad543bc9f4d8db303019,
+        type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[5].m_Value
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4938022868487430927, guid: eb6c61da388bad543bc9f4d8db303019,
+        type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[4].m_Overridden
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

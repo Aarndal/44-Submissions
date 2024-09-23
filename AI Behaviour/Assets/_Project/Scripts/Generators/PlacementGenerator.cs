@@ -17,11 +17,15 @@ public class PlacementGenerator : MonoBehaviour
     private Vector2 _xRange, _zRange;
     [SerializeField]
     private float _verticalOffset;
-
     [SerializeField, Range(0, 1)]
-    private float _rotationTowardsNormal;
-    [SerializeField]
-    private Vector2 _rotationRange;
+    private float _maxRotationToNormal = 0.2f;
+
+    [Space]
+
+    [SerializeField, Range(0, 360)]
+    private float _minRotation = 0;
+    [SerializeField, Range(0, 360)]
+    private float _maxRotation = 360;
     [SerializeField]
     private Vector3 _minScale, _maxScale;
 
@@ -48,8 +52,8 @@ public class PlacementGenerator : MonoBehaviour
 
             GameObject instantiatedPrefab = (GameObject)PrefabUtility.InstantiatePrefab(_prefab, transform);
             instantiatedPrefab.transform.position = hit.point + Vector3.down * _verticalOffset;
-            instantiatedPrefab.transform.Rotate(Vector3.up, Random.Range(_rotationRange.x, _rotationRange.y), Space.Self);
-            instantiatedPrefab.transform.rotation = Quaternion.Lerp(transform.rotation, transform.rotation * Quaternion.FromToRotation(instantiatedPrefab.transform.up, hit.normal), _rotationTowardsNormal);
+            instantiatedPrefab.transform.Rotate(Vector3.up, Random.Range(Mathf.Min(_minRotation, _maxRotation), Mathf.Max(_minRotation, _maxRotation)), Space.Self);
+            instantiatedPrefab.transform.rotation = Quaternion.Lerp(transform.rotation, transform.rotation * Quaternion.FromToRotation(instantiatedPrefab.transform.up, hit.normal), _maxRotationToNormal);
 
             instantiatedPrefab.transform.localScale = new Vector3(
                 Random.Range(_minScale.x, _maxScale.x),

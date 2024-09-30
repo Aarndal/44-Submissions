@@ -1,10 +1,10 @@
 {
   "version": 3,
   "targets": {
-    "net8.0-windows7.0": {
+    "net6.0-windows7.0": {
       "TerrainData/1.0.0": {
         "type": "project",
-        "framework": ".NETCoreApp,Version=v8.0",
+        "framework": ".NETCoreApp,Version=v6.0",
         "compile": {
           "bin/placeholder/TerrainData.dll": {}
         },
@@ -22,7 +22,7 @@
     }
   },
   "projectFileDependencyGroups": {
-    "net8.0-windows7.0": [
+    "net6.0-windows7.0": [
       "TerrainData >= 1.0.0"
     ]
   },
@@ -48,7 +48,7 @@
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
-        "net8.0-windows"
+        "net6.0-windows7.0"
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
@@ -56,8 +56,8 @@
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
-        "net8.0-windows7.0": {
-          "targetAlias": "net8.0-windows",
+        "net6.0-windows7.0": {
+          "targetAlias": "net6.0-windows7.0",
           "projectReferences": {
             "C:\\Users\\Aaron\\Desktop\\SAE\\44-Submissions\\TerrainData\\TerrainData.csproj": {
               "projectPath": "C:\\Users\\Aaron\\Desktop\\SAE\\44-Submissions\\TerrainData\\TerrainData.csproj"
@@ -77,8 +77,8 @@
       }
     },
     "frameworks": {
-      "net8.0-windows7.0": {
-        "targetAlias": "net8.0-windows",
+      "net6.0-windows7.0": {
+        "targetAlias": "net6.0-windows7.0",
         "imports": [
           "net461",
           "net462",
@@ -98,7 +98,7 @@
             "privateAssets": "none"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.400/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.400\\RuntimeIdentifierGraph.json"
       }
     }
   }

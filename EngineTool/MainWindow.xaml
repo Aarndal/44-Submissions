@@ -6,7 +6,16 @@
         xmlns:local="clr-namespace:EngineTool"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
+
+    <Window.DataContext>
+        <local:MainWindowViewModel />
+    </Window.DataContext>
+
     <Grid>
-        <Grid/>
+        <Grid>
+            <Button Content="Save" HorizontalAlignment="Center" Margin="0,0,0,10" RenderTransformOrigin="-0.211,0.396" Height="20" VerticalAlignment="Bottom" Click="Button_Click"/>
+        </Grid>
+        <TextBlock HorizontalAlignment="Left" Margin="50,50,0,0" TextWrapping="Wrap" VerticalAlignment="Top"><Run Language="de-de" Text="Map Size"/></TextBlock>
+        <TextBox HorizontalAlignment="Left" Margin="191,50,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
     </Grid>
 </Window>

@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("TerrainData")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+3c9e532434ac399ffdd04122e34fcd459df6e7c6")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+fab95faad22e8b7340459af0dcb184a694a6911a")]
 [assembly: System.Reflection.AssemblyProductAttribute("TerrainData")]
 [assembly: System.Reflection.AssemblyTitleAttribute("TerrainData")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -5,17 +5,76 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:EngineTool"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Terrain Generator Data" Height="450" Width="800">
 
     <Window.DataContext>
         <local:MainWindowViewModel />
     </Window.DataContext>
 
     <Grid>
-        <Grid>
-            <Button Content="Save" HorizontalAlignment="Center" Margin="0,0,0,10" RenderTransformOrigin="-0.211,0.396" Height="20" VerticalAlignment="Bottom" Click="Button_Click"/>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="1*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="40" />
+        </Grid.RowDefinitions>
+
+        <DockPanel Grid.Row="0" Grid.ColumnSpan="2">
+            <Menu DockPanel.Dock="Top">
+                <MenuItem Header="_File" ToolTip="Hallo Welt!">
+                    <MenuItem Header="_New" />
+                    <MenuItem Header="_Open" />
+                    <MenuItem Header="_Save" />
+                    <Separator />
+                    <MenuItem Header="_Exit" />
+                </MenuItem>
+            </Menu>
+            <TextBox AcceptsReturn="True"/>
+        </DockPanel>
+
+        <Grid Grid.Column="0" Grid.Row="1">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="1*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="25" />
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="25" />
+                <RowDefinition Height="5*" />
+            </Grid.RowDefinitions>
+
+            <TextBlock Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="10,0,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"><Run Language="de-de" Text="Terrain Generation"/></TextBlock>
+
+            <StackPanel Grid.Column="0" Grid.Row="1">
+                <TextBlock HorizontalAlignment="Left" Margin="15,2,0,0" TextWrapping="Wrap" VerticalAlignment="Top"><Run Language="de-de" Text="Map Size"/></TextBlock>
+                <TextBlock HorizontalAlignment="Left" Margin="15,5,0,0" TextWrapping="Wrap" VerticalAlignment="Top"><Run Language="de-de" Text="Maximum Terrain Height"/></TextBlock>
+            </StackPanel>
+
+            <StackPanel Grid.Column="1" Grid.Row="1">
+                <TextBox HorizontalAlignment="Right" Margin="0,2,15,0" TextWrapping="Wrap" Text="{Binding MapSize}" VerticalAlignment="Top" Width="100" HorizontalContentAlignment="Right" RenderTransformOrigin="-0.011,0.437"/>
+                <TextBox HorizontalAlignment="Right" Margin="0,5,15,0" TextWrapping="Wrap" Text="{Binding MaxTerrainHeight}" VerticalAlignment="Top" Width="100" HorizontalContentAlignment="Right" RenderTransformOrigin="-0.597,0.247"/>
+            </StackPanel>
+
+            <TextBlock Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="10,0,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"><Run Language="de-de" Text="Relative Transition Heights"/></TextBlock>
+
+            <StackPanel Grid.Column="0" Grid.Row="3">
+                <TextBlock HorizontalAlignment="Left" Margin="15,0,0,0" TextWrapping="Wrap" VerticalAlignment="Top"><Run Language="de-de" Text="Base Height"/></TextBlock>
+                <TextBlock HorizontalAlignment="Left" Margin="15,5,0,0" TextWrapping="Wrap" VerticalAlignment="Top"><Run Language="de-de" Text="Terrain Layer Height 01"/></TextBlock>
+                <TextBlock HorizontalAlignment="Left" Margin="15,5,0,0" TextWrapping="Wrap" VerticalAlignment="Top"><Run Language="de-de" Text="Terrain Layer Height 02"/></TextBlock>
+                <TextBlock HorizontalAlignment="Left" Margin="15,5,0,0" TextWrapping="Wrap" VerticalAlignment="Top"><Run Language="de-de" Text="Terrain Layer Height 03"/></TextBlock>
+            </StackPanel>
+
         </Grid>
-        <TextBlock HorizontalAlignment="Left" Margin="50,50,0,0" TextWrapping="Wrap" VerticalAlignment="Top"><Run Language="de-de" Text="Map Size"/></TextBlock>
-        <TextBox HorizontalAlignment="Left" Margin="191,50,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
+
+        
+
+
+        <Button Grid.Row="2" Grid.ColumnSpan="2" HorizontalAlignment="Center" RenderTransformOrigin="-0.211,0.396" Height="20" Width="100" VerticalAlignment="Center" Click="Button_Click" Content="Clear" Command="{Binding ClearCommand}"/>
     </Grid>
 </Window>

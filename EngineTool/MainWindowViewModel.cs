@@ -6,35 +6,56 @@ using System.Text;
 
 namespace EngineTool
 {
-    internal class MainWindowViewModel : INotifyPropertyChanged
+    public class MainWindowViewModel : BaseViewModel
     {
-        public event PropertyChangedEventHandler? PropertyChanged;
-
-        private float _mapSize;
+        private float _mapSize = 0;
+        private float _maxTerrainHeight = 0;
 
         public MainWindowViewModel()
         {
-            MapSize = 100;
+            ClearCommand = new DelegateCommand(
+                o => !string.IsNullOrEmpty(MapSize),
+                o => { MapSize = "0,0"; MaxTerrainHeight = "0,0"; }
+                );
+
+            MapSize = "100,00";
+            MaxTerrainHeight = "50,00";
         }
 
-        public float MapSize
+        public DelegateCommand ClearCommand { get; set; }
+
+        public string MapSize
         {
-            get => _mapSize;
+            get => string.Format("{0:N2}", _mapSize);
             set
             {
-
-                if (_mapSize != value)
+                if (float.TryParse(value, out float result))
                 {
-                    _mapSize = value;
-                    RaisePropertyChanged();
+                    if (_mapSize != result)
+                    {
+                        _mapSize = result;
+                        this.RaisePropertyChanged();
+                        ClearCommand.RaiseCanExecuteChanged();
+                    }
                 }
             }
         }
 
-        private void RaisePropertyChanged([CallerMemberName] string propertyName = "") // CallerMemberName: Automatically gets the name of the calling property if no string is provided
+        public string MaxTerrainHeight
         {
-            if (!string.IsNullOrEmpty(propertyName))
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            get => string.Format("{0:N2}", _maxTerrainHeight);
+            set
+            {
+                if (float.TryParse(value, out float result))
+                {
+                    if (_maxTerrainHeight != result)
+                    {
+                        _maxTerrainHeight = result;
+                        this.RaisePropertyChanged();
+                        ClearCommand.RaiseCanExecuteChanged();
+                    }
+                }
+            }
         }
     }
 }

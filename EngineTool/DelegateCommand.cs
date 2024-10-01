@@ -2,7 +2,7 @@
 
 namespace EngineTool
 {
-    internal class DelegateCommand : ICommand
+    public class DelegateCommand : ICommand
     {
         public readonly Action<object?> _execute;
         public readonly Func<object?, bool> _canExecute;

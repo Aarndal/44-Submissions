@@ -1,8 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "j37QfWFx+2g=",
+  "dgSpecHash": "FwIYlrIULrs=",
   "success": true,
   "projectFilePath": "C:\\Users\\Aaron\\Desktop\\SAE\\44-Submissions\\EngineTool\\EngineTool.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\Aaron\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512"
+  ],
   "logs": []
 }

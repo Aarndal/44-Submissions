@@ -24,3 +24,4 @@ C:\Users\Aaron\Desktop\SAE\44-Submissions\EngineTool\obj\Debug\net6.0-windows7.0
 C:\Users\Aaron\Desktop\SAE\44-Submissions\EngineTool\obj\Debug\net6.0-windows7.0\EngineTool.genruntimeconfig.cache
 C:\Users\Aaron\Desktop\SAE\44-Submissions\EngineTool\obj\Debug\net6.0-windows7.0\ref\EngineTool.dll
 C:\Users\Aaron\Desktop\SAE\44-Submissions\EngineTool\obj\Debug\net6.0-windows7.0\GeneratedInternalTypeHelper.g.cs
+C:\Users\Aaron\Desktop\SAE\44-Submissions\EngineTool\bin\Debug\net6.0-windows7.0\Newtonsoft.Json.dll

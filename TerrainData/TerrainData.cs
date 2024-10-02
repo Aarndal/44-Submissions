@@ -1,6 +1,7 @@
-﻿namespace TerrainData
+﻿namespace Terrain_Data
 {
-    public class TerrainData
+    [System.Serializable]
+    public struct TerrainData
     {
         // ---------------------------------------
         // Terrain Variables

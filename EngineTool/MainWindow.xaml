@@ -28,7 +28,7 @@
                 <MenuItem Header="_File" ToolTip="Hallo Welt!">
                     <MenuItem Header="_New" />
                     <MenuItem Header="_Open" />
-                    <MenuItem Header="_Save" />
+                    <MenuItem Header="_Save..." Command="{Binding SaveDataCommand}"/>
                     <Separator />
                     <MenuItem Header="_Exit" />
                 </MenuItem>

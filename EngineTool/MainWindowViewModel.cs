@@ -18,8 +18,8 @@ namespace EngineTool
         public MainWindowViewModel()
         {
             ClearCommand = new DelegateCommand(
-                o => { return !string.IsNullOrEmpty(MapSize) || !string.IsNullOrEmpty(MaxTerrainHeight); },
-                o =>
+                _ => { return !string.IsNullOrEmpty(MapSize) || !string.IsNullOrEmpty(MaxTerrainHeight); },
+                _ =>
                 {
                     MapSize = "0,0";
                     MaxTerrainHeight = "0,0";
@@ -27,8 +27,8 @@ namespace EngineTool
                 );
 
             SaveDataCommand = new DelegateCommand(
-                o => !string.IsNullOrEmpty(MapSize) && !string.IsNullOrEmpty(MaxTerrainHeight),
-                o => SaveJsonFile()
+                _ => !string.IsNullOrEmpty(MapSize) && !string.IsNullOrEmpty(MaxTerrainHeight),
+                _ => SaveJsonFile()
                 );
 
             MapSize = "100,00";
@@ -52,6 +52,7 @@ namespace EngineTool
         public DelegateCommand ClearCommand { get; set; }
         public DelegateCommand SaveDataCommand { get; set; }
 
+        #region Terrain Variables
         public string MapSize
         {
             get => string.Format("{0:N2}", _myData.MapSize);
@@ -97,6 +98,228 @@ namespace EngineTool
             }
         }
 
+        public string TerrainLayerHeight01
+        {
+            get => string.Format("{0:N2}", _myData.TerrainLayerHeight01);
+            set
+            {
+                var newVal = SetData(_myData.TerrainLayerHeight01, value);
+                if (_myData.TerrainLayerHeight01 != newVal)
+                {
+                    _myData.TerrainLayerHeight01 = newVal;
+                    RaisePropertyChanged();
+                    ClearCommand.RaiseCanExecuteChanged();
+                }
+            }
+        }
+
+        public string TerrainLayerHeight02
+        {
+            get => string.Format("{0:N2}", _myData.TerrainLayerHeight02);
+            set
+            {
+                var newVal = SetData(_myData.TerrainLayerHeight02, value);
+                if (_myData.TerrainLayerHeight02 != newVal)
+                {
+                    _myData.TerrainLayerHeight02 = newVal;
+                    RaisePropertyChanged();
+                    ClearCommand.RaiseCanExecuteChanged();
+                }
+            }
+        }
+
+        public string TerrainLayerHeight03
+        {
+            get => string.Format("{0:N2}", _myData.TerrainLayerHeight03);
+            set
+            {
+                var newVal = SetData(_myData.TerrainLayerHeight03, value);
+                if (_myData.TerrainLayerHeight03 != newVal)
+                {
+                    _myData.TerrainLayerHeight03 = newVal;
+                    RaisePropertyChanged();
+                    ClearCommand.RaiseCanExecuteChanged();
+                }
+            }
+        }
+
+        public float TransitionSharpness
+        {
+            get => _myData.TransitionSharpness;
+            set
+            {
+                _myData.TransitionSharpness = value;
+            }
+        }
+        #endregion
+
+        #region Tree Variables
+        public string Density
+        {
+            get => string.Format("{0}", _myData.Density);
+            set
+            {
+                var newVal = SetData(_myData.Density, value);
+                if (_myData.Density != newVal)
+                {
+                    _myData.Density = newVal;
+                    RaisePropertyChanged();
+                    ClearCommand.RaiseCanExecuteChanged();
+                }
+            }
+        }
+
+        public string VerticalOffset
+        {
+            get => string.Format("{0:N2}", _myData.VerticalOffset);
+            set
+            {
+                var newVal = SetData(_myData.VerticalOffset, value);
+                if (_myData.VerticalOffset != newVal)
+                {
+                    _myData.VerticalOffset = newVal;
+                    RaisePropertyChanged();
+                    ClearCommand.RaiseCanExecuteChanged();
+                }
+            }
+        }
+
+        public string MaxRotationTowardsTerrainNormal
+        {
+            get => string.Format("{0:N0}", _myData.MaxRotationTowardsTerrainNormal);
+            set
+            {
+                var newVal = SetData(_myData.MaxRotationTowardsTerrainNormal, value);
+                if (_myData.MaxRotationTowardsTerrainNormal != newVal)
+                {
+                    _myData.MaxRotationTowardsTerrainNormal = newVal;
+                    RaisePropertyChanged();
+                    ClearCommand.RaiseCanExecuteChanged();
+                }
+            }
+        }
+
+        public string MinRotation
+        {
+            get => string.Format("{0:N0}", _myData.MinRotation);
+            set
+            {
+                var newVal = SetData(_myData.MinRotation, value);
+                if (_myData.MinRotation != newVal)
+                {
+                    _myData.MinRotation = newVal;
+                    RaisePropertyChanged();
+                    ClearCommand.RaiseCanExecuteChanged();
+                }
+            }
+        }
+
+        public string MaxRotation
+        {
+            get => string.Format("{0:N0}", _myData.MaxRotation);
+            set
+            {
+                var newVal = SetData(_myData.MaxRotation, value);
+                if (_myData.MaxRotation != newVal)
+                {
+                    _myData.MaxRotation = newVal;
+                    RaisePropertyChanged();
+                    ClearCommand.RaiseCanExecuteChanged();
+                }
+            }
+        }
+
+        public string MinXScale
+        {
+            get => string.Format("{0:N2}", _myData.MinXScale);
+            set
+            {
+                var newVal = SetData(_myData.MinXScale, value);
+                if (_myData.MinXScale != newVal)
+                {
+                    _myData.MinXScale = newVal;
+                    RaisePropertyChanged();
+                    ClearCommand.RaiseCanExecuteChanged();
+                }
+            }
+        }
+
+        public string MinYScale
+        {
+            get => string.Format("{0:N2}", _myData.MinYScale);
+            set
+            {
+                var newVal = SetData(_myData.MinYScale, value);
+                if (_myData.MinYScale != newVal)
+                {
+                    _myData.MinYScale = newVal;
+                    RaisePropertyChanged();
+                    ClearCommand.RaiseCanExecuteChanged();
+                }
+            }
+        }
+
+        public string MinZScale
+        {
+            get => string.Format("{0:N2}", _myData.MinZScale);
+            set
+            {
+                var newVal = SetData(_myData.MinZScale, value);
+                if (_myData.MinZScale != newVal)
+                {
+                    _myData.MinZScale = newVal;
+                    RaisePropertyChanged();
+                    ClearCommand.RaiseCanExecuteChanged();
+                }
+            }
+        }
+
+        public string MaxXScale
+        {
+            get => string.Format("{0:N2}", _myData.MaxXScale);
+            set
+            {
+                var newVal = SetData(_myData.MaxXScale, value);
+                if (_myData.MaxXScale != newVal)
+                {
+                    _myData.MaxXScale = newVal;
+                    RaisePropertyChanged();
+                    ClearCommand.RaiseCanExecuteChanged();
+                }
+            }
+        }
+
+        public string MaxYScale
+        {
+            get => string.Format("{0:N2}", _myData.MaxYScale);
+            set
+            {
+                var newVal = SetData(_myData.MaxYScale, value);
+                if (_myData.MaxYScale != newVal)
+                {
+                    _myData.MaxYScale = newVal;
+                    RaisePropertyChanged();
+                    ClearCommand.RaiseCanExecuteChanged();
+                }
+            }
+        }
+
+        public string MaxZScale
+        {
+            get => string.Format("{0:N2}", _myData.MaxZScale);
+            set
+            {
+                var newVal = SetData(_myData.MaxZScale, value);
+                if (_myData.MaxZScale != newVal)
+                {
+                    _myData.MaxZScale = newVal;
+                    RaisePropertyChanged();
+                    ClearCommand.RaiseCanExecuteChanged();
+                }
+            }
+        }
+        #endregion
+
         private dynamic SetData(dynamic data, string value)
         {
             dynamic result = 0;
@@ -134,6 +357,5 @@ namespace EngineTool
         //        }
         //    }
         //}
-
     }
 }

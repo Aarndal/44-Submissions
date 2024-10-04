@@ -3,22 +3,20 @@
   "WorkspaceRootPath": "C:\\Users\\Aaron\\Desktop\\SAE\\44-Submissions\\EngineTool\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{68C75548-5F45-492A-B225-CD293526482A}|EngineTool.csproj|c:\\users\\aaron\\desktop\\sae\\44-submissions\\enginetool\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{68C75548-5F45-492A-B225-CD293526482A}|EngineTool.csproj|solutionrelative:mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{68C75548-5F45-492A-B225-CD293526482A}|EngineTool.csproj|c:\\users\\aaron\\desktop\\sae\\44-submissions\\enginetool\\mainwindowviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{68C75548-5F45-492A-B225-CD293526482A}|EngineTool.csproj|solutionrelative:mainwindowviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{57770E63-FF0E-4C3D-A8CD-316A2BB81011}|..\\TerrainData\\TerrainData.csproj|c:\\users\\aaron\\desktop\\sae\\44-submissions\\terraindata\\terraindata.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{57770E63-FF0E-4C3D-A8CD-316A2BB81011}|..\\TerrainData\\TerrainData.csproj|c:\\users\\aaron\\desktop\\sae\\44-submissions\\terraindata\\terraindata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{68C75548-5F45-492A-B225-CD293526482A}|EngineTool.csproj|c:\\users\\aaron\\desktop\\sae\\44-submissions\\enginetool\\delegatecommand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{68C75548-5F45-492A-B225-CD293526482A}|EngineTool.csproj|solutionrelative:delegatecommand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{68C75548-5F45-492A-B225-CD293526482A}|EngineTool.csproj|c:\\users\\aaron\\desktop\\sae\\44-submissions\\enginetool\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{68C75548-5F45-492A-B225-CD293526482A}|EngineTool.csproj|solutionrelative:mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+      "AbsoluteMoniker": "D:0:0:{68C75548-5F45-492A-B225-CD293526482A}|EngineTool.csproj|c:\\users\\aaron\\desktop\\sae\\44-submissions\\enginetool\\app.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{68C75548-5F45-492A-B225-CD293526482A}|EngineTool.csproj|solutionrelative:app.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     }
   ],
   "DocumentGroupContainers": [
@@ -28,24 +26,23 @@
       "DocumentGroups": [
         {
           "DockedWidth": 188,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "TerrainData",
-              "DocumentMoniker": "C:\\Users\\Aaron\\Desktop\\SAE\\44-Submissions\\TerrainData\\TerrainData.csproj",
-              "RelativeDocumentMoniker": "..\\TerrainData\\TerrainData.csproj",
-              "ToolTip": "C:\\Users\\Aaron\\Desktop\\SAE\\44-Submissions\\TerrainData\\TerrainData.csproj",
-              "RelativeToolTip": "..\\TerrainData\\TerrainData.csproj",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2024-10-02T17:48:02.288Z",
+              "DocumentIndex": 3,
+              "Title": "App.xaml",
+              "DocumentMoniker": "C:\\Users\\Aaron\\Desktop\\SAE\\44-Submissions\\EngineTool\\App.xaml",
+              "RelativeDocumentMoniker": "App.xaml",
+              "ToolTip": "C:\\Users\\Aaron\\Desktop\\SAE\\44-Submissions\\EngineTool\\App.xaml",
+              "RelativeToolTip": "App.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2024-10-04T18:25:23.301Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 0,
               "Title": "MainWindow.xaml",
               "DocumentMoniker": "C:\\Users\\Aaron\\Desktop\\SAE\\44-Submissions\\EngineTool\\MainWindow.xaml",
               "RelativeDocumentMoniker": "MainWindow.xaml",
@@ -57,20 +54,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "MainWindowViewModel.cs",
               "DocumentMoniker": "C:\\Users\\Aaron\\Desktop\\SAE\\44-Submissions\\EngineTool\\MainWindowViewModel.cs",
               "RelativeDocumentMoniker": "MainWindowViewModel.cs",
               "ToolTip": "C:\\Users\\Aaron\\Desktop\\SAE\\44-Submissions\\EngineTool\\MainWindowViewModel.cs",
               "RelativeToolTip": "MainWindowViewModel.cs",
-              "ViewState": "AgIAACAAAAAAAAAAAAAQwD8AAAArAAAAAAAAAA==",
+              "ViewState": "AgIAAGQAAAAAAAAAAAA6wJIAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-09-30T13:35:06.674Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 2,
               "Title": "DelegateCommand.cs",
               "DocumentMoniker": "C:\\Users\\Aaron\\Desktop\\SAE\\44-Submissions\\EngineTool\\DelegateCommand.cs",
               "RelativeDocumentMoniker": "DelegateCommand.cs",
@@ -79,40 +76,6 @@
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAAAPAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-10-01T13:38:44.35Z",
-              "EditorCaption": ""
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "Orientation": 0,
-      "VerticalTabListWidth": 256,
-      "FloatingWindowState": {
-        "Id": "82dab2fe-d911-4dfc-9641-77a3c3f0c514",
-        "Display": 0,
-        "X": 405,
-        "Y": 203,
-        "Width": 1650,
-        "Height": 916,
-        "WindowState": 2
-      },
-      "DocumentGroups": [
-        {
-          "DockedWidth": 200,
-          "SelectedChildIndex": 0,
-          "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "TerrainData.cs",
-              "DocumentMoniker": "C:\\Users\\Aaron\\Desktop\\SAE\\44-Submissions\\TerrainData\\TerrainData.cs",
-              "RelativeDocumentMoniker": "..\\TerrainData\\TerrainData.cs",
-              "ToolTip": "C:\\Users\\Aaron\\Desktop\\SAE\\44-Submissions\\TerrainData\\TerrainData.cs",
-              "RelativeToolTip": "..\\TerrainData\\TerrainData.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAArAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-23T11:13:24.951Z",
               "EditorCaption": ""
             }
           ]

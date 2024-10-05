@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:EngineTool"
         mc:Ignorable="d"
-        Title="Terrain Generator Data" Height="450" Width="800">
+        Title="Terrain Generator Data" Height="350" Width="700">
 
     <Window.DataContext>
         <local:MainWindowViewModel />
@@ -92,9 +92,84 @@
 
         </Grid>
 
+        <Grid Grid.Column="1" Grid.Row="1">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="25" />
+                <RowDefinition Height="3*" />
+                <RowDefinition Height="25" />
+                <RowDefinition Height="2*" />
+                <RowDefinition Height="25" />
+                <RowDefinition Height="2*" />
+            </Grid.RowDefinitions>
+
+            <TextBlock Text="Tree Generation" Grid.Row="0" HorizontalAlignment="Left" Margin="10,0,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"><Run Language="de-de"/></TextBlock>
+
+            <StackPanel Grid.Row="1" Orientation="Vertical" VerticalAlignment="Stretch">
+                <DockPanel Margin="15,0,15,5">
+                    <TextBlock Text="Density" HorizontalAlignment="Left" TextWrapping="Wrap"><Run Language="de-de"/></TextBlock>
+                    <TextBox Text="{Binding Density}" Width="150" HorizontalAlignment="Right" HorizontalContentAlignment="Right" RenderTransformOrigin="-0.597,0.247" TextWrapping="Wrap"/>
+                </DockPanel>
+
+                <DockPanel Margin="15,0,15,5">
+                    <TextBlock Text="Vertical Offset" HorizontalAlignment="Left" TextWrapping="Wrap"><Run Language="de-de"/></TextBlock>
+                    <TextBox Text="{Binding VerticalOffset}" Width="150" HorizontalAlignment="Right" HorizontalContentAlignment="Right" RenderTransformOrigin="-0.011,0.437" TextWrapping="Wrap"/>
+                </DockPanel>
+
+                <DockPanel Margin="15,0,15,5">
+                    <TextBlock Text="Rotation To Terrain Normal" HorizontalAlignment="Left" TextWrapping="Wrap"><Run Language="de-de"/></TextBlock>
+                    <TextBox Text="{Binding ElementName=MaxRotationTowardsTerrainNormal, Path=Value, UpdateSourceTrigger=PropertyChanged}" DockPanel.Dock="Right" TextAlignment="Right" Width="50" />
+                    <Slider Name="MaxRotationTowardsTerrainNormal" Value="{Binding MaxRotationTowardsTerrainNormal}" HorizontalAlignment="Right" Width="100" Maximum="100" TickFrequency="0.5" IsSnapToTickEnabled="True" />
+                </DockPanel>
+            </StackPanel>
+
+            <TextBlock Text="Random Rotation Range" Grid.Row="2" HorizontalAlignment="Left" Margin="10,0,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"><Run Language="de-de"/></TextBlock>
+
+            <StackPanel Grid.Row="3" Orientation="Vertical" VerticalAlignment="Stretch">
+                <DockPanel Margin="15,0,15,5">
+                    <TextBlock Text="Min" HorizontalAlignment="Left" TextWrapping="Wrap"><Run Language="de-de"/></TextBlock>
+                    <TextBox Text="{Binding ElementName=MinRotationRange, Path=Value, UpdateSourceTrigger=PropertyChanged}" DockPanel.Dock="Right" TextAlignment="Right" Width="50" />
+                    <Slider Name="MinRotationRange" Value="{Binding MinRotation}" HorizontalAlignment="Right" Width="100" Maximum="360" TickFrequency="5" IsSnapToTickEnabled="True" />
+                </DockPanel>
+
+                <DockPanel Margin="15,0,15,5">
+                    <TextBlock Text="Max" HorizontalAlignment="Left" TextWrapping="Wrap"><Run Language="de-de"/></TextBlock>
+                    <TextBox Text="{Binding ElementName=MaxRotationRange, Path=Value, UpdateSourceTrigger=PropertyChanged}" DockPanel.Dock="Right" TextAlignment="Right" Width="50" />
+                    <Slider Name="MaxRotationRange" Value="{Binding MaxRotation}" HorizontalAlignment="Right" Width="100" Maximum="360" TickFrequency="5" IsSnapToTickEnabled="True" />
+                </DockPanel>
+            </StackPanel>
+
+            <TextBlock Text="Random Scale Factors" Grid.Row="4" HorizontalAlignment="Left" Margin="10,0,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"><Run Language="de-de"/></TextBlock>
+
+            <StackPanel Grid.Row="5" Orientation="Vertical" VerticalAlignment="Stretch">
+                <DockPanel Margin="15,0,15,5">
+                    <TextBlock Text="Min" HorizontalAlignment="Left" TextWrapping="Wrap"><Run Language="de-de"/></TextBlock>
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Stretch" HorizontalAlignment="Right">
+                        <TextBlock Text="X" Margin="10,0,0,0" HorizontalAlignment="Left" TextWrapping="Wrap"><Run Language="de-de"/></TextBlock>
+                        <TextBox Text="{Binding MinXScale}" Margin="10,0,0,0" Width="50" HorizontalAlignment="Right" HorizontalContentAlignment="Right" RenderTransformOrigin="-0.597,0.247" TextWrapping="Wrap"/>
+                        <TextBlock Text="Y" Margin="10,0,0,0" HorizontalAlignment="Left" TextWrapping="Wrap"><Run Language="de-de"/></TextBlock>
+                        <TextBox Text="{Binding MinYScale}" Margin="10,0,0,0" Width="50" HorizontalAlignment="Right" HorizontalContentAlignment="Right" RenderTransformOrigin="-0.597,0.247" TextWrapping="Wrap"/>
+                        <TextBlock Text="Z" Margin="10,0,0,0" HorizontalAlignment="Left" TextWrapping="Wrap"><Run Language="de-de"/></TextBlock>
+                        <TextBox Text="{Binding MinZScale}" Margin="10,0,0,0" Width="50" HorizontalAlignment="Right" HorizontalContentAlignment="Right" RenderTransformOrigin="-0.597,0.247" TextWrapping="Wrap"/>
+                    </StackPanel>
+                </DockPanel>
+
+                <DockPanel Margin="15,0,15,5">
+                    <TextBlock Text="Max" HorizontalAlignment="Left" TextWrapping="Wrap"><Run Language="de-de"/></TextBlock>
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Stretch" HorizontalAlignment="Right">
+                        <TextBlock Text="X" Margin="10,0,0,0" HorizontalAlignment="Left" TextWrapping="Wrap"><Run Language="de-de"/></TextBlock>
+                        <TextBox Text="{Binding MaxXScale}" Margin="10,0,0,0" Width="50" HorizontalAlignment="Right" HorizontalContentAlignment="Right" RenderTransformOrigin="-0.597,0.247" TextWrapping="Wrap"/>
+                        <TextBlock Text="Y" Margin="10,0,0,0" HorizontalAlignment="Left" TextWrapping="Wrap"><Run Language="de-de"/></TextBlock>
+                        <TextBox Text="{Binding MaxYScale}" Margin="10,0,0,0" Width="50" HorizontalAlignment="Right" HorizontalContentAlignment="Right" RenderTransformOrigin="-0.597,0.247" TextWrapping="Wrap"/>
+                        <TextBlock Text="Z" Margin="10,0,0,0" HorizontalAlignment="Left" TextWrapping="Wrap"><Run Language="de-de"/></TextBlock>
+                        <TextBox Text="{Binding MaxZScale}" Margin="10,0,0,0" Width="50" HorizontalAlignment="Right" HorizontalContentAlignment="Right" RenderTransformOrigin="-0.597,0.247" TextWrapping="Wrap"/>
+                    </StackPanel>
+                </DockPanel>
+            </StackPanel>
+
+        </Grid>
 
 
-
-        <Button Grid.Row="2" Grid.ColumnSpan="2" HorizontalAlignment="Center" RenderTransformOrigin="-0.211,0.396" Height="20" Width="100" VerticalAlignment="Center" Click="Button_Click" Content="Clear" Command="{Binding ClearCommand}"/>
+        <Button Command="{Binding ResetCommand}" Content="Reset" Grid.Row="2" Grid.ColumnSpan="2" HorizontalAlignment="Center" RenderTransformOrigin="-0.211,0.396" Height="20" Width="100" VerticalAlignment="Center" Click="Button_Click" />
     </Grid>
 </Window>

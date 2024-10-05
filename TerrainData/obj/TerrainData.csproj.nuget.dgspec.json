@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Aaron\\Desktop\\SAE\\44-Submissions\\TerrainData\\TerrainData.csproj": {}
+    "D:\\Repositories\\44-Submissions\\TerrainData\\TerrainData.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Aaron\\Desktop\\SAE\\44-Submissions\\TerrainData\\TerrainData.csproj": {
+    "D:\\Repositories\\44-Submissions\\TerrainData\\TerrainData.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Aaron\\Desktop\\SAE\\44-Submissions\\TerrainData\\TerrainData.csproj",
+        "projectUniqueName": "D:\\Repositories\\44-Submissions\\TerrainData\\TerrainData.csproj",
         "projectName": "TerrainData",
-        "projectPath": "C:\\Users\\Aaron\\Desktop\\SAE\\44-Submissions\\TerrainData\\TerrainData.csproj",
-        "packagesPath": "C:\\Users\\Aaron\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Aaron\\Desktop\\SAE\\44-Submissions\\TerrainData\\obj\\",
+        "projectPath": "D:\\Repositories\\44-Submissions\\TerrainData\\TerrainData.csproj",
+        "packagesPath": "C:\\Users\\aaron\\.nuget\\packages\\",
+        "outputPath": "D:\\Repositories\\44-Submissions\\TerrainData\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\Aaron\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\aaron\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],

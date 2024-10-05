@@ -1,55 +1,29 @@
 ﻿using Microsoft.Win32;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
-using System.Text;
 using Newtonsoft.Json;
 using Terrain_Data;
 using System.IO;
-using System.Windows.Markup;
 
 namespace EngineTool
 {
     public class MainWindowViewModel : BaseViewModel
     {
+        //private readonly float _FLOAT_MIN = 0.0001f;
+
         private TerrainData _myData = new();
 
         public MainWindowViewModel()
         {
-            ClearCommand = new DelegateCommand(
-                _ => { return !string.IsNullOrEmpty(MapSize) || !string.IsNullOrEmpty(MaxTerrainHeight); },
-                _ =>
-                {
-                    MapSize = "0,0";
-                    MaxTerrainHeight = "0,0";
-                }
-                );
+            ResetCommand = new DelegateCommand(_ => SetBaseValues());
 
             SaveDataCommand = new DelegateCommand(
-                _ => !string.IsNullOrEmpty(MapSize) && !string.IsNullOrEmpty(MaxTerrainHeight),
+                _ => PropertiesAreNotNull(),
                 _ => SaveJsonFile()
                 );
 
-            MapSize = "100,00";
-            MaxTerrainHeight = "50,00";
+            SetBaseValues();
         }
 
-        private void SaveJsonFile()
-        {
-            SaveFileDialog saveFileDialog = new()
-            {
-                Filter = "Filehousr files (*.fhr)|*.fhr"
-            };
-
-            if (saveFileDialog.ShowDialog() == true)
-            {
-                string dataListString = JsonConvert.SerializeObject(_myData);
-                File.WriteAllText(saveFileDialog.FileName, dataListString);
-            }
-        }
-
-        public DelegateCommand ClearCommand { get; set; }
+        public DelegateCommand ResetCommand { get; set; }
         public DelegateCommand SaveDataCommand { get; set; }
 
         #region Terrain Variables
@@ -63,7 +37,7 @@ namespace EngineTool
                 {
                     _myData.MapSize = newVal;
                     RaisePropertyChanged();
-                    ClearCommand.RaiseCanExecuteChanged();
+                    ResetCommand.RaiseCanExecuteChanged();
                 }
             }
         }
@@ -78,7 +52,7 @@ namespace EngineTool
                 {
                     _myData.MaxTerrainHeight = newVal;
                     RaisePropertyChanged();
-                    ClearCommand.RaiseCanExecuteChanged();
+                    ResetCommand.RaiseCanExecuteChanged();
                 }
             }
         }
@@ -93,7 +67,7 @@ namespace EngineTool
                 {
                     _myData.BaseHeight = newVal;
                     RaisePropertyChanged();
-                    ClearCommand.RaiseCanExecuteChanged();
+                    ResetCommand.RaiseCanExecuteChanged();
                 }
             }
         }
@@ -108,7 +82,7 @@ namespace EngineTool
                 {
                     _myData.TerrainLayerHeight01 = newVal;
                     RaisePropertyChanged();
-                    ClearCommand.RaiseCanExecuteChanged();
+                    ResetCommand.RaiseCanExecuteChanged();
                 }
             }
         }
@@ -123,7 +97,7 @@ namespace EngineTool
                 {
                     _myData.TerrainLayerHeight02 = newVal;
                     RaisePropertyChanged();
-                    ClearCommand.RaiseCanExecuteChanged();
+                    ResetCommand.RaiseCanExecuteChanged();
                 }
             }
         }
@@ -138,7 +112,7 @@ namespace EngineTool
                 {
                     _myData.TerrainLayerHeight03 = newVal;
                     RaisePropertyChanged();
-                    ClearCommand.RaiseCanExecuteChanged();
+                    ResetCommand.RaiseCanExecuteChanged();
                 }
             }
         }
@@ -164,7 +138,7 @@ namespace EngineTool
                 {
                     _myData.Density = newVal;
                     RaisePropertyChanged();
-                    ClearCommand.RaiseCanExecuteChanged();
+                    ResetCommand.RaiseCanExecuteChanged();
                 }
             }
         }
@@ -179,53 +153,35 @@ namespace EngineTool
                 {
                     _myData.VerticalOffset = newVal;
                     RaisePropertyChanged();
-                    ClearCommand.RaiseCanExecuteChanged();
+                    ResetCommand.RaiseCanExecuteChanged();
                 }
             }
         }
 
-        public string MaxRotationTowardsTerrainNormal
+        public float MaxRotationTowardsTerrainNormal
         {
-            get => string.Format("{0:N0}", _myData.MaxRotationTowardsTerrainNormal);
+            get => _myData.MaxRotationTowardsTerrainNormal;
             set
             {
-                var newVal = SetData(_myData.MaxRotationTowardsTerrainNormal, value);
-                if (_myData.MaxRotationTowardsTerrainNormal != newVal)
-                {
-                    _myData.MaxRotationTowardsTerrainNormal = newVal;
-                    RaisePropertyChanged();
-                    ClearCommand.RaiseCanExecuteChanged();
-                }
+                _myData.MaxRotationTowardsTerrainNormal = value;
             }
         }
 
-        public string MinRotation
+        public float MinRotation
         {
-            get => string.Format("{0:N0}", _myData.MinRotation);
+            get => _myData.MinRotation;
             set
             {
-                var newVal = SetData(_myData.MinRotation, value);
-                if (_myData.MinRotation != newVal)
-                {
-                    _myData.MinRotation = newVal;
-                    RaisePropertyChanged();
-                    ClearCommand.RaiseCanExecuteChanged();
-                }
+                _myData.MinRotation = value;
             }
         }
 
-        public string MaxRotation
+        public float MaxRotation
         {
-            get => string.Format("{0:N0}", _myData.MaxRotation);
+            get => _myData.MaxRotation;
             set
             {
-                var newVal = SetData(_myData.MaxRotation, value);
-                if (_myData.MaxRotation != newVal)
-                {
-                    _myData.MaxRotation = newVal;
-                    RaisePropertyChanged();
-                    ClearCommand.RaiseCanExecuteChanged();
-                }
+                _myData.MaxRotation = value;
             }
         }
 
@@ -239,7 +195,7 @@ namespace EngineTool
                 {
                     _myData.MinXScale = newVal;
                     RaisePropertyChanged();
-                    ClearCommand.RaiseCanExecuteChanged();
+                    ResetCommand.RaiseCanExecuteChanged();
                 }
             }
         }
@@ -254,7 +210,7 @@ namespace EngineTool
                 {
                     _myData.MinYScale = newVal;
                     RaisePropertyChanged();
-                    ClearCommand.RaiseCanExecuteChanged();
+                    ResetCommand.RaiseCanExecuteChanged();
                 }
             }
         }
@@ -269,7 +225,7 @@ namespace EngineTool
                 {
                     _myData.MinZScale = newVal;
                     RaisePropertyChanged();
-                    ClearCommand.RaiseCanExecuteChanged();
+                    ResetCommand.RaiseCanExecuteChanged();
                 }
             }
         }
@@ -284,7 +240,7 @@ namespace EngineTool
                 {
                     _myData.MaxXScale = newVal;
                     RaisePropertyChanged();
-                    ClearCommand.RaiseCanExecuteChanged();
+                    ResetCommand.RaiseCanExecuteChanged();
                 }
             }
         }
@@ -299,7 +255,7 @@ namespace EngineTool
                 {
                     _myData.MaxYScale = newVal;
                     RaisePropertyChanged();
-                    ClearCommand.RaiseCanExecuteChanged();
+                    ResetCommand.RaiseCanExecuteChanged();
                 }
             }
         }
@@ -314,13 +270,55 @@ namespace EngineTool
                 {
                     _myData.MaxZScale = newVal;
                     RaisePropertyChanged();
-                    ClearCommand.RaiseCanExecuteChanged();
+                    ResetCommand.RaiseCanExecuteChanged();
                 }
             }
         }
         #endregion
 
-        private dynamic SetData(dynamic data, string value)
+        private void SetBaseValues()
+        {
+            MapSize = "600,00";
+            MaxTerrainHeight = "80,00";
+            BaseHeight = "0,00";
+            TerrainLayerHeight01 = "20,00";
+            TerrainLayerHeight02 = "60,00";
+            TerrainLayerHeight03 = "80,00";
+            TransitionSharpness = 0.5f;
+
+            Density = "100000";
+            VerticalOffset = "0,50";
+            MaxRotationTowardsTerrainNormal = 2.0f;
+            MinRotation = 0;
+            MaxRotation = 360;
+            MinXScale = "0,5";
+            MinYScale = "0,5";
+            MinZScale = "0,5";
+            MaxXScale = "3,0";
+            MaxYScale = "3,0";
+            MaxZScale = "3,0";
+        }
+
+        private bool PropertiesAreNotNull()
+        {
+            return !string.IsNullOrEmpty(MapSize) && !string.IsNullOrEmpty(MaxTerrainHeight);
+        }
+
+        private void SaveJsonFile()
+        {
+            SaveFileDialog saveFileDialog = new()
+            {
+                Filter = "Filehousr files (*.fhr)|*.fhr"
+            };
+
+            if (saveFileDialog.ShowDialog() == true)
+            {
+                string dataListString = JsonConvert.SerializeObject(_myData);
+                File.WriteAllText(saveFileDialog.FileName, dataListString);
+            }
+        }
+
+        private static dynamic SetData(dynamic data, string value)
         {
             dynamic result = 0;
             bool success = false;

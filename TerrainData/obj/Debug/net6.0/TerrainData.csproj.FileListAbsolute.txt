@@ -10,3 +10,15 @@ C:\Users\Aaron\Desktop\SAE\44-Submissions\TerrainData\obj\Debug\net6.0\TerrainDa
 C:\Users\Aaron\Desktop\SAE\44-Submissions\TerrainData\obj\Debug\net6.0\refint\TerrainData.dll
 C:\Users\Aaron\Desktop\SAE\44-Submissions\TerrainData\obj\Debug\net6.0\TerrainData.pdb
 C:\Users\Aaron\Desktop\SAE\44-Submissions\TerrainData\obj\Debug\net6.0\ref\TerrainData.dll
+D:\Repositories\44-Submissions\TerrainData\bin\Debug\net6.0\TerrainData.deps.json
+D:\Repositories\44-Submissions\TerrainData\bin\Debug\net6.0\TerrainData.dll
+D:\Repositories\44-Submissions\TerrainData\bin\Debug\net6.0\TerrainData.pdb
+D:\Repositories\44-Submissions\TerrainData\obj\Debug\net6.0\TerrainData.GeneratedMSBuildEditorConfig.editorconfig
+D:\Repositories\44-Submissions\TerrainData\obj\Debug\net6.0\TerrainData.AssemblyInfoInputs.cache
+D:\Repositories\44-Submissions\TerrainData\obj\Debug\net6.0\TerrainData.AssemblyInfo.cs
+D:\Repositories\44-Submissions\TerrainData\obj\Debug\net6.0\TerrainData.csproj.CoreCompileInputs.cache
+D:\Repositories\44-Submissions\TerrainData\obj\Debug\net6.0\TerrainData.sourcelink.json
+D:\Repositories\44-Submissions\TerrainData\obj\Debug\net6.0\TerrainData.dll
+D:\Repositories\44-Submissions\TerrainData\obj\Debug\net6.0\refint\TerrainData.dll
+D:\Repositories\44-Submissions\TerrainData\obj\Debug\net6.0\TerrainData.pdb
+D:\Repositories\44-Submissions\TerrainData\obj\Debug\net6.0\ref\TerrainData.dll

@@ -8,6 +8,6 @@ build_property.PlatformNeutralAssembly =
 build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = EngineTool
-build_property.ProjectDir = C:\Users\Aaron\Desktop\SAE\44-Submissions\EngineTool\
+build_property.ProjectDir = D:\Repositories\44-Submissions\EngineTool\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 

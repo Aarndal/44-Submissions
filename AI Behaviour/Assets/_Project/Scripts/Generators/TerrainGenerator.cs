@@ -4,8 +4,8 @@ using System.Threading.Tasks;
 
 public partial class TerrainGenerator : MonoBehaviour
 {
-    [SerializeField]
-    private string _path = "Assets/";
+    //[SerializeField]
+    //private string _path = "Assets/";
     [SerializeField]
     private string _name;
     [SerializeField]
@@ -63,14 +63,14 @@ public partial class TerrainGenerator : MonoBehaviour
         await Task.WhenAll(createChunk);
     }
 
-    [ContextMenu("Save Terrain")]
-    private void SaveTerrain()
-    {
-        string path = _path;
-        path += _name;
-        path += ".asset";
+    //[ContextMenu("Save Terrain")]
+    //private void SaveTerrain()
+    //{
+    //    string path = _path;
+    //    path += _name;
+    //    path += ".asset";
 
-        AssetDatabase.CreateAsset(this, path);
-    }
+    //    AssetDatabase.CreateAsset(this, path);
+    //}
 #endif
 }

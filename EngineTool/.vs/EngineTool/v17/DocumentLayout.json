@@ -45,8 +45,7 @@
               "RelativeToolTip": "..\\TerrainData\\TerrainData.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAgAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-05T19:19:47.17Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-05T19:19:47.17Z"
             },
             {
               "$type": "Document",
@@ -57,8 +56,7 @@
               "ToolTip": "D:\\Repositories\\44-Submissions\\EngineTool\\App.xaml",
               "RelativeToolTip": "App.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2024-10-04T18:25:23.301Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-04T18:25:23.301Z"
             },
             {
               "$type": "Document",
@@ -69,8 +67,7 @@
               "ToolTip": "D:\\Repositories\\44-Submissions\\EngineTool\\MainWindow.xaml",
               "RelativeToolTip": "MainWindow.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2024-09-23T11:12:11.561Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-09-23T11:12:11.561Z"
             },
             {
               "$type": "Document",
@@ -80,7 +77,7 @@
               "RelativeDocumentMoniker": "MainWindowViewModel.cs",
               "ToolTip": "D:\\Repositories\\44-Submissions\\EngineTool\\MainWindowViewModel.cs",
               "RelativeToolTip": "MainWindowViewModel.cs",
-              "ViewState": "AgIAAAsAAAAAAAAAAAAQwBkAAAA5AAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAkAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-09-30T13:35:06.674Z",
               "EditorCaption": ""
@@ -95,8 +92,7 @@
               "RelativeToolTip": "DelegateCommand.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAAxAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-01T13:38:44.35Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-01T13:38:44.35Z"
             }
           ]
         }

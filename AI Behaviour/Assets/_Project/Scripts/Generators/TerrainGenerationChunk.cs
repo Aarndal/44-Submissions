@@ -1,12 +1,13 @@
 ﻿using UnityEngine;
 using System.Threading.Tasks;
 
-[RequireComponent(typeof(MeshFilter), typeof(MeshRenderer))]
+[RequireComponent(typeof(MeshFilter), typeof(MeshRenderer), typeof(MeshCollider))]
 public class TerrainGenerationChunk : MonoBehaviour
 {
     private Mesh _mesh;
     private MeshFilter _meshFilter;
     private MeshRenderer _meshRenderer;
+    private MeshCollider _meshCollider;
 
     private Material _mainMaterial;
     
@@ -19,6 +20,7 @@ public class TerrainGenerationChunk : MonoBehaviour
         _meshFilter = GetComponent<MeshFilter>();
         _meshRenderer = GetComponent<MeshRenderer>();
         _mainMaterial = mainMaterial;
+        _meshCollider = GetComponent<MeshCollider>();
     }
 
     public async Task GenerateChunkMesh(int chunkNumber, int u, int v, int resolution, float edgeLength, float chunkEdgeLength, float maxHeight, Texture2D _heightMap)
@@ -75,6 +77,9 @@ public class TerrainGenerationChunk : MonoBehaviour
         _mesh.triangles = _triangles;
         _mesh.uv = _uvs;
         _mesh.RecalculateNormals();
+
+        _meshCollider.sharedMesh = _mesh;
+        _meshCollider.isTrigger = false;
 
         await Task.Yield();
     }

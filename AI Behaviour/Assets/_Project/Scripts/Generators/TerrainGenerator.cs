@@ -1,9 +1,9 @@
-using UnityEditor;
 using UnityEngine;
+using System.Threading;
 using System.Threading.Tasks;
 using System;
 
-public partial class TerrainGenerator : MonoBehaviour
+public class TerrainGenerator : MonoBehaviour
 {
     //[SerializeField]
     //private string _path = "Assets/";
@@ -60,7 +60,6 @@ public partial class TerrainGenerator : MonoBehaviour
                 chunks[j].name = string.Format("Chunk {0:D2}", j);
                 chunks[j].GetMeshComponents(_mainMaterial);
                 createChunks[j] = chunks[j].GenerateChunkMesh(j, u, v, _resolution, _edgeLength, chunkEdgeLength, _maxHeight, _heightMap);
-                //chunks[j].GenerateChunkMeshSync(j, u, v, _resolution, _edgeLength, chunkEdgeLength, _maxHeight, _heightMap);
             }
         }
 

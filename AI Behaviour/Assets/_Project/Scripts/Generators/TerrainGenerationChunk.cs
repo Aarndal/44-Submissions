@@ -34,7 +34,7 @@ public class TerrainGenerationChunk : MonoBehaviour
 
     public async Task GenerateChunkMesh(int chunkNumber, int u, int v, int resolution, float edgeLength, float chunkEdgeLength, float maxHeight, Texture2D _heightMap)
     {
-        _mesh.name = "Chunk " + chunkNumber.ToString();
+        //_mesh.name = "Chunk " + chunkNumber.ToString();
 
         //Chunk Members
         _vertices = new Vector3[resolution * resolution];

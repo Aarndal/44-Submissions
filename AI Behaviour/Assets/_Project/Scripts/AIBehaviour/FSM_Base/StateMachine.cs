@@ -22,6 +22,7 @@ public class StateMachine
                 _currentState = value;
         }
     }
+
     public HashSet<State> States { get; protected set; }
     public List<Transition> AnyTransitions { get; protected set; }
     public Stack<State> History { get; protected set; }
@@ -94,6 +95,7 @@ public class StateMachine
         {
             History.Clear();
             History.Push(CurrentState);
+            //TO-DO: also add state before current state!!!
         }
 
         History.Push(targetState);

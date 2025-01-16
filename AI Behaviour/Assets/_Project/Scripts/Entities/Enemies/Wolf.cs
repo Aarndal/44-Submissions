@@ -123,22 +123,33 @@ public sealed class Wolf : FastFightingAIEnemy
         !_playerProvider.HasTarget && !_lineOfSightChecker.TargetInSight ||
         _myFSM.CurrentState == _flee && _playerProvider.SqrDistanceToTarget >= _flee.FleeDistance * _flee.FleeDistance;
 
-        RoamCondition = () => _idle.TimeIsUp;
-        //RoamCondition = () => false;
+        RoamCondition = () => 
+        _idle.TimeIsUp;
+        //RoamCondition = () =>
+        //false;
         
-        ChaseCondition = () => (_lineOfSightChecker.TargetInSight || _myFSM.CurrentState == _circle || _myFSM.CurrentState == _attack) && _playerProvider.SqrDistanceToTarget > _attackRange * _attackRange;
-        //ChaseCondition = () => false;
+        ChaseCondition = () => 
+        (_lineOfSightChecker.TargetInSight || _myFSM.CurrentState == _circle || _myFSM.CurrentState == _attack) && _playerProvider.SqrDistanceToTarget > _attackRange * _attackRange;
+        //ChaseCondition = () =>
+        //false;
 
-        SearchCondition = () => _myFSM.CurrentState == _chase && !_lineOfSightChecker.TargetInSight;
+        SearchCondition = () => 
+        _myFSM.CurrentState == _chase && !_lineOfSightChecker.TargetInSight;
 
-        //AttackCondition = () => (_lineOfSightChecker.TargetInSight) && _playerProvider.SqrDistanceToTarget <= _attackRange * _attackRange && _playerProvider.TargetIsFleeing;
-        AttackCondition = () => (_lineOfSightChecker.TargetInSight) && _playerProvider.SqrDistanceToTarget <= _attackRange * _attackRange;
-        //AttackCondition = () => false;
+        //AttackCondition = () =>
+        //(_lineOfSightChecker.TargetInSight) && _playerProvider.SqrDistanceToTarget <= _attackRange * _attackRange && _playerProvider.TargetIsFleeing;
+        AttackCondition = () => 
+        (_lineOfSightChecker.TargetInSight) && _playerProvider.SqrDistanceToTarget <= _attackRange * _attackRange;
+        //AttackCondition = () =>
+        //false;
         
-        //CircleCondition = () => (_lineOfSightChecker.TargetInSight) && _playerProvider.SqrDistanceToTarget <= _attackRange * _attackRange && !_playerProvider.TargetIsFleeing;
-        CircleCondition = () => false;
+        //CircleCondition = () =>
+        //(_lineOfSightChecker.TargetInSight) && _playerProvider.SqrDistanceToTarget <= _attackRange * _attackRange && !_playerProvider.TargetIsFleeing;
+        CircleCondition = () => 
+        false;
         
-        FleeCondition = () => false;
+        FleeCondition = () => 
+        false;
     }
 
     private void InitializeTransitions()

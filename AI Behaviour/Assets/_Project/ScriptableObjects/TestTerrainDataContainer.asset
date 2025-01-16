@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 322bbe4521fb9ed4abe17f3b085703bb, type: 3}
+  m_Name: TestTerrainDataContainer
+  m_EditorClassIdentifier: 
+  TerrainData:
+    MapSize: 10240
+    MaxTerrainHeight: 2250
+    BaseHeight: 0
+    TerrainLayerHeight01: 0
+    TerrainLayerHeight02: 0
+    TerrainLayerHeight03: 0
+    TransitionSharpness: 0
+    Density: 0
+    VerticalOffset: 0
+    MaxRotationTowardsTerrainNormal: 0
+    MinRotation: 0
+    MaxRotation: 0
+    MinXScale: 0
+    MinYScale: 0
+    MinZScale: 0
+    MaxXScale: 0
+    MaxYScale: 0
+    MaxZScale: 0
+  Path: C:\Users\Aaron\Desktop\test.fhr

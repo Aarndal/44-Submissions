@@ -181,7 +181,7 @@ MonoBehaviour:
   _wayPointProvider: {fileID: 6703755451336345788}
   _playerProvider: {fileID: 2378384978915083277}
   _lineOfSightChecker: {fileID: 4408543736389774792}
-  _idleTime: 10
+  _idleTime: 5
   _roamRadius: 20
   _fleeDistance: 100
   _attackRange: 5
